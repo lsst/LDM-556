@@ -1,0 +1,547 @@
+\documentclass[SE,toc,lsstdraft]{lsstdoc}
+
+
+
+
+% We use commands to make it easy to find where parameter names and units
+% are defined in the tables, and to allow hyphenation.
+\newcommand{\paramname}[1]{\hspace{0pt}#1}
+\newcommand{\unitname}[1]{\hspace{0pt}#1}
+
+
+\setcounter{secnumdepth}{5}
+
+%% Define the document title, authors, date and change record
+\input metadata.tex
+
+% Environment for displaying the parameter tables in
+% a consistent manner. No arguments as there are no
+% captions or labels.
+\newenvironment{parameters}[0]{%
+\setlength\LTleft{0pt}
+\setlength\LTright{\fill}
+\begin{small}
+\begin{longtable}[]{|p{0.5\textwidth}|l|p{0.6in}|p{1.74in}@{}|}
+
+\hline \textbf{Description} & \textbf{Value} & \textbf{Unit} & \textbf{Name} \\ \hline
+\endhead
+
+\hline \multicolumn{4}{r}{\emph{Continued on next page}} \\
+\endfoot
+
+\hline\hline
+\endlastfoot
+}{%
+\hline
+\end{longtable}
+\end{small}
+}
+
+
+
+\begin{document}
+\maketitle
+
+
+\section{Data Access Abstraction Layer}
+
+
+
+
+
+\section{Task Framework}
+
+
+
+
+
+\subsection{SuperTask}
+
+The following requirements have been developed by the SuperTask working group as design requirements that derive from the requirements identified in the working group. We have concluded that writing down every requirement in a completely design-independent way is some cases a difficult and artificial exercise with limited benefits. With that in mind, we have still tried to avoid too much design-dependence. The most important place where design-dependence emerges is in the assumption of a Python API and not a purely command-line-oriented system.
+
+
+
+
+
+
+
+
+
+The key motivating considerations were:
+
+
+
+    \begin{itemize}
+\item
+Pythonic API
+
+\item
+Support of development and production through a common interface
+
+\item
+Ability to predict all inputs and outputs to support data staging and creation of “walled gardens” for production jobs
+
+\item
+Butler I/O
+
+\item
+A flexible system for representing the data-grouping constraints of each processing step as code in the same module as the implementation of the step (i.e., the grouping constraints of co-addition should be represented as part of a co-addition SuperTask)
+
+    \end{itemize}
+
+
+
+
+
+
+
+
+
+\subsubsection{Pipeline Specification}
+
+
+
+
+
+\paragraph{Butler dataset type configuration}\hfill  % Force subsequent text onto new line
+
+\label{DM-MW-REQ-0014}
+\textbf{ID:} DM-MW-REQ-0014
+
+\textbf{Specification:}
+The Pipeline APIs shall provide for the use of the configuration mechanism to control the Butler dataset types used for input and output by each processing step.
+
+\textbf{Discussion:}
+The use of string constants in Butler.get() calls will be replaced by the use of values of dataset-type configuration fields. (This is one of the more design-specific requirements in the list.)
+
+
+
+
+\paragraph{Programming API}\hfill  % Force subsequent text onto new line
+
+\label{DM-MW-REQ-0003}
+\textbf{ID:} DM-MW-REQ-0003
+
+\textbf{Specification:}
+The Pipeline specification interface shall be available as a Python API.
+
+
+
+
+
+\paragraph{Pipeline specification}\hfill  % Force subsequent text onto new line
+
+\label{DM-MW-REQ-0004}
+\textbf{ID:} DM-MW-REQ-0004
+
+\textbf{Specification:}
+A Pipeline specification shall specify the units of code to be run and a sequence in which they are to be run.
+
+\textbf{Discussion:}
+The sequence specification need only be a explicit ordered list.  It is not required to support looping, branching, or step-skipping.
+
+The "units of code" are the SuperTasks.
+
+
+
+
+\paragraph{Supervisory framework}\hfill  % Force subsequent text onto new line
+
+\label{DM-MW-REQ-0010}
+\textbf{ID:} DM-MW-REQ-0010
+
+\textbf{Specification:}
+The design shall permit a supervisory framework (see below) to execute any Pipeline, based solely on information obtained programmatically from the Pipeline specification, against a data specification (see below).
+
+
+
+
+
+\paragraph{Implied inputs}\hfill  % Force subsequent text onto new line
+
+\label{DM-MW-REQ-0012}
+\textbf{ID:} DM-MW-REQ-0012
+
+\textbf{Specification:}
+The design shall include APIs that support resolution of full DataId specifications for “implied inputs” such as calibration frames, reference catalog shards, etc. This resolution shall be possible at the "Pre-flight" stage, so that the true identities of "implied inputs" are known and exhibited in the DAG.
+
+
+
+
+
+\paragraph{Dataset grouping}\hfill  % Force subsequent text onto new line
+
+\label{DM-MW-REQ-0006}
+\textbf{ID:} DM-MW-REQ-0006
+
+\textbf{Specification:}
+A Pipeline specification shall specify how datasets must be grouped for each step in the sequence.
+
+\textbf{Discussion:}
+For example, this would cover the grouping of inputs to a coaddition SuperTask by filter band and sky tile (tract and patch).
+
+
+
+
+\paragraph{Pipeline specification definition}\hfill  % Force subsequent text onto new line
+
+\label{DM-MW-REQ-0017}
+\textbf{ID:} DM-MW-REQ-0017
+
+\textbf{Specification:}
+(Precise nature of the mechanism for constructing a Pipeline specification)
+
+\textbf{Discussion:}
+An open design question is whether Pipelines will be constructed purely in Python, e.g., by writing code that instantiates the necessary SuperTasks and inserts them into a Pipeline object, or from a specification in a configuration language (e.g., YAML) that is then interpreted by a centrally-provided function and converted into the appropriate composite of Python objects.
+
+
+
+
+\paragraph{Programmatic insertions}\hfill  % Force subsequent text onto new line
+
+\label{DM-MW-REQ-0015}
+\textbf{ID:} DM-MW-REQ-0015
+
+\textbf{Specification:}
+The Pipeline design shall support programmatic insertions (before the "Pre-flight" phase) of additional processing steps to an already-specified Pipeline’s processing sequence. The provenance mechanism (see below) must be capable of capturing these additional steps.
+
+\textbf{Discussion:}
+The intent is that this interface could be used by a supervisory framework to add, e.g., quality analysis or other monitoring steps.
+
+
+
+
+\paragraph{Use of Tasks and configurations}\hfill  % Force subsequent text onto new line
+
+\label{DM-MW-REQ-0008}
+\textbf{ID:} DM-MW-REQ-0008
+
+\textbf{Specification:}
+A Pipeline specification shall support the organization of work within a step in terms of Tasks, and shall supply the configurations the Tasks require.
+
+\textbf{Discussion:}
+A SuperTask is assumed to be built from Tasks, and uses the existing hierarchical configuration mechanism for Tasks and sub-Tasks to represent their configuration.
+
+
+
+
+\paragraph{Changes of parallelization}\hfill  % Force subsequent text onto new line
+
+\label{DM-MW-REQ-0007}
+\textbf{ID:} DM-MW-REQ-0007
+
+\textbf{Specification:}
+A Pipeline specification shall permit each step in a sequence to have a different required data grouping, and therefore an implied change of permissible parallelization from each step to the next.
+
+\textbf{Discussion:}
+For example, a Pipeline could include a 1:1 step performing single-exposure calibration and characterization, an N:1 step performing coaddition by tract, patch, and filter, and a 1:1 step producing a source catalog for each coadded tile.
+
+
+
+
+\paragraph{Pipeline configuration}\hfill  % Force subsequent text onto new line
+
+\label{DM-MW-REQ-0005}
+\textbf{ID:} DM-MW-REQ-0005
+
+\textbf{Specification:}
+A Pipeline specification shall specify the configurations of all the units of code to be run, using the existing LSST stack “pex\_config” mechanism.
+
+\textbf{Discussion:}
+SuperTasks will have pex\_config configurations of their own in addition to the configurations of the Tasks they contain (see below).
+
+
+
+
+\paragraph{Pre-execution overrides}\hfill  % Force subsequent text onto new line
+
+\label{DM-MW-REQ-0016}
+\textbf{ID:} DM-MW-REQ-0016
+
+\textbf{Specification:}
+The Pipeline (and supervisory framework) design shall support pre-execution (before the "Pre-flight" phase) programmatic overrides to the configurations specified for a Pipeline. Such overrides must be capable of being captured for purposes of provenance recording.
+
+\textbf{Discussion:}
+These overrides are a generalization of the command-line overrides provided in the existing CmdLineTask mechanism. It must continue to be possible to capture the full run-time configuration as a snapshot.
+
+
+
+
+\paragraph{Phases of execution}\hfill  % Force subsequent text onto new line
+
+\label{DM-MW-REQ-0011}
+\textbf{ID:} DM-MW-REQ-0011
+
+\textbf{Specification:}
+The design shall include Pipeline and step APIs that support “Pre-flight” and “Run” phases of execution organized by the supervisory framework. These are further constrained in the next section; the basic definition is:
+
+
+
+    \begin{itemize}
+\item
+Pre-flight: support the computation of a DAG for the application of a Pipeline to a specification of input and/or output datasets.
+
+\item
+Run: invoke the units of work defined in the DAG (a unit of work is a pair of a processing step with its input and/or output DataIds).
+
+    \end{itemize}
+
+\textbf{Discussion:}
+The DAG produced by the "Pre-flight" phase is then able to be analyzed by the supervisory framework to determine how to batch up and/or parallelize units of work for actual execution in the "Run" phase.
+
+The information obtained at the "Pre-flight" phase also allows the offline production workflow system to set up "walled gardens" for individual SuperTask executions in the "Run" phase, to which only the identified inputs are staged.
+
+The "Pre-flight" phase is permitted to predict the use of a superset of the inputs that end up actually being required in the "Run" phase, e.g., if estimates of the sky-tile coverage going into a coaddition stage are not quite accurate because the true WCS is not known until processing occurs. It is understood that this is intended to be a best effort to get close to the true requirements - as a matter of quality-of-implementation SuperTasks should not carelessly inflate their predictions.
+
+
+
+
+\paragraph{Butler instances}\hfill  % Force subsequent text onto new line
+
+\label{DM-MW-REQ-0009}
+\textbf{ID:} DM-MW-REQ-0009
+
+\textbf{Specification:}
+The API for the execution of an individual processing step on specific data shall allow the caller to supply a Butler instance for the step's use.
+
+\textbf{Discussion:}
+Steps (i.e., SuperTasks) are expected to generally perform I/O via a Butler, using Butler.get() to obtain inputs for Tasks' run() methods and Butler.put() to output the results produced by Tasks.
+
+As in current Science Pipelines usage, Tasks are assumed to operate solely on Python-domain objects supplied as arguments to their run() methods, with results returned through a pipe.base.Struct return value. This is sometimes called the "no I/O in Tasks rule".
+
+Therefore, in this design, the Butler calls are expected to occur at the SuperTask level, above the Task level of the call tree.
+
+
+
+
+\paragraph{I/O via Butler}\hfill  % Force subsequent text onto new line
+
+\label{DM-MW-REQ-0013}
+\textbf{ID:} DM-MW-REQ-0013
+
+\textbf{Specification:}
+The Pipeline specification APIs used in the "Run" phase shall provide for a Butler instance (provided by the supervisory framework) to perform all required I/O for each step in the “run” phase.
+
+\textbf{Discussion:}
+Some exceptional cases requiring direct I/O to databases may be excluded from this restriction. (E.g., to permit database ingest itself to be handled in this framework.)
+
+
+
+
+\subsubsection{Supervisory Framework}
+
+
+
+
+
+\paragraph{Standardized framework implementation}\hfill  % Force subsequent text onto new line
+
+\label{DM-MW-REQ-0020}
+\textbf{ID:} DM-MW-REQ-0020
+
+\textbf{Specification:}
+The supervisory framework shall provide a common implementation of the logic required for interpretation of the Pipeline steps and their data groupings (and thus the possible parallelizations).
+
+\textbf{Discussion:}
+The intent is that this logic would be applied in all specializations, so that the execution pattern (though not necessary the actual parallelizations) would be consistent.
+
+
+
+
+\paragraph{Butler instantiation}\hfill  % Force subsequent text onto new line
+
+\label{DM-MW-REQ-0023}
+\textbf{ID:} DM-MW-REQ-0023
+
+\textbf{Specification:}
+The supervisory framework shall create and supply the Butler required to support the I/O that will be performed in the “Run” phase, for each unit of work.
+
+
+
+
+
+\paragraph{Provenance configuration}\hfill  % Force subsequent text onto new line
+
+\label{DM-MW-REQ-0026}
+\textbf{ID:} DM-MW-REQ-0026
+
+\textbf{Specification:}
+(Assuming the originally proposed DM provenance mechanism, which was envisioned to collect more fine-grained information than is likely to be available from non-intrusive Butler instrumentation, is still part of the production baseline:) The supervisory framework shall perform whatever setup is required for the fine-grained provenance mechanism.
+
+\textbf{Discussion:}
+Resolution of Butler dataset / SuperTask - level non-intrusive provenance versus – or in addition to – the originally proposed provenance mechanism was beyond the scope of the SuperTask WG. This question should be addressed soon by DM.
+
+
+
+
+\paragraph{Execution logging mechanism}\hfill  % Force subsequent text onto new line
+
+\label{DM-MW-REQ-0025}
+\textbf{ID:} DM-MW-REQ-0025
+
+\textbf{Specification:}
+The supervisory framework shall set up the standard LSST logging mechanism for both the "Pre-flight" and "Run" phases.
+
+\textbf{Discussion:}
+It is anticipated that different specializations of the framework may connect the logging output to different destinations.
+
+
+
+
+\paragraph{Serialization of workflow DAG}\hfill  % Force subsequent text onto new line
+
+\label{DM-MW-REQ-0022}
+\textbf{ID:} DM-MW-REQ-0022
+
+\textbf{Specification:}
+The supervisory framework shall provide a serialization form for the results of pre-flight, so that they can be computed in one process and executed under the control of one or more others.
+
+\textbf{Discussion:}
+Community tools for expressing workflows, such as the Common Workflow Language, will be evaluated for use in this serialization.
+
+
+
+
+\paragraph{Provenance discovery}\hfill  % Force subsequent text onto new line
+
+\label{DM-MW-REQ-0024}
+\textbf{ID:} DM-MW-REQ-0024
+
+\textbf{Specification:}
+(desirable) The supervisory framework shall provide for “non-intrusive provenance” discovery, tracking the actual execution (in the "Run" phase) of units of processing on input datasets, their outputs, and their associated Task structure and configuration.
+
+\textbf{Discussion:}
+This is intended to be done via instrumentation of Butler calls. The recording mechanism is TBD. The information so collected is complementary to the predictions of inputs and outputs from the "Pre-flight" phase. The production system is not expected to preserve this information.
+
+
+
+
+\paragraph{Multiple specializations of execution environments}\hfill  % Force subsequent text onto new line
+
+\label{DM-MW-REQ-0018}
+\textbf{ID:} DM-MW-REQ-0018
+
+\textbf{Specification:}
+The supervisory framework shall be designed to support the creation of multiple specializations for different execution environments.
+
+\textbf{Discussion:}
+The "supervisory framework" is an evolution of the "Activator" concept from the original SuperTask design. Very likely we'll still use the word "Activator" in the code - I still think it's evocative. However, we avoided it in the requirements to ward off the implication that the concept was completely unchanged - the separation of "Pre-flight" from "Run" phases is more explicit now following the WG's efforts.
+
+
+
+
+\paragraph{Campaign specifications}\hfill  % Force subsequent text onto new line
+
+\label{DM-MW-REQ-0027}
+\textbf{ID:} DM-MW-REQ-0027
+
+\textbf{Specification:}
+The supervisory framework shall accept Pipeline “campaign” specifications including:
+
+
+
+    \begin{itemize}
+\item
+Specifications of outputs to be produced from a universe of available inputs, with the Pipeline processing the minimal set of inputs required to make the outputs.
+
+\item
+(Possibly) Specifications of inputs to be processed, with the Pipeline producing all possible outputs deriving from these inputs.
+
+\item
+Specifications of both inputs and outputs, with the input specifications treated as restrictions on the universe of available inputs; i.e., “intersection” logic is applied.
+
+    \end{itemize}
+
+\textbf{Discussion:}
+There are open questions about exactly what form the DataId specifications will take, what logic should be applied, and how it will be implemented, which the SuperTask WG believes can be best understood by working on a prototype implementation.
+
+
+
+
+\paragraph{Mandatory supported specializations}\hfill  % Force subsequent text onto new line
+
+\label{DM-MW-REQ-0019}
+\textbf{ID:} DM-MW-REQ-0019
+
+\textbf{Specification:}
+The supervisory framework shall support specializations suitable for at least the following execution environments:
+
+
+
+    \begin{itemize}
+\item
+Level 2 (DRP), CPP, and other non-real-time production.
+
+\item
+Level 1 near-real-time production.
+
+\item
+Interactive, command-line execution.
+
+\item
+Execution in a persistent server (e.g., to support the SUIT Portal).
+
+\item
+Automated CI and verification testing.
+
+\item
+(desirable) Execution from a Python prompt (e.g., in a notebook)
+
+    \end{itemize}
+
+\textbf{Discussion:}
+The requirement for command-line execution provides a successor capability to CmdLineTask.
+
+Execution within a Python environment is not a core requirement because it is always possible to create a subprocess to invoke the command-line specialization of the supervisory framework.
+
+
+
+
+\paragraph{Generating a DAG}\hfill  % Force subsequent text onto new line
+
+\label{DM-MW-REQ-0021}
+\textbf{ID:} DM-MW-REQ-0021
+
+\textbf{Specification:}
+The supervisory framework shall support the “Pre-flight” phase of execution of a Pipeline on a specified set of inputs and/or desired outputs, resulting in a DAG for the processing, with the nodes in the DAG being the units of work to be executed, each one being: the combination of one of the processing steps in the Pipeline with a complete list of the inputs and outputs for an invocation of that step in the "Run" phase (specified as pairs of fully specified DataIds and Butler dataset types).
+
+\textbf{Discussion:}
+A specific supervisory framework specalization is free to consolidate these units of work “vertically” (along the processing flow) and/or “horizontally”, for efficiency, as long as this is consistent with the DAG.
+
+
+
+
+\subsubsection{Complete algorithmic work specification}
+
+\label{DM-MW-REQ-0001}
+\textbf{ID:} DM-MW-REQ-0001
+
+\textbf{Specification:}
+The design shall provide an interface for delivering a complete algorithmic work specification (a “Pipeline specification”) from Science Pipelines to an execution system, the "supervisory framework", a notable instance of which is the LSST production system.
+
+
+\textbf{Discussion:} A Pipeline specification fully represents the transformations to be performed, but does not represent the specific data to which the transformation is to be applied.
+
+
+
+
+
+
+
+\subsubsection{Pipeline execution context}
+
+\label{DM-MW-REQ-0002}
+\textbf{ID:} DM-MW-REQ-0002
+
+\textbf{Specification:}
+The design shall allow a given Pipeline specification to be used in both development and production contexts.
+
+
+
+
+
+
+
+\bibliography{lsst}
+
+\end{document}
