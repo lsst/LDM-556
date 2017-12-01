@@ -9,9 +9,9 @@
 
 %% Retrieve date and model version
 \setDocUpstreamLocation{MagicDraw SysML}
-\setDocUpstreamVersion{59}
+\setDocUpstreamVersion{61}
 
-\date{2017-11-30}
+\date{2017-12-01}
 
 %% Define the document title, authors, handle, and change record
 \input metadata.tex
@@ -65,10 +65,10 @@ This is effectively a weaker version of \hyperref[DMS-MWBT-REQ-0012]{DMS-MWBT-RE
 \textbf{ID:} DMS-MWBT-REQ-0004 (Priority: 1a)
 
 \textbf{Specification:}
-A DataRef shall be deletable from a Data Repository by an authorized person.
+A Dataset shall be deletable from a Data Repository by an authorized person.
 
 \textbf{Discussion:}
-Authorization means whatever mechanism provided by storage system (e.g., POSIX permissions) (UseCases: LDF7)
+Authorization means whatever mechanism provided by storage system (e.g., POSIX permissions) (UseCases: LDF7, DRP30)
 
 \subsubsection{Dataset Garbage Collection}
 
@@ -1119,7 +1119,7 @@ This could be implemented as a composite dataset so long as we have the ability 
 \subsubsection{Provenance to raw data}
 
 \label{DMS-MWBT-REQ-0093}
-\textbf{ID:} DMS-MWBT-REQ-0093 (Priority: 1a)
+\textbf{ID:} DMS-MWBT-REQ-0093 (Priority: 2)
 
 \textbf{Specification:}
 The Data Output System shall persist provenance information describing all the raw data IDs that contributed to this Dataset, when persisting to a Scientific Data Format.
