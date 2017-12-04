@@ -9,9 +9,9 @@
 
 %% Retrieve date and model version
 \setDocUpstreamLocation{MagicDraw SysML}
-\setDocUpstreamVersion{61}
+\setDocUpstreamVersion{62}
 
-\date{2017-12-01}
+\date{2017-12-04}
 
 %% Define the document title, authors, handle, and change record
 \input metadata.tex
@@ -44,7 +44,7 @@
 
 \section{Data Access Abstraction Layer}
 
-This section describes the requirements relating to the data access abstraction layer (commonly referred to as "the butler") as derived from requirement DMS-REQ-0298. Where Use Cases are mentioned, they are defined in \citeds{LDM-592}.
+This section describes the requirements relating to the data access abstraction layer (commonly referred to as "the butler") as derived from requirement DMS-REQ-0298. Where Use Cases are mentioned, they are defined in \citeds{LDM-592}. \citeds{LDM-592} also includes a glossary.
 
 \subsection{Data Repositories}
 
@@ -145,7 +145,7 @@ For example, if I have several Data Repositories in a single storage context, I 
 Data Repositories shall be relocatable between various storage contexts.
 
 \textbf{Discussion:}
-A commissioning scientist who adds value to a local repository will want to share that repository via the commissioning archive or VOSpace. Removing the repository might require database table modifications. (UseCases: COMM3)
+A commissioning scientist who adds value to a local repository will want to share that repository via the commissioning archive or VOSpace. (UseCases: COMM3)
 
 \subsubsection{Repository Merging}
 
@@ -167,7 +167,7 @@ For example, batch jobs submitted from a notebook might each write a small local
 It shall be possible for an authorized user to remove a Data Repository from any storage environment.
 
 \textbf{Discussion:}
-Some Data Repositories (e.g. Data Releases) may not have any thusly authorized users. This would also involve removing it from registries. (UseCases: LDF3, DRP29)
+Some Data Repositories (e.g. Data Releases) may not have any thusly authorized users. This would also involve removing it from registries. Removing the repository might require database table modifications. (UseCases: LDF3, DRP29)
 
 \subsubsection{Repository version migration}
 
@@ -357,10 +357,10 @@ Answering the question of what data could possibily be used to build a coadd ass
 \textbf{ID:} DMS-MWBT-REQ-0090 (Priority: 1b)
 
 \textbf{Specification:}
-The Data Discovery System shall be able to filter search results based upon user-specified filters provided via text file containing explicit Datasets to be removed from results.
+The Data Discovery System shall be able to filter search results based upon user-specified filters containing explicit Datasets to be removed from results.
 
 \textbf{Discussion:}
-This could be a list of raw data files that should not be included in the processing but which are not yet globally flagged. (UseCases: LDF1, LDF101)
+This could be a list of raw data files in a text file that should not be included in the processing but which are not yet globally flagged. (UseCases: LDF1, LDF101)
 
 \subsubsection{Filter by data quality}
 
@@ -415,7 +415,7 @@ This could be a local on disk repository and a remote repository, with the the D
 The Data Discovery System shall be able to locate Datasets from multiple input DataRepositories in order to retrieve the same logical Dataset from them all.
 
 \textbf{Discussion:}
-This is to allow for comparison of the same data reduced with multiple different stacks. These need to be both local and remote and combinations of the two. It could also be different versions of a data release. I don't believe this is a requirement on whether this is two butlers or one, but I do believe some other requirements imply a single system that knows about all repositories in a particular context. (UseCases: SQR7, LDF104, SQR1.5)
+This is to allow for comparison of the same data reduced with multiple different stacks. These need to be both local and remote and combinations of the two. It could also be different versions of a data release. This is not a requirement on whether this is two butlers or one, although some other requirements imply a single system that knows about all repositories in a particular context. (UseCases: SQR7, LDF104, SQR1.5)
 
 \subsubsection{Discovery Interface Consistency}
 
@@ -482,7 +482,7 @@ We want the Data Input/Output System to pass all information between SuperTasks,
 \textbf{ID:} DMS-MWBT-REQ-0026 (Priority: 1b)
 
 \textbf{Specification:}
-A mechanism shall be availble for dumping the active configuration of the Data I/O system in human-readable form.
+A mechanism shall be available for dumping the active configuration of the Data I/O system in human-readable form.
 
 \textbf{Discussion:}
 Especially important if configuration comes from multiple sources and is required to be validated before submitting processing jobs. (UseCases: LDF1, LDF3)
@@ -493,7 +493,7 @@ Especially important if configuration comes from multiple sources and is require
 \textbf{ID:} DMS-MWBT-REQ-0025 (Priority: 1a)
 
 \textbf{Specification:}
-It shall be possible to control the method to use for read and write of a particular DatasetType using a text configuration file such that the Python object and the form of the persisted dataset can be configured externally.
+It shall be possible to control the method used to read and write a particular DatasetType using a text configuration file such that the Python object and the form of the persisted dataset can be configured externally.
 
 \textbf{Discussion:}
 For example, raw data could be configured to be read in FITS format, but a calexp could be configured to be written in HDF5 format. Additionally, a calexp could be read in from HDF5 but appear in Python as an Astropy object rather than a AFW object; or a table could be persisted as a plot in PNG format. (UseCases: ARCH1, SQR4, SQR6)
@@ -504,10 +504,10 @@ For example, raw data could be configured to be read in FITS format, but a calex
 \textbf{ID:} DMS-MWBT-REQ-0031 (Priority: 1a)
 
 \textbf{Specification:}
-The Data Input/Output System shall be able to utilize cloudy storage engines like S3.
+The Data Input/Output System shall be able to utilize cloud-based storage engines.
 
 \textbf{Discussion:}
-In the case of CI, multiple CI jobs hosted in containers will all need parts of the same data, but it's too large to host locally. S3 allows each job to pull local only the data necessary for processing in that job. (UseCases: CI3)
+For example Amazon's S3. In the case of CI, multiple CI jobs hosted in containers will all need parts of the same data, but it's too large to host locally. S3 allows each job to pull local only the data necessary for processing in that job. (UseCases: CI3)
 
 \subsubsection{I/O using distributed file system}
 
@@ -550,10 +550,10 @@ This means it should only pull data when it's needed. It shouldn't simply stage 
 \textbf{ID:} DMS-MWBT-REQ-0056 (Priority: 1b)
 
 \textbf{Specification:}
-The Data Input System shall support aliases to selections on catalog data so that different Tasks may refer to the same table-like dataset by name.
+The Data Input System shall support aliases to selections on catalog data so that different Tasks may refer to the same subset of a catalog Dataset by name.
 
 \textbf{Discussion:}
-This puts the onus on the database to store the aliases. I would like to see an implementation of a plugin that is able to set up the views from configuration if they don't already exist. It would be nice to support parameterized views, but I don't think that is strictly necessary. (UseCases: SQR5)
+This puts the onus on the database to store the aliases. It would be nice to see an implementation of a plugin that is able to set up the views from configuration if they don't already exist. It would be nice to support parameterized views, but this is not strictly necessary. (UseCases: SQR5)
 
 \subsubsection{Enabling SuperTasks to execute}
 
@@ -561,10 +561,10 @@ This puts the onus on the database to store the aliases. I would like to see an 
 \textbf{ID:} DMS-MWBT-REQ-0053 (Priority: 1a)
 
 \textbf{Specification:}
-It shall be possible for the Data Input System to construct a ConcreteDataset from a set of files stored locally on disk (without a remote database connection)
+It shall be possible for the Data Input System to construct a InMemoryDataset from a set of files stored locally on disk (without a remote database connection).
 
 \textbf{Discussion:}
-For example, the batch processing system will have retrieved a valid set of files from the Data Backbone and copied them to a local disk. (UseCases: LDF1, LDF3)
+For example, the batch processing system will have retrieved a valid set of files from the Data Backbone and copied them to a local disk. The Data Input System will be reading from that local disk. (UseCases: LDF1, LDF3)
 
 \subsubsection{External Data Ingest}
 
@@ -588,13 +588,13 @@ The Data Input System shall be able to load non-LSST Datasets from a DataReposit
 \textbf{Discussion:}
 (UseCases: DRP11)
 
-\subsubsection{Failure missing input}
+\subsubsection{Failure on missing input file}
 
 \label{DMS-MWBT-REQ-0054}
 \textbf{ID:} DMS-MWBT-REQ-0054 (Priority: 1a)
 
 \textbf{Specification:}
-It shall be possible via configuration to require failure if file not found at specified location
+It shall be possible via configuration to require the Data Input System to fail if an expected file is not found at the specified location.
 
 \textbf{Discussion:}
 During Batch Processing Service compute jobs, if the input file isn't on the local disk, the desired behavior is failure (as opposed to trying to get the file from the Data Backbone) (UseCases: LDF1)
@@ -605,7 +605,7 @@ During Batch Processing Service compute jobs, if the input file isn't on the loc
 \textbf{ID:} DMS-MWBT-REQ-0052 (Priority: 2)
 
 \textbf{Specification:}
-The Data Input System shall be able to transfer Datasets selected by the SuperTask pre-flight stage from persistent storage to compute nodes for batch processing
+The Data Input System shall be able to transfer Datasets selected by the SuperTask pre-flight stage from persistent storage to compute nodes for batch processing.
 
 \textbf{Discussion:}
 (Note: Not currently planned to be used by the Operations Batch Processing Service) (UseCases: DRP5, DRP6, SCIVAL1, SCIVAL2)
@@ -638,7 +638,7 @@ For example, when running an LSP Notebook, the first time it runs the data will 
 \textbf{ID:} DMS-MWBT-REQ-0055 (Priority: 1b)
 
 \textbf{Specification:}
-It shall be possible to configure the Data Input system to use a local proxy
+It shall be possible to configure the Data Input system to use a local proxy to share remote retrievals of common Datasets.
 
 \textbf{Discussion:}
 Thus allowing multiple local input requests (potentially from different users and systems) to use a shared cache. Note that this does not apply to the Data Output System (and may even be applicable only to read-only Data Input Systems) (UseCases: DRP17, DAX2)
@@ -660,7 +660,7 @@ We will need to look at lightcurves and correlate with observation characteristi
 \textbf{ID:} DMS-MWBT-REQ-0035 (Priority: 1b)
 
 \textbf{Specification:}
-It shall be possible to create a ConcreteDataset of a Dataset by gathering information from multiple distinct sources including a combination of files and databases.
+It shall be possible to create an InMemoryDataset of a Dataset by gathering information from multiple distinct sources including a combination of files and databases.
 
 \textbf{Discussion:}
 Create a Python object from multiple sources. This could be reading a FITS file from disk and augmenting the header information from a database query or from a separate header file. (UseCases: ARCH3)
