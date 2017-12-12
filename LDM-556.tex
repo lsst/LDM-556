@@ -9,9 +9,9 @@
 
 %% Retrieve date and model version
 \setDocUpstreamLocation{MagicDraw SysML}
-\setDocUpstreamVersion{62}
+\setDocUpstreamVersion{64}
 
-\date{2017-12-04}
+\date{2017-12-12}
 
 %% Define the document title, authors, handle, and change record
 \input metadata.tex
@@ -715,12 +715,34 @@ This is not meant to preclude use of a local cache. E.g. if the backend is S3, t
 \textbf{ID:} DMS-MWBT-REQ-0048 (Priority: 1a)
 
 \textbf{Specification:}
-It shall be possible for the Data Input System to read from catalogs provided by outside sources in the same API used for reading first class LSST datasets via a different plugin.
+It shall be possible for the Data Input System to read from catalogs provided by outside sources using the same interface used for reading first class LSST datasets via a different plugin.
 
 \textbf{Discussion:}
 We will need reference catalogs of all types (not just photometric and astrometric calibration). (UseCases: COMM9)
 
 \subsubsection{Consistent Interfaces for Input}
+
+\paragraph{Access to outputs from notebook batch jobs}\hfill  % Force subsequent text onto new line
+
+\label{DMS-MWBT-REQ-0038}
+\textbf{ID:} DMS-MWBT-REQ-0038 (Priority: 1a)
+
+\textbf{Specification:}
+The Data Input System shall provide access to the shared VOSpace file system that will contain the outputs of batch jobs launched from the Science Platform.
+
+\textbf{Discussion:}
+The Notebook batch system will write data to a local node file system and these will be harvested by a process when the job completes to copy the data to the User VOSpace. (UseCases: DRP2, DRP8, SCIVAL1, SCIVAL2, SCIVAL3)
+
+\paragraph{Access to outputs from test processing runs}\hfill  % Force subsequent text onto new line
+
+\label{DMS-MWBT-REQ-0039}
+\textbf{ID:} DMS-MWBT-REQ-0039 (Priority: 1a)
+
+\textbf{Specification:}
+The Data Input System shall provide access to processing runs initiated for test/development purposes, from the same compute environment in which the processing was run.
+
+\textbf{Discussion:}
+(UseCase: DRP2, DRP8, SCIVAL1, SCIVAL2, SCIVAL3)
 
 \paragraph{Accessing official Data Releases}\hfill  % Force subsequent text onto new line
 
@@ -743,28 +765,6 @@ The Data Input System shall provide a consistent interface for loading Datasets 
 
 \textbf{Discussion:}
 This is an interface expected by SuperTask execution, and we need to make it consistent in all contexts in which SuperTasks will be executed. The same interface may be used in (possibly interactive) analysis and validation work. (UseCases: DRP2, DRP8, SCIVAL1, SCIVAL2, SCIVAL3)
-
-\paragraph{Outputs from notebook batch jobs}\hfill  % Force subsequent text onto new line
-
-\label{DMS-MWBT-REQ-0038}
-\textbf{ID:} DMS-MWBT-REQ-0038 (Priority: 1a)
-
-\textbf{Specification:}
-The Data Input System interface shall provide access to the shared VOSpace file system that will contain the outputs of batch jobs launched from the Science Platform.
-
-\textbf{Discussion:}
-The Notebook batch system will write data to a local node file system and these will be harvested by a process when the job completes to copy the data to the User VOSpace. (UseCases: DRP2, DRP8, SCIVAL1, SCIVAL2, SCIVAL3)
-
-\paragraph{Outputs from test processing runs}\hfill  % Force subsequent text onto new line
-
-\label{DMS-MWBT-REQ-0039}
-\textbf{ID:} DMS-MWBT-REQ-0039 (Priority: 1a)
-
-\textbf{Specification:}
-The Data Input System interface shall provide access to processing runs initiated for test/development purposes, from the same compute environment in which the processing was run.
-
-\textbf{Discussion:}
-(UseCase: DRP2, DRP8, SCIVAL1, SCIVAL2, SCIVAL3)
 
 \subsubsection{Querying the EFD}
 
@@ -932,7 +932,7 @@ If a coadd FITS file is downloaded using the portal, it shall have the same name
 \textbf{ID:} DMS-MWBT-REQ-0074 (Priority: 1a)
 
 \textbf{Specification:}
-It shall be possible to configure the Data Output System such that it is an error if an attempt is made to persist a dataset that is already present in the output repository
+It shall be possible to configure the Data Output System such that it is an error to attempt to persist a dataset that is already present in the output repository
 
 \textbf{Discussion:}
 (UseCases: LDF1)
@@ -954,7 +954,7 @@ This would allow an output FITS file to be written to one location and an HDF5 v
 \textbf{ID:} DMS-MWBT-REQ-0066 (Priority: 1a)
 
 \textbf{Specification:}
-It shall be possible to configure the Data Ouput System via configuration to define output locations for outputs to POSIX file systems
+It shall be possible to configure the Data Output System to define output locations for outputs to POSIX file systems
 
 \textbf{Discussion:}
 This will result in completely predictable output file paths. (UseCases: LDF1, SQR12, SQR1.5)
@@ -976,7 +976,7 @@ The Data Output System shall be able to transfer output Datasets produced by bat
 \textbf{ID:} DMS-MWBT-REQ-0069 (Priority: 1a)
 
 \textbf{Specification:}
-The Data Output System interface shall be usable by algorithmic code being run as part of a Alert Production.
+The Data Output System interface shall be usable by algorithmic code being run as part of Alert Production.
 
 \textbf{Discussion:}
 If algorithmic code always writes to a temporary location rather than a persistent archive, only writing to the temporary location needs to support the consistent interface. (UseCases: DRP3, SCIVAL1, SCIVAL2, SCIVAL3)
@@ -987,7 +987,7 @@ If algorithmic code always writes to a temporary location rather than a persiste
 \textbf{ID:} DMS-MWBT-REQ-0068 (Priority: 1a)
 
 \textbf{Specification:}
-The Data Output System interface shall be usable by algorithmic code being run as part of a Data Release Production.
+The Data Output System interface shall be usable by algorithmic code being run as part of Data Release Production.
 
 \textbf{Discussion:}
 If algorithmic code always writes to a temporary location rather than a persistent archive, only writing to the temporary location needs to support the consistent interface. (UseCases: DRP3, SCIVAL1, SCIVAL2, SCIVAL3)
@@ -1001,7 +1001,7 @@ If algorithmic code always writes to a temporary location rather than a persiste
 The Data Output System interface shall be usable by algorithmic code run in the Science Platform.
 
 \textbf{Discussion:}
-This applies to both code run by a batch serves in the Science Platform and code run directly in a user process in the Science Platform. (UseCases: DRP3, SCIVAL1, SCIVAL2, SCIVAL3)
+This applies to both code run by a batch service in the Science Platform and code run directly in a user process in the Science Platform. (UseCases: DRP3, SCIVAL1, SCIVAL2, SCIVAL3)
 
 \subsubsection{Outputs from test processing runs}
 
@@ -1103,7 +1103,7 @@ Catalog Export Formats \newline
 The Data Output System and the Data Discovery System shall provide interfaces for recording and subsequently reporting (respectively) the Datasets that were used as inputs when creating a given Dataset.
 
 \textbf{Discussion:}
-This may record either the Datasets that were predicted to be used as inputs, the Datasets that were actually used as inputs (a strict subset of those predicted to be used as inputs), or both; some systems may require both. For example, if a task is given 10 input datasets but only uses 9 then this information must be tracked. "Trickle up provenance" for "was derived from". (UseCases: SQR1, SQR9)
+This may record either the Datasets that were predicted to be used as inputs, the Datasets that were actually used as inputs (a strict subset of those predicted to be used as inputs), or both; some systems may require both. For example, if a task is given 10 input datasets but only uses 9 then this information must be tracked.  (UseCases: SQR1, SQR9)
 
 \subsubsection{Provenance in Datasets}
 
@@ -1142,7 +1142,7 @@ If a raw observation is later determined to be bad, all coadds created from that
 
 \subsection{SuperTask}
 
-The following requirements have been developed by the SuperTask working group as design requirements that derive from the requirements identified in the working group. We have concluded that writing down every requirement in a completely design-independent way is some cases a difficult and artificial exercise with limited benefits. With that in mind, we have still tried to avoid too much design-dependence. The most important place where design-dependence emerges is in the assumption of a Python API and not a purely command-line-oriented system.
+The following requirements were developed initially by the SuperTask Working Group. We have concluded that writing down every requirement in a completely design-independent way is some cases a difficult and artificial exercise with limited benefits. With that in mind, we have still tried to avoid too much design-dependence. The most important place where design-dependence emerges is in the assumption of a Python API and not a purely command-line-oriented system.
 
 The key motivating considerations were:
 
@@ -1246,7 +1246,7 @@ It is anticipated that different specializations of the framework may connect th
 \textbf{ID:} DMS-MWST-REQ-0021
 
 \textbf{Specification:}
-The supervisory framework shall support the “Pre-flight” phase of execution of a Pipeline on a specified set of inputs and/or desired outputs, resulting in a DAG for the processing, with the nodes in the DAG being the units of work to be executed, each one being: the combination of one of the processing steps in the Pipeline with a complete list of the inputs and outputs for an invocation of that step in the "Run" phase (specified as pairs of fully specified DataIds and Butler dataset types).
+The supervisory framework shall support the “Pre-flight” phase of execution of a Pipeline on a specified set of inputs and/or desired outputs, resulting in a Directed Acyclic Graph (DAG) for the processing, with the nodes in the DAG being the units of work to be executed, each one being: the combination of one of the processing steps in the Pipeline with a complete list of the inputs and outputs for an invocation of that step in the "Run" phase (specified as pairs of fully specified DataIds and Butler dataset types).
 
 \textbf{Discussion:}
 A specific supervisory framework specalization is free to consolidate these units of work “vertically” (along the processing flow) and/or “horizontally”, for efficiency, as long as this is consistent with the DAG.
@@ -1544,7 +1544,7 @@ A SuperTask is assumed to be built from Tasks, and uses the existing hierarchica
 It shall be possible for a SuperTask to send at least (\textbf{nAlertVisitAvg}/number of science CCDs) alerts to the alert distribution system, plus the same number of DIA Objects and DIA Sources to the L1 database, all within \textbf{timeToIssueAlerts} seconds. The goal is to send this information via the Butler, but a more direct path is acceptable if needed.
 
 \textbf{Discussion:}
-The time limit is based on a timing diagram by K-T Lim, which is the best guess we have in lieu of a formal timing breakdown. In that diagram the time allocated for generating alerts is approximately 10 seconds. I arbitrarily allocated half of that for computing the information (e.g. updating DIA Objects and creating alerts) and half for transmitting it. (UseCase: AP1.f)
+The time limit is based on a timing diagram by K-T Lim, which is the best guess we have in lieu of a formal timing breakdown. In that diagram the time allocated for generating alerts is approximately 10 seconds. Here, we have arbitrarily allocated half of that for computing the information (e.g. updating DIA Objects and creating alerts) and half for transmitting it. (UseCase: AP1.f)
 
 \begin{parameters}
 Minimum number of alerts required to be accommodated from a single standard visit
@@ -1630,7 +1630,7 @@ The CI system won't be like the regular batch system.  Instead it will be runnin
 \textbf{ID:} 14 (Priority: 1a)
 
 \textbf{Specification:}
-The LDF shall make it possible, given sufficient permissions, do output to a persistent, shared, provenance enabled storage space all information supplied while running a pipeline, including writes of provenance information, files, and database rows if required.
+The LDF shall make it possible, given sufficient permissions, to output to a persistent, shared, provenance enabled storage space all information supplied while running a pipeline, including writes of provenance information, files, and database rows if required.
 
 \textbf{Discussion:}
 The outputs of historical reductions will need to be curated and readily available. (UseCases: CI1)
