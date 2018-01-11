@@ -9,9 +9,9 @@
 
 %% Retrieve date and model version
 \setDocUpstreamLocation{MagicDraw SysML}
-\setDocUpstreamVersion{64}
+\setDocUpstreamVersion{66}
 
-\date{2017-12-12}
+\date{2018-01-11}
 
 %% Define the document title, authors, handle, and change record
 \input metadata.tex
@@ -48,13 +48,13 @@ This section describes the requirements relating to the data access abstraction 
 
 \subsection{Data Repositories}
 
-\subsubsection{Data Repository Upload}
+\subsubsection{DataRepository Upload}
 
 \label{DMS-MWBT-REQ-0019}
 \textbf{ID:} DMS-MWBT-REQ-0019 (Priority: 1a)
 
 \textbf{Specification:}
-It shall be possible to explicitly transfer a Data Repository or subset thereof from external hardware to the Science Platform.
+It shall be possible to explicitly transfer a DataRepository or subset thereof from external hardware to the Science Platform.
 
 \textbf{Discussion:}
 This is effectively a weaker version of \hyperref[DMS-MWBT-REQ-0012]{DMS-MWBT-REQ-0012} for these two storage contexts, permitting the system to require the user to perform an explicit upload instead of expecting a seamless connection. (UseCases: SCIVAL1, SCIVAL3, SCIVAL4)
@@ -65,7 +65,7 @@ This is effectively a weaker version of \hyperref[DMS-MWBT-REQ-0012]{DMS-MWBT-RE
 \textbf{ID:} DMS-MWBT-REQ-0004 (Priority: 1a)
 
 \textbf{Specification:}
-A Dataset shall be deletable from a Data Repository by an authorized person.
+A Dataset shall be deletable from a DataRepository by an authorized person.
 
 \textbf{Discussion:}
 Authorization means whatever mechanism provided by storage system (e.g., POSIX permissions) (UseCases: LDF7, DRP30)
@@ -76,10 +76,10 @@ Authorization means whatever mechanism provided by storage system (e.g., POSIX p
 \textbf{ID:} DMS-MWBT-REQ-0006 (Priority: 1b)
 
 \textbf{Specification:}
-When a Data Repository is removed, the Datasets it references shall be removed if and only if they are not also referenced by one or more additional Data Repositories that have been explicitly identified.
+When a DataRepository is removed, the Datasets it references shall be removed if and only if they are not also referenced by one or more additional DataRepositories that have been explicitly identified.
 
 \textbf{Discussion:}
-The "additional Data Repositories" may simply be those defined in the same database system used to define the Data Repository that is being removed. There is no expectation that all Data Repositories that reference to a Dataset can be tracked in general. (UseCases: DRP29)
+The "additional DataRepositories" may simply be those defined in the same database system used to define the DataRepository that is being removed. There is no expectation that all DataRepositories that reference to a Dataset can be tracked in general. (UseCases: DRP29)
 
 \subsubsection{DataUnit Update}
 
@@ -87,10 +87,10 @@ The "additional Data Repositories" may simply be those defined in the same datab
 \textbf{ID:} DMS-MWBT-REQ-0023 (Priority: 2)
 
 \textbf{Specification:}
-It shall be possible to create a new Data Repository that contains DataUnits whose metadata and relationship values are defined by processing outputs in another Data Repository.
+It shall be possible to create a new DataRepository that contains DataUnits whose metadata and relationship values are defined by processing outputs in another DataRepository.
 
 \textbf{Discussion:}
-This permits values like the WCS or PSF size associated with a visit to be improved with processing results. Note that this is not a requirement that existing Data Repositories permit their DataUnits to be updated in-place. (UseCases: DRP14)
+This permits values like the WCS or PSF size associated with a visit to be improved with processing results. Note that this is not a requirement that existing DataRepositories permit their DataUnits to be updated in-place. (UseCases: DRP14)
 
 \subsubsection{LSST Data Ingest: calibration}
 
@@ -98,7 +98,7 @@ This permits values like the WCS or PSF size associated with a visit to be impro
 \textbf{ID:} DMS-MWBT-REQ-0009 (Priority: 1a)
 
 \textbf{Specification:}
-The Data Repository Creation System shall be able to ingest raw LSST calibration frames into a local DataRepository outside the archive center.
+The DataRepository Creation System shall be able to ingest raw LSST calibration frames into a local DataRepository outside the archive center.
 
 \textbf{Discussion:}
 (UseCases: DRP10)
@@ -109,7 +109,7 @@ The Data Repository Creation System shall be able to ingest raw LSST calibration
 \textbf{ID:} DMS-MWBT-REQ-0008 (Priority: 1a)
 
 \textbf{Specification:}
-The Data Repository Creation System shall be able to ingest raw LSST science images into a local DataRepository outside the archive center.
+The DataRepository Creation System shall be able to ingest raw LSST science images into a local DataRepository outside the archive center.
 
 \textbf{Discussion:}
 (UseCases: DRP10)
@@ -120,29 +120,29 @@ The Data Repository Creation System shall be able to ingest raw LSST science ima
 \textbf{ID:} DMS-MWBT-REQ-0022 (Priority: 2)
 
 \textbf{Specification:}
-A Data Repository shall be able to hold Datasets with Data Units corresponding to different cameras simultaneously.
+A DataRepository shall be able to hold Datasets with Data Units corresponding to different cameras simultaneously.
 
 \textbf{Discussion:}
 This would include simulated data. (UseCases: DRP11, COMM11)
 
-\subsubsection{Registries of Data Repositories}
+\subsubsection{Registries of DataRepositories}
 
 \label{DMS-MWBT-REQ-0024}
 \textbf{ID:} DMS-MWBT-REQ-0024 (Priority: 1a)
 
 \textbf{Specification:}
-There shall be a mechanism for registering Data Repositories as they are created.
+There shall be a mechanism for registering DataRepositories as they are created.
 
 \textbf{Discussion:}
-For example, if I have several Data Repositories in a single storage context, I shouldn't have to change how I refer to those repositories if the storage context changes. This also allows for discoverability in, e.g. the release registry. Registration should be automatic. (UseCases: SQR9)
+For example, if I have several DataRepositories in a single storage context, I shouldn't have to change how I refer to those repositories if the storage context changes. This also allows for discoverability in, e.g. the release registry. Registration should be automatic. (UseCases: SQR9)
 
-\subsubsection{Relocatability of Data Repositories}
+\subsubsection{Relocatability of DataRepositories}
 
 \label{DMS-MWBT-REQ-0001}
 \textbf{ID:} DMS-MWBT-REQ-0001 (Priority: 1a)
 
 \textbf{Specification:}
-Data Repositories shall be relocatable between various storage contexts.
+DataRepositories shall be relocatable between various storage contexts.
 
 \textbf{Discussion:}
 A commissioning scientist who adds value to a local repository will want to share that repository via the commissioning archive or VOSpace. (UseCases: COMM3)
@@ -153,10 +153,10 @@ A commissioning scientist who adds value to a local repository will want to shar
 \textbf{ID:} DMS-MWBT-REQ-0007 (Priority: 1b)
 
 \textbf{Specification:}
-It shall be possible to merge multiple Data Repositories into a single Data Repository, given a strategy to resolve conflicts between the input Data Repositories.
+It shall be possible to merge multiple DataRepositories into a single DataRepository, given a strategy to resolve conflicts between the input DataRepositories.
 
 \textbf{Discussion:}
-For example, batch jobs submitted from a notebook might each write a small local Data Repository but the user of the notebook wants the outputs to appear in a single repository without knowing how many jobs were submitted. (UseCases: ARCH4)
+For example, batch jobs submitted from a notebook might each write a small local DataRepository but the user of the notebook wants the outputs to appear in a single repository without knowing how many jobs were submitted. (UseCases: ARCH4)
 
 \subsubsection{Repository Removal}
 
@@ -164,10 +164,10 @@ For example, batch jobs submitted from a notebook might each write a small local
 \textbf{ID:} DMS-MWBT-REQ-0005 (Priority: 1a)
 
 \textbf{Specification:}
-It shall be possible for an authorized user to remove a Data Repository from any storage environment.
+It shall be possible for an authorized user to remove a DataRepository from any storage environment.
 
 \textbf{Discussion:}
-Some Data Repositories (e.g. Data Releases) may not have any thusly authorized users. This would also involve removing it from registries. Removing the repository might require database table modifications. (UseCases: LDF3, DRP29)
+Some DataRepositories (e.g. Data Releases) may not have any thusly authorized users. This would also involve removing it from registries. Removing the repository might require database table modifications. (UseCases: LDF3, DRP29)
 
 \subsubsection{Repository version migration}
 
@@ -202,7 +202,7 @@ It shall be possible to easily create a new DataRepository which is a view of a 
 \textbf{Discussion:}
 That is, given a list of DataUnits and a list of DatasetTypes, create a new DataRepository with enough information to access any of the DatasetTypes for which the necessary Data Units exist for the input list of DataUnits. This does not involve copying datasets. (UseCases: SQR1, AP1dev)
 
-\subsubsection{Versioning of Data Repositories}
+\subsubsection{Versioning of DataRepositories}
 
 \label{DMS-MWBT-REQ-0002}
 \textbf{ID:} DMS-MWBT-REQ-0002 (Priority: 1b)
@@ -213,20 +213,20 @@ The Data Input/Output system shall be able to describe the version of a DataRepo
 \textbf{Discussion:}
 (UseCases: DAX8)
 
-\subsubsection{Data Repository Layering Requirements}
+\subsubsection{DataRepository Layering Requirements}
 
-\paragraph{Data Repository Layering}\hfill  % Force subsequent text onto new line
+\paragraph{DataRepository Layering}\hfill  % Force subsequent text onto new line
 
 \label{DMS-MWBT-REQ-0012}
 \textbf{ID:} DMS-MWBT-REQ-0012 (Priority: 1a)
 
 \textbf{Specification:}
-A DataRepository (A) shall be usable as an input for processing in a context (B), with its contents appearing as part of the Data Repository used to hold the outputs of the processing, for certain combinations of (A) and (B).
+A DataRepository (A) shall be usable as an input for processing in a context (B), with its contents appearing as part of the DataRepository used to hold the outputs of the processing, for certain combinations of (A) and (B).
 
 \textbf{Discussion:}
 Generally speaking, smaller-scale processing runs initiated by users with fewer permissions should be able to build on larger-scale processing runs iniated by users with more permissions. This requirement probably cannot be satisfied efficiently by always copying the full original input data repository (A) to the final output repository (B); it almost certainly implies some kind of on-demand transfer or aliasing. (UseCases: DRP1, DRP2, DRP3, DRP7, DRP8, SCIVAL1, SCIVAL2, SCIVAL3, SCIVAL4)
 
-\paragraph{Data Repository Layering: Data Release and external hardware}\hfill  % Force subsequent text onto new line
+\paragraph{DataRepository Layering: Data Release and external hardware}\hfill  % Force subsequent text onto new line
 
 \label{DMS-MWBT-REQ-0014}
 \textbf{ID:} DMS-MWBT-REQ-0014 (Priority: 1a)
@@ -237,7 +237,7 @@ A Data Release (A) shall be usable as the inputs for test/development processing
 \textbf{Discussion:}
 (UseCases: DRP1, DRP2, DRP3, DRP7, DRP8, SCIVAL1, SCIVAL3)
 
-\paragraph{Data Repository Layering: Data Release and Science Platform}\hfill  % Force subsequent text onto new line
+\paragraph{DataRepository Layering: Data Release and Science Platform}\hfill  % Force subsequent text onto new line
 
 \label{DMS-MWBT-REQ-0013}
 \textbf{ID:} DMS-MWBT-REQ-0013 (Priority: 1a)
@@ -248,7 +248,7 @@ A Data Release (A) shall be usable as the inputs for processing initiated in the
 \textbf{Discussion:}
 (UseCases: DRP1, DRP2, DRP3, SCIVAL1)
 
-\paragraph{Data Repository Layering: Data Release Production}\hfill  % Force subsequent text onto new line
+\paragraph{DataRepository Layering: Data Release Production}\hfill  % Force subsequent text onto new line
 
 \label{DMS-MWBT-REQ-0015}
 \textbf{ID:} DMS-MWBT-REQ-0015 (Priority: 1a)
@@ -259,7 +259,7 @@ Intermediate outputs of Data Release Production [test] processing (A) shall be u
 \textbf{Discussion:}
 These "intermediates" are normal pipeline outputs that may not be included in a formal data release, and this requirement only applies when these have not been discarded or elided. (UseCases: DRP1, DRP2, DRP3, SCIVAL2)
 
-\paragraph{Data Repository Layering: Data Release Production intermediates to external hardware}\hfill  % Force subsequent text onto new line
+\paragraph{DataRepository Layering: Data Release Production intermediates to external hardware}\hfill  % Force subsequent text onto new line
 
 \label{DMS-MWBT-REQ-0016}
 \textbf{ID:} DMS-MWBT-REQ-0016 (Priority: 1a)
@@ -270,31 +270,31 @@ Intermediate outputs of Data Release Production [test] processing (A) shall be u
 \textbf{Discussion:}
 (UseCases: DRP1, DRP2, DRP3, DRP7, DRP8, SCIVAL1, SCIVAL2, SCIVAL3)
 
-\paragraph{Data Repository Layering: Science Platform}\hfill  % Force subsequent text onto new line
+\paragraph{DataRepository Layering: Science Platform}\hfill  % Force subsequent text onto new line
 
 \label{DMS-MWBT-REQ-0017}
 \textbf{ID:} DMS-MWBT-REQ-0017 (Priority: 1a)
 
 \textbf{Specification:}
-Data Repositories created in the Science Platform (A) shall be usable as inputs for processing initiated in the Science Platform (B).
+DataRepositories created in the Science Platform (A) shall be usable as inputs for processing initiated in the Science Platform (B).
 
 \textbf{Discussion:}
 (UseCases: DRP1, DRP2, DRP3, DRP7, DRP8, SCIVAL1, SCIVAL3, SCIVAL4)
 
-\paragraph{Data Repository Layering: Science Platform to external hardware}\hfill  % Force subsequent text onto new line
+\paragraph{DataRepository Layering: Science Platform to external hardware}\hfill  % Force subsequent text onto new line
 
 \label{DMS-MWBT-REQ-0018}
 \textbf{ID:} DMS-MWBT-REQ-0018 (Priority: 1a)
 
 \textbf{Specification:}
-Data Repositories created in the Science Platform (A) shall be usable as inputs for test/development processing on external hardware (B).
+DataRepositories created in the Science Platform (A) shall be usable as inputs for test/development processing on external hardware (B).
 
 \textbf{Discussion:}
 (UseCases: DRP1, DRP2, DRP3, DRP7, DRP8, SCIVAL1, SCIVAL3)
 
 \subsubsection{Sky Tiles}
 
-\paragraph{ Sky Tile Definition}\hfill  % Force subsequent text onto new line
+\paragraph{Sky Tile Definition}\hfill  % Force subsequent text onto new line
 
 \label{DMS-MWBT-REQ-0020}
 \textbf{ID:} DMS-MWBT-REQ-0020 (Priority: 1a)
@@ -305,13 +305,13 @@ It shall be possible to add a new tiling of the sky (defined in a configuration 
 \textbf{Discussion:}
 This allows the tracts and patches it defines to be used to identify Datasets. (UseCases: DRP13, SCIVAL1)
 
-\paragraph{ Multiple simultaneous sky tile definitions}\hfill  % Force subsequent text onto new line
+\paragraph{Multiple simultaneous sky tile definitions}\hfill  % Force subsequent text onto new line
 
 \label{DMS-MWBT-REQ-0021}
 \textbf{ID:} DMS-MWBT-REQ-0021 (Priority: 2)
 
 \textbf{Specification:}
-A Data Repository shall be able to hold Datasets corresponding to different sky tilings simultaneously.
+A DataRepository shall be able to hold Datasets corresponding to different sky tilings simultaneously.
 
 \textbf{Discussion:}
 We may have code that maps images between differently-defind tiles, or uses different tilings for different purposes in the same pipeline. (UseCases: DRP13)
@@ -404,7 +404,7 @@ An example of this would be tab-complete of DatasetTypes, which will make it eas
 The Data Discovery System shall be able treat multiple input DataRepositories as a single coherent logical repository.
 
 \textbf{Discussion:}
-This could be a local on disk repository and a remote repository, with the the Data Discovery system scanning each in turn. Each dataset read in will contain provenance describing the Data Repository it came from. (UseCaseS: COMM4, LDF104)
+This could be a local on disk repository and a remote repository, with the the Data Discovery system scanning each in turn. Each dataset read in will contain provenance describing the DataRepository it came from. (UseCaseS: COMM4, LDF104)
 
 \subsubsection{Multiple parallel input DataRepositories}
 
@@ -425,7 +425,7 @@ This is to allow for comparison of the same data reduced with multiple different
 \textbf{ID:} DMS-MWBT-REQ-0083 (Priority: 1a)
 
 \textbf{Specification:}
-The Data Discovery System shall provide a consistent interface for obtaining a graph that represents the DataUnits and Datasets in a Data Repository that match user-specified criteria.
+The Data Discovery System shall provide a consistent interface for obtaining a graph that represents the DataUnits and Datasets in a DataRepository that match user-specified criteria.
 
 \textbf{Discussion:}
 This is an interface expected by SuperTask preflight, and we need to make it consistent in all contexts in which SuperTasks will be launched. The same interface may be used in (possibly interactive) analysis and validation work. Note that many common queries on DataRepository contents may result in simple graphs that can be iterated as flat lists. (UseCases: DRP1, DRP7, SCIVAL1, SCIVAL2, SCIVAL3, AP2, DRP27, COMM8, COMM10, COMM13)
@@ -630,7 +630,7 @@ An example of this is reading just the PSF object from an Exposure. (UseCases: D
 It shall be possible to configure the Data Input System to cache a local version of a Dataset that has been retrieved from a remote DataRepository.
 
 \textbf{Discussion:}
-For example, when running an LSP Notebook, the first time it runs the data will be retrieved from, say, the object store or VO web service, but the second time the notebook is run it will use a cached version for increased efficiency. This functionality only needs to be implemented when the remote repository guarantees that for a fixed request to the remote, the same dataset will be returned. Management of the cache, such as file expiry or disk usage limits, is an implementation detail. It is expected that this be implemented using shared infrastructure by the system doing the retrieval, rather than being implemented as a local subset of a remote Data Repository. (UseCases: SQR10)
+For example, when running an LSP Notebook, the first time it runs the data will be retrieved from, say, the object store or VO web service, but the second time the notebook is run it will use a cached version for increased efficiency. This functionality only needs to be implemented when the remote repository guarantees that for a fixed request to the remote, the same dataset will be returned. Management of the cache, such as file expiry or disk usage limits, is an implementation detail. It is expected that this be implemented using shared infrastructure by the system doing the retrieval, rather than being implemented as a local subset of a remote DataRepository. (UseCases: SQR10)
 
 \subsubsection{Local proxy}
 
@@ -761,7 +761,7 @@ The Data Input System interface shall provide access to official Data Releases f
 \textbf{ID:} DMS-MWBT-REQ-0036 (Priority: 1a)
 
 \textbf{Specification:}
-The Data Input System shall provide a consistent interface for loading Datasets into memory given a DatasetRef across different types of Data Repositories
+The Data Input System shall provide a consistent interface for loading Datasets into memory given a DatasetRef across different types of DataRepositories
 
 \textbf{Discussion:}
 This is an interface expected by SuperTask execution, and we need to make it consistent in all contexts in which SuperTasks will be executed. The same interface may be used in (possibly interactive) analysis and validation work. (UseCases: DRP2, DRP8, SCIVAL1, SCIVAL2, SCIVAL3)
@@ -855,10 +855,10 @@ This could be new headers from the EFD that were not considered important when t
 \textbf{ID:} DMS-MWBT-REQ-0064 (Priority: 1a)
 
 \textbf{Specification:}
-It shall be possible to add Datasets to a pre-existing Data Repository via additional processing.
+It shall be possible to add Datasets to a pre-existing DataRepository via additional processing.
 
 \textbf{Discussion:}
-This is the situation where a user runs a SuperTask and then runs further processing on the output of the first. It is desirable for the output of the second processing task to be stored in the same Data Repository as the output of the first. (UseCases: COMM1, LDF1)
+This is the situation where a user runs a SuperTask and then runs further processing on the output of the first. It is desirable for the output of the second processing task to be stored in the same DataRepository as the output of the first. (UseCases: COMM1, LDF1)
 
 \subsubsection{Blocked write operation}
 
@@ -888,7 +888,7 @@ For example, when downloading a PVI, the WCS solution, PSF and, possibly, proven
 \textbf{ID:} DMS-MWBT-REQ-0067 (Priority: 1a)
 
 \textbf{Specification:}
-The Data Output System shall provide a consistent interface for writing ConcreteDatasets to storage given a DatasetRef across different types of Data Repositories.
+The Data Output System shall provide a consistent interface for writing InMemoryDatasets to storage given a DatasetRef across different types of DataRepositories.
 
 \textbf{Discussion:}
 This is an interface expected by SuperTask execution, and we need to make it consistent in all contexts in which SuperTasks will be executed. The same interface may be used in (possibly interactive) analysis and validation work. (UseCases: DRP3, SCIVAL1, SCIVAL2, SCIVAL3)
