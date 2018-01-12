@@ -1,4 +1,5 @@
 LDM-556.pdf
+*.xdv
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
