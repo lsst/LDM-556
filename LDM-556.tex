@@ -13,6 +13,11 @@
 
 \date{2018-01-11}
 
+%% Allow arbitrary latex to be inserted at the end of the document.
+%% Define a new version of this command in metadata.tex. It will
+%% be run before the references are displayed.
+\newcommand{\addendum}{}
+
 %% Define the document title, authors, handle, and change record
 \input metadata.tex
 
@@ -1634,6 +1639,8 @@ The LDF shall make it possible, given sufficient permissions, to output to a per
 
 \textbf{Discussion:}
 The outputs of historical reductions will need to be curated and readily available. (UseCases: CI1)
+
+\addendum
 
 \bibliography{lsst,refs_ads}
 
