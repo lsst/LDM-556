@@ -78,7 +78,7 @@ Authorization means whatever mechanism provided by storage system (e.g., POSIX p
 \subsubsection{Dataset Garbage Collection}
 
 \label{DMS-MWBT-REQ-0006}
-\textbf{ID:} DMS-MWBT-REQ-0006 (Priority: 1b)
+\textbf{ID:} DMS-MWBT-REQ-0006 (Priority: 1a)
 
 \textbf{Specification:}
 When a DataRepository is removed, the Datasets it references shall be removed if and only if they are not also referenced by one or more additional DataRepositories that have been explicitly identified.
@@ -89,7 +89,7 @@ The "additional DataRepositories" may simply be those defined in the same databa
 \subsubsection{DataUnit Update}
 
 \label{DMS-MWBT-REQ-0023}
-\textbf{ID:} DMS-MWBT-REQ-0023 (Priority: 2)
+\textbf{ID:} DMS-MWBT-REQ-0023 (Priority: 1b)
 
 \textbf{Specification:}
 It shall be possible to create a new DataRepository that contains DataUnits whose metadata and relationship values are defined by processing outputs in another DataRepository.
@@ -122,7 +122,7 @@ The DataRepository Creation System shall be able to ingest raw LSST science imag
 \subsubsection{Multiple Cameras}
 
 \label{DMS-MWBT-REQ-0022}
-\textbf{ID:} DMS-MWBT-REQ-0022 (Priority: 2)
+\textbf{ID:} DMS-MWBT-REQ-0022 (Priority: 1b)
 
 \textbf{Specification:}
 A DataRepository shall be able to hold Datasets with Data Units corresponding to different cameras simultaneously.
@@ -155,7 +155,7 @@ A commissioning scientist who adds value to a local repository will want to shar
 \subsubsection{Repository Merging}
 
 \label{DMS-MWBT-REQ-0007}
-\textbf{ID:} DMS-MWBT-REQ-0007 (Priority: 1b)
+\textbf{ID:} DMS-MWBT-REQ-0007 (Priority: 1a)
 
 \textbf{Specification:}
 It shall be possible to merge multiple DataRepositories into a single DataRepository, given a strategy to resolve conflicts between the input DataRepositories.
@@ -210,7 +210,7 @@ That is, given a list of DataUnits and a list of DatasetTypes, create a new Data
 \subsubsection{Versioning of DataRepositories}
 
 \label{DMS-MWBT-REQ-0002}
-\textbf{ID:} DMS-MWBT-REQ-0002 (Priority: 1b)
+\textbf{ID:} DMS-MWBT-REQ-0002 (Priority: 1a)
 
 \textbf{Specification:}
 The Data Input/Output system shall be able to describe the version of a DataRepository.
@@ -326,7 +326,7 @@ We may have code that maps images between differently-defind tiles, or uses diff
 \subsubsection{DataRepository metadata lookup}
 
 \label{DMS-MWBT-REQ-0091}
-\textbf{ID:} DMS-MWBT-REQ-0091 (Priority: 2)
+\textbf{ID:} DMS-MWBT-REQ-0091 (Priority: 1b)
 
 \textbf{Specification:}
 It shall be possible to use the Data Discovery system to obtain metadata corresponding to a Dataset without reading the file(s) used to store the Dataset, as long as the desired metadata entries are identified when the DatasetType is defined.
@@ -337,7 +337,7 @@ If the system stores metadata, the batch processing service should be able to as
 \subsubsection{Dataset Overrides}
 
 \label{DMS-MWBT-REQ-0087}
-\textbf{ID:} DMS-MWBT-REQ-0087 (Priority: 1b)
+\textbf{ID:} DMS-MWBT-REQ-0087 (Priority: 1a)
 
 \textbf{Specification:}
 It shall be possible for an operator to configure the Data Discovery System to override certain Datasets with others before retrieval.
@@ -359,7 +359,7 @@ Answering the question of what data could possibily be used to build a coadd ass
 \subsubsection{Filter by config}
 
 \label{DMS-MWBT-REQ-0090}
-\textbf{ID:} DMS-MWBT-REQ-0090 (Priority: 1b)
+\textbf{ID:} DMS-MWBT-REQ-0090 (Priority: 1a)
 
 \textbf{Specification:}
 The Data Discovery System shall be able to filter search results based upon user-specified filters containing explicit Datasets to be removed from results.
@@ -370,7 +370,7 @@ This could be a list of raw data files in a text file that should not be include
 \subsubsection{Filter by data quality}
 
 \label{DMS-MWBT-REQ-0089}
-\textbf{ID:} DMS-MWBT-REQ-0089 (Priority: 1b)
+\textbf{ID:} DMS-MWBT-REQ-0089 (Priority: 1a)
 
 \textbf{Specification:}
 The Data Discovery System shall be able to filter search results based on data quality assessments.
@@ -473,7 +473,7 @@ The interface does not need to be available in the compute environment in which 
 \subsubsection{Dataset Storage Elision}
 
 \label{DMS-MWBT-REQ-0027}
-\textbf{ID:} DMS-MWBT-REQ-0027 (Priority: 1b)
+\textbf{ID:} DMS-MWBT-REQ-0027 (Priority: 1a)
 
 \textbf{Specification:}
 It shall be possible to configure the Data Input/Output System such that Datasets of specific types are simply held in memory instead of written to storage when the Data Output System is invoked, and simply retrieved from memory when requested via the Data Input System, as long as both operations happen within the same process.
@@ -484,7 +484,7 @@ We want the Data Input/Output System to pass all information between SuperTasks,
 \subsubsection{Dump current configuration}
 
 \label{DMS-MWBT-REQ-0026}
-\textbf{ID:} DMS-MWBT-REQ-0026 (Priority: 1b)
+\textbf{ID:} DMS-MWBT-REQ-0026 (Priority: 1a)
 
 \textbf{Specification:}
 A mechanism shall be available for dumping the active configuration of the Data I/O system in human-readable form.
@@ -552,7 +552,7 @@ This means it should only pull data when it's needed. It shouldn't simply stage 
 \subsubsection{Aliases to Selections on Catalogs}
 
 \label{DMS-MWBT-REQ-0056}
-\textbf{ID:} DMS-MWBT-REQ-0056 (Priority: 1b)
+\textbf{ID:} DMS-MWBT-REQ-0056 (Priority: 1a)
 
 \textbf{Specification:}
 The Data Input System shall support aliases to selections on catalog data so that different Tasks may refer to the same subset of a catalog Dataset by name.
@@ -607,7 +607,7 @@ During Batch Processing Service compute jobs, if the input file isn't on the loc
 \subsubsection{Input Staging}
 
 \label{DMS-MWBT-REQ-0052}
-\textbf{ID:} DMS-MWBT-REQ-0052 (Priority: 2)
+\textbf{ID:} DMS-MWBT-REQ-0052 (Priority: 1b)
 
 \textbf{Specification:}
 The Data Input System shall be able to transfer Datasets selected by the SuperTask pre-flight stage from persistent storage to compute nodes for batch processing.
@@ -640,7 +640,7 @@ For example, when running an LSP Notebook, the first time it runs the data will 
 \subsubsection{Local proxy}
 
 \label{DMS-MWBT-REQ-0055}
-\textbf{ID:} DMS-MWBT-REQ-0055 (Priority: 1b)
+\textbf{ID:} DMS-MWBT-REQ-0055 (Priority: 1a)
 
 \textbf{Specification:}
 It shall be possible to configure the Data Input system to use a local proxy to share remote retrievals of common Datasets.
@@ -662,7 +662,7 @@ We will need to look at lightcurves and correlate with observation characteristi
 \subsubsection{Metadata merging}
 
 \label{DMS-MWBT-REQ-0035}
-\textbf{ID:} DMS-MWBT-REQ-0035 (Priority: 1b)
+\textbf{ID:} DMS-MWBT-REQ-0035 (Priority: 1a)
 
 \textbf{Specification:}
 It shall be possible to create an InMemoryDataset of a Dataset by gathering information from multiple distinct sources including a combination of files and databases.
@@ -822,7 +822,7 @@ The same SuperTask needs to run at both the commissioning cluster using the raw 
 \paragraph{Override part of a composite dataset}\hfill  % Force subsequent text onto new line
 
 \label{DMS-MWBT-REQ-0051}
-\textbf{ID:} DMS-MWBT-REQ-0051 (Priority: 1b)
+\textbf{ID:} DMS-MWBT-REQ-0051 (Priority: 1a)
 
 \textbf{Specification:}
 It shall be possible to override part of a composite dataset with component datasets stored separately.
@@ -879,7 +879,7 @@ A put operation on the Data Output System shall block until it has either worked
 \subsubsection{Combining composite datasets for export}
 
 \label{DMS-MWBT-REQ-0077}
-\textbf{ID:} DMS-MWBT-REQ-0077 (Priority: 1b)
+\textbf{ID:} DMS-MWBT-REQ-0077 (Priority: 1a)
 
 \textbf{Specification:}
 A facility shall be available to combine file-based composite datasets into a single file in a Scientific Data Format.
@@ -923,7 +923,7 @@ The Data Output System shall give the Data Discovery System a full DatasetRef th
 \subsubsection{Filename invariance}
 
 \label{DMS-MWBT-REQ-0078}
-\textbf{ID:} DMS-MWBT-REQ-0078 (Priority: 1b)
+\textbf{ID:} DMS-MWBT-REQ-0078 (Priority: 1a)
 
 \textbf{Specification:}
 For all datasets stored with unique filenames (or paths) as part of a Data Release, the name of the file retrieved by an external user shall also be unique and have a predictable name that is not dependent on data access mechanism.
@@ -967,7 +967,7 @@ This will result in completely predictable output file paths. (UseCases: LDF1, S
 \subsubsection{Output Staging}
 
 \label{DMS-MWBT-REQ-0079}
-\textbf{ID:} DMS-MWBT-REQ-0079 (Priority: 2)
+\textbf{ID:} DMS-MWBT-REQ-0079 (Priority: 1b)
 
 \textbf{Specification:}
 The Data Output System shall be able to transfer output Datasets produced by batch processing from temporary storage on compute nodes to persistent storage.
