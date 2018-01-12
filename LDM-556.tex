@@ -9,7 +9,7 @@
 
 %% Retrieve date and model version
 \setDocUpstreamLocation{MagicDraw SysML}
-\setDocUpstreamVersion{68}
+\setDocUpstreamVersion{69}
 
 \date{2018-01-12}
 
@@ -183,7 +183,7 @@ Some DataRepositories (e.g. Data Releases) may not have any thusly authorized us
 The Data Input/Output system shall be able to perform persistent migrations of a DataRepository to bring the Data Model of that DataRepository up to parity with the Data Model expected by the current Data Input/Output System interfaces.
 
 \textbf{Discussion:}
-This is a tool for creating a repository from a repository with an old version to use the current version. Silent in-place updates of a repository should not occur. (UseCases: DAX8)
+This is a tool for creating a new repository using the current version of the data model, from a repository with an old version of the data model. The data files themselves are not changed. Silent in-place updates of a repository should not occur. (UseCases: DAX8)
 
 \subsubsection{Subsetting a DataRepository with data transfer}
 
@@ -387,7 +387,7 @@ For example, ask for raw data that has been flagged as bad to not be included in
 The Data Discovery System shall be able to filter search results based upon specified filters that need non-DatasetRef database entries.
 
 \textbf{Discussion:}
-This includes joins with LDF Operator specific tables not normally known to the Data Discovery System. These cuts could include, but will not be limited to, seeing, data quality flags, and airmass. (UseCases: LDF1, SQR2, COMM7, SQR1, SQR2, LDF102)
+This includes joins with LDF Operator specific tables known to the Data Discovery System. These cuts could include, but will not be limited to, seeing, data quality flags, and airmass. (UseCases: LDF1, SQR2, COMM7, SQR1, SQR2, LDF102)
 
 \subsubsection{Introspection for DatasetExpressions}
 
