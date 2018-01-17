@@ -9,9 +9,9 @@
 
 %% Retrieve date and model version
 \setDocUpstreamLocation{MagicDraw SysML}
-\setDocUpstreamVersion{69}
+\setDocUpstreamVersion{74}
 
-\date{2018-01-12}
+\date{2018-01-17}
 
 %% Allow arbitrary latex to be inserted at the end of the document.
 %% Define a new version of this command in metadata.tex. It will
@@ -237,7 +237,7 @@ Generally speaking, smaller-scale processing runs initiated by users with fewer 
 \textbf{ID:} DMS-MWBT-REQ-0014 (Priority: 1a)
 
 \textbf{Specification:}
-A Data Release (A) shall be usable as the inputs for test/development processing on external hardware (B).
+A Data Release shall be usable as the inputs for test/development processing on external hardware.
 
 \textbf{Discussion:}
 (UseCases: DRP1, DRP2, DRP3, DRP7, DRP8, SCIVAL1, SCIVAL3)
@@ -248,7 +248,7 @@ A Data Release (A) shall be usable as the inputs for test/development processing
 \textbf{ID:} DMS-MWBT-REQ-0013 (Priority: 1a)
 
 \textbf{Specification:}
-A Data Release (A) shall be usable as the inputs for processing initiated in the Science Platform (B).
+A Data Release shall be usable as the inputs for processing initiated in the Science Platform.
 
 \textbf{Discussion:}
 (UseCases: DRP1, DRP2, DRP3, SCIVAL1)
@@ -259,7 +259,7 @@ A Data Release (A) shall be usable as the inputs for processing initiated in the
 \textbf{ID:} DMS-MWBT-REQ-0015 (Priority: 1a)
 
 \textbf{Specification:}
-Intermediate outputs of Data Release Production [test] processing (A) shall be usable as inputs for later Data Release Production [test] processing (B).
+Intermediate outputs of Data Release Production [test] processing shall be usable as inputs for later Data Release Production [test] processing.
 
 \textbf{Discussion:}
 These "intermediates" are normal pipeline outputs that may not be included in a formal data release, and this requirement only applies when these have not been discarded or elided. (UseCases: DRP1, DRP2, DRP3, SCIVAL2)
@@ -270,7 +270,7 @@ These "intermediates" are normal pipeline outputs that may not be included in a 
 \textbf{ID:} DMS-MWBT-REQ-0016 (Priority: 1a)
 
 \textbf{Specification:}
-Intermediate outputs of Data Release Production [test] processing (A) shall be usable as inputs for test/development processing on external hardware (B).
+Intermediate outputs of Data Release Production [test] processing shall be usable as inputs for test/development processing on external hardware.
 
 \textbf{Discussion:}
 (UseCases: DRP1, DRP2, DRP3, DRP7, DRP8, SCIVAL1, SCIVAL2, SCIVAL3)
@@ -281,7 +281,7 @@ Intermediate outputs of Data Release Production [test] processing (A) shall be u
 \textbf{ID:} DMS-MWBT-REQ-0017 (Priority: 1a)
 
 \textbf{Specification:}
-DataRepositories created in the Science Platform (A) shall be usable as inputs for processing initiated in the Science Platform (B).
+DataRepositories created in the Science Platform shall be usable as inputs for processing initiated in the Science Platform.
 
 \textbf{Discussion:}
 (UseCases: DRP1, DRP2, DRP3, DRP7, DRP8, SCIVAL1, SCIVAL3, SCIVAL4)
@@ -292,7 +292,7 @@ DataRepositories created in the Science Platform (A) shall be usable as inputs f
 \textbf{ID:} DMS-MWBT-REQ-0018 (Priority: 1a)
 
 \textbf{Specification:}
-DataRepositories created in the Science Platform (A) shall be usable as inputs for test/development processing on external hardware (B).
+DataRepositories created in the Science Platform shall be usable as inputs for test/development processing on external hardware.
 
 \textbf{Discussion:}
 (UseCases: DRP1, DRP2, DRP3, DRP7, DRP8, SCIVAL1, SCIVAL3)
@@ -319,7 +319,7 @@ This allows the tracts and patches it defines to be used to identify Datasets. (
 A DataRepository shall be able to hold Datasets corresponding to different sky tilings simultaneously.
 
 \textbf{Discussion:}
-We may have code that maps images between differently-defind tiles, or uses different tilings for different purposes in the same pipeline. (UseCases: DRP13)
+We may have code that maps images between differently-defined tiles, or uses different tilings for different purposes in the same pipeline. (UseCases: DRP13)
 
 \subsection{Data Discovery System}
 
@@ -409,7 +409,7 @@ An example of this would be tab-complete of DatasetTypes, which will make it eas
 The Data Discovery System shall be able treat multiple input DataRepositories as a single coherent logical repository.
 
 \textbf{Discussion:}
-This could be a local on disk repository and a remote repository, with the the Data Discovery system scanning each in turn. Each dataset read in will contain provenance describing the DataRepository it came from. (UseCases: COMM4, LDF104)
+This could be a local on disk repository and a remote repository, with the Data Discovery System scanning each in turn. Each dataset read in will contain provenance describing the DataRepository it came from. (UseCases: COMM4, LDF104)
 
 \subsubsection{Multiple parallel input DataRepositories}
 
