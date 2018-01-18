@@ -9,9 +9,9 @@
 
 %% Retrieve date and model version
 \setDocUpstreamLocation{MagicDraw SysML}
-\setDocUpstreamVersion{74}
+\setDocUpstreamVersion{76}
 
-\date{2018-01-17}
+\date{2018-01-18}
 
 %% Allow arbitrary latex to be inserted at the end of the document.
 %% Define a new version of this command in metadata.tex. It will
@@ -53,94 +53,6 @@ This section describes the requirements relating to the data access abstraction 
 
 \subsection{Data Repositories}
 
-\subsubsection{DataRepository Upload}
-
-\label{DMS-MWBT-REQ-0019}
-\textbf{ID:} DMS-MWBT-REQ-0019 (Priority: 1a)
-
-\textbf{Specification:}
-It shall be possible to explicitly transfer a DataRepository or subset thereof from external hardware to the Science Platform.
-
-\textbf{Discussion:}
-This is effectively a weaker version of \hyperref[DMS-MWBT-REQ-0012]{DMS-MWBT-REQ-0012} for these two storage contexts, permitting the system to require the user to perform an explicit upload instead of expecting a seamless connection. (UseCases: SCIVAL1, SCIVAL3, SCIVAL4)
-
-\subsubsection{Dataset Deletion}
-
-\label{DMS-MWBT-REQ-0004}
-\textbf{ID:} DMS-MWBT-REQ-0004 (Priority: 1a)
-
-\textbf{Specification:}
-A Dataset shall be deletable from a DataRepository by an authorized person.
-
-\textbf{Discussion:}
-Authorization means whatever mechanism provided by storage system (e.g., POSIX permissions) (UseCases: LDF7, DRP30)
-
-\subsubsection{Dataset Garbage Collection}
-
-\label{DMS-MWBT-REQ-0006}
-\textbf{ID:} DMS-MWBT-REQ-0006 (Priority: 1a)
-
-\textbf{Specification:}
-When a DataRepository is removed, the Datasets it references shall be removed if and only if they are not also referenced by one or more additional DataRepositories that have been explicitly identified.
-
-\textbf{Discussion:}
-The "additional DataRepositories" may simply be those defined in the same database system used to define the DataRepository that is being removed. There is no expectation that all DataRepositories that reference to a Dataset can be tracked in general. (UseCases: DRP29)
-
-\subsubsection{DataUnit Update}
-
-\label{DMS-MWBT-REQ-0023}
-\textbf{ID:} DMS-MWBT-REQ-0023 (Priority: 1b)
-
-\textbf{Specification:}
-It shall be possible to create a new DataRepository that contains DataUnits whose metadata and relationship values are defined by processing outputs in another DataRepository.
-
-\textbf{Discussion:}
-This permits values like the WCS or PSF size associated with a visit to be improved with processing results. Note that this is not a requirement that existing DataRepositories permit their DataUnits to be updated in-place. (UseCases: DRP14)
-
-\subsubsection{LSST Data Ingest: calibration}
-
-\label{DMS-MWBT-REQ-0009}
-\textbf{ID:} DMS-MWBT-REQ-0009 (Priority: 1a)
-
-\textbf{Specification:}
-The DataRepository Creation System shall be able to ingest raw LSST calibration frames into a local DataRepository outside the archive center.
-
-\textbf{Discussion:}
-(UseCases: DRP10)
-
-\subsubsection{LSST Data Ingest: science}
-
-\label{DMS-MWBT-REQ-0008}
-\textbf{ID:} DMS-MWBT-REQ-0008 (Priority: 1a)
-
-\textbf{Specification:}
-The DataRepository Creation System shall be able to ingest raw LSST science images into a local DataRepository outside the archive center.
-
-\textbf{Discussion:}
-(UseCases: DRP10)
-
-\subsubsection{Multiple Cameras}
-
-\label{DMS-MWBT-REQ-0022}
-\textbf{ID:} DMS-MWBT-REQ-0022 (Priority: 1b)
-
-\textbf{Specification:}
-A DataRepository shall be able to hold Datasets with Data Units corresponding to different cameras simultaneously.
-
-\textbf{Discussion:}
-This would include simulated data. (UseCases: DRP11, COMM11)
-
-\subsubsection{Registries of DataRepositories}
-
-\label{DMS-MWBT-REQ-0024}
-\textbf{ID:} DMS-MWBT-REQ-0024 (Priority: 1a)
-
-\textbf{Specification:}
-There shall be a mechanism for registering DataRepositories as they are created.
-
-\textbf{Discussion:}
-For example, if I have several DataRepositories in a single storage context, I shouldn't have to change how I refer to those repositories if the storage context changes. This also allows for discoverability in, e.g. the release registry. Registration should be automatic. (UseCases: SQR9)
-
 \subsubsection{Relocatability of DataRepositories}
 
 \label{DMS-MWBT-REQ-0001}
@@ -152,27 +64,16 @@ DataRepositories shall be relocatable between various storage contexts.
 \textbf{Discussion:}
 A commissioning scientist who adds value to a local repository will want to share that repository via the commissioning archive or VOSpace. (UseCases: COMM3)
 
-\subsubsection{Repository Merging}
+\subsubsection{Versioning of DataRepositories}
 
-\label{DMS-MWBT-REQ-0007}
-\textbf{ID:} DMS-MWBT-REQ-0007 (Priority: 1a)
-
-\textbf{Specification:}
-It shall be possible to merge multiple DataRepositories into a single DataRepository, given a strategy to resolve conflicts between the input DataRepositories.
-
-\textbf{Discussion:}
-For example, batch jobs submitted from a notebook might each write a small local DataRepository but the user of the notebook wants the outputs to appear in a single repository without knowing how many jobs were submitted. (UseCases: ARCH4)
-
-\subsubsection{Repository Removal}
-
-\label{DMS-MWBT-REQ-0005}
-\textbf{ID:} DMS-MWBT-REQ-0005 (Priority: 1a)
+\label{DMS-MWBT-REQ-0002}
+\textbf{ID:} DMS-MWBT-REQ-0002 (Priority: 1a)
 
 \textbf{Specification:}
-It shall be possible for an authorized user to remove a DataRepository from any storage environment.
+The Data Input/Output system shall be able to describe the version of a DataRepository.
 
 \textbf{Discussion:}
-Some DataRepositories (e.g. Data Releases) may not have any thusly authorized users. This would also involve removing it from registries. Removing the repository might require database table modifications. (UseCases: LDF3, DRP29)
+(UseCases: DAX8)
 
 \subsubsection{Repository version migration}
 
@@ -185,16 +86,71 @@ The Data Input/Output system shall be able to perform persistent migrations of a
 \textbf{Discussion:}
 This is a tool for creating a new repository using the current version of the data model, from a repository with an old version of the data model. The data files themselves are not changed. Silent in-place updates of a repository should not occur. (UseCases: DAX8)
 
-\subsubsection{Subsetting a DataRepository with data transfer}
+\subsubsection{Dataset Deletion}
 
-\label{DMS-MWBT-REQ-0011}
-\textbf{ID:} DMS-MWBT-REQ-0011 (Priority: 1a)
+\label{DMS-MWBT-REQ-0004}
+\textbf{ID:} DMS-MWBT-REQ-0004 (Priority: 1a)
 
 \textbf{Specification:}
-It shall be possible to easily create a new DataRepository which contains a copy of a sub-section of an existing DataRepository, given a list of DataUnits and a list of DatasetTypes.
+A Dataset shall be deletable from a DataRepository by an authorized person.
 
 \textbf{Discussion:}
-This would transfer the files but not load them into Python objects, thus allowing for instance a processing run to be done without network connection. (UseCases: DRP16, DAX1, LDF103, SQR1)
+Authorization means whatever mechanism provided by storage system (e.g., POSIX permissions) (UseCases: LDF7, DRP30)
+
+\subsubsection{Repository Removal}
+
+\label{DMS-MWBT-REQ-0005}
+\textbf{ID:} DMS-MWBT-REQ-0005 (Priority: 1a)
+
+\textbf{Specification:}
+It shall be possible for an authorized user to remove a DataRepository from any storage environment.
+
+\textbf{Discussion:}
+Some DataRepositories (e.g. Data Releases) may not have any thusly authorized users. This would also involve removing it from registries. Removing the repository might require database table modifications. (UseCases: LDF3, DRP29)
+
+\subsubsection{Dataset Garbage Collection}
+
+\label{DMS-MWBT-REQ-0006}
+\textbf{ID:} DMS-MWBT-REQ-0006 (Priority: 1a)
+
+\textbf{Specification:}
+When a DataRepository is removed, the Datasets it references shall be removed if and only if they are not also referenced by one or more additional DataRepositories that have been explicitly identified.
+
+\textbf{Discussion:}
+The "additional DataRepositories" may simply be those defined in the same database system used to define the DataRepository that is being removed. There is no expectation that all DataRepositories that reference to a Dataset can be tracked in general. (UseCases: DRP29)
+
+\subsubsection{Repository Merging}
+
+\label{DMS-MWBT-REQ-0007}
+\textbf{ID:} DMS-MWBT-REQ-0007 (Priority: 1a)
+
+\textbf{Specification:}
+It shall be possible to merge multiple DataRepositories into a single DataRepository, given a strategy to resolve conflicts between the input DataRepositories.
+
+\textbf{Discussion:}
+For example, batch jobs submitted from a notebook might each write a small local DataRepository but the user of the notebook wants the outputs to appear in a single repository without knowing how many jobs were submitted. (UseCases: ARCH4)
+
+\subsubsection{LSST Data Ingest: science}
+
+\label{DMS-MWBT-REQ-0008}
+\textbf{ID:} DMS-MWBT-REQ-0008 (Priority: 1a)
+
+\textbf{Specification:}
+The DataRepository Creation System shall be able to ingest raw LSST science images into a local DataRepository outside the archive center.
+
+\textbf{Discussion:}
+(UseCases: DRP10)
+
+\subsubsection{LSST Data Ingest: calibration}
+
+\label{DMS-MWBT-REQ-0009}
+\textbf{ID:} DMS-MWBT-REQ-0009 (Priority: 1a)
+
+\textbf{Specification:}
+The DataRepository Creation System shall be able to ingest raw LSST calibration frames into a local DataRepository outside the archive center.
+
+\textbf{Discussion:}
+(UseCases: DRP10)
 
 \subsubsection{Subsetting a DataRepository without data transfer}
 
@@ -207,16 +163,60 @@ It shall be possible to easily create a new DataRepository which is a view of a 
 \textbf{Discussion:}
 That is, given a list of DataUnits and a list of DatasetTypes, create a new DataRepository with enough information to access any of the DatasetTypes for which the necessary Data Units exist for the input list of DataUnits. This does not involve copying datasets. (UseCases: SQR1, AP1dev)
 
-\subsubsection{Versioning of DataRepositories}
+\subsubsection{Subsetting a DataRepository with data transfer}
 
-\label{DMS-MWBT-REQ-0002}
-\textbf{ID:} DMS-MWBT-REQ-0002 (Priority: 1a)
+\label{DMS-MWBT-REQ-0011}
+\textbf{ID:} DMS-MWBT-REQ-0011 (Priority: 1a)
 
 \textbf{Specification:}
-The Data Input/Output system shall be able to describe the version of a DataRepository.
+It shall be possible to easily create a new DataRepository which contains a copy of a sub-section of an existing DataRepository, given a list of DataUnits and a list of DatasetTypes.
 
 \textbf{Discussion:}
-(UseCases: DAX8)
+This would transfer the files but not load them into Python objects, thus allowing for instance a processing run to be done without network connection. (UseCases: DRP16, DAX1, LDF103, SQR1)
+
+\subsubsection{DataRepository Upload}
+
+\label{DMS-MWBT-REQ-0019}
+\textbf{ID:} DMS-MWBT-REQ-0019 (Priority: 1a)
+
+\textbf{Specification:}
+It shall be possible to explicitly transfer a DataRepository or subset thereof from external hardware to the Science Platform.
+
+\textbf{Discussion:}
+This is effectively a weaker version of \hyperref[DMS-MWBT-REQ-0012]{DMS-MWBT-REQ-0012} for these two storage contexts, permitting the system to require the user to perform an explicit upload instead of expecting a seamless connection. (UseCases: SCIVAL1, SCIVAL3, SCIVAL4)
+
+\subsubsection{Multiple Cameras}
+
+\label{DMS-MWBT-REQ-0022}
+\textbf{ID:} DMS-MWBT-REQ-0022 (Priority: 1b)
+
+\textbf{Specification:}
+A DataRepository shall be able to hold Datasets with Data Units corresponding to different cameras simultaneously.
+
+\textbf{Discussion:}
+This would include simulated data. (UseCases: DRP11, COMM11)
+
+\subsubsection{DataUnit Update}
+
+\label{DMS-MWBT-REQ-0023}
+\textbf{ID:} DMS-MWBT-REQ-0023 (Priority: 1b)
+
+\textbf{Specification:}
+It shall be possible to create a new DataRepository that contains DataUnits whose metadata and relationship values are defined by processing outputs in another DataRepository.
+
+\textbf{Discussion:}
+This permits values like the WCS or PSF size associated with a visit to be improved with processing results. Note that this is not a requirement that existing DataRepositories permit their DataUnits to be updated in-place. (UseCases: DRP14)
+
+\subsubsection{Registries of DataRepositories}
+
+\label{DMS-MWBT-REQ-0024}
+\textbf{ID:} DMS-MWBT-REQ-0024 (Priority: 1a)
+
+\textbf{Specification:}
+There shall be a mechanism for registering DataRepositories as they are created.
+
+\textbf{Discussion:}
+For example, if I have several DataRepositories in a single storage context, I shouldn't have to change how I refer to those repositories if the storage context changes. This also allows for discoverability in, e.g. the release registry. Registration should be automatic. (UseCases: SQR9)
 
 \subsubsection{DataRepository Layering Requirements}
 
@@ -231,17 +231,6 @@ A DataRepository (A) shall be usable as an input for processing in a context (B)
 \textbf{Discussion:}
 Generally speaking, smaller-scale processing runs initiated by users with fewer permissions should be able to build on larger-scale processing runs iniated by users with more permissions. This requirement probably cannot be satisfied efficiently by always copying the full original input data repository (A) to the final output repository (B); it almost certainly implies some kind of on-demand transfer or aliasing. (UseCases: DRP1, DRP2, DRP3, DRP7, DRP8, SCIVAL1, SCIVAL2, SCIVAL3, SCIVAL4)
 
-\paragraph{DataRepository Layering: Data Release and external hardware}\hfill  % Force subsequent text onto new line
-
-\label{DMS-MWBT-REQ-0014}
-\textbf{ID:} DMS-MWBT-REQ-0014 (Priority: 1a)
-
-\textbf{Specification:}
-A Data Release shall be usable as the inputs for test/development processing on external hardware.
-
-\textbf{Discussion:}
-(UseCases: DRP1, DRP2, DRP3, DRP7, DRP8, SCIVAL1, SCIVAL3)
-
 \paragraph{DataRepository Layering: Data Release and Science Platform}\hfill  % Force subsequent text onto new line
 
 \label{DMS-MWBT-REQ-0013}
@@ -252,6 +241,17 @@ A Data Release shall be usable as the inputs for processing initiated in the Sci
 
 \textbf{Discussion:}
 (UseCases: DRP1, DRP2, DRP3, SCIVAL1)
+
+\paragraph{DataRepository Layering: Data Release and external hardware}\hfill  % Force subsequent text onto new line
+
+\label{DMS-MWBT-REQ-0014}
+\textbf{ID:} DMS-MWBT-REQ-0014 (Priority: 1a)
+
+\textbf{Specification:}
+A Data Release shall be usable as the inputs for test/development processing on external hardware.
+
+\textbf{Discussion:}
+(UseCases: DRP1, DRP2, DRP3, DRP7, DRP8, SCIVAL1, SCIVAL3)
 
 \paragraph{DataRepository Layering: Data Release Production}\hfill  % Force subsequent text onto new line
 
@@ -323,28 +323,6 @@ We may have code that maps images between differently-defined tiles, or uses dif
 
 \subsection{Data Discovery System}
 
-\subsubsection{DataRepository metadata lookup}
-
-\label{DMS-MWBT-REQ-0091}
-\textbf{ID:} DMS-MWBT-REQ-0091 (Priority: 1b)
-
-\textbf{Specification:}
-It shall be possible to use the Data Discovery system to obtain metadata corresponding to a Dataset without reading the file(s) used to store the Dataset, as long as the desired metadata entries are identified when the DatasetType is defined.
-
-\textbf{Discussion:}
-If the system stores metadata, the batch processing service should be able to ask the DataRepository for the metadata of particular DatasetRefs. This can be useful for debugging a batch processing job. (UseCases: LDF1)
-
-\subsubsection{Dataset Overrides}
-
-\label{DMS-MWBT-REQ-0087}
-\textbf{ID:} DMS-MWBT-REQ-0087 (Priority: 1a)
-
-\textbf{Specification:}
-It shall be possible for an operator to configure the Data Discovery System to override certain Datasets with others before retrieval.
-
-\textbf{Discussion:}
-This allows operators to override master calibration files for a particular Batch Processing run. It could be implemented by DataRepository chaining or by marking some Datasets as "preferred". See also related requirement \hyperref[DMS-MWST-REQ-0016]{DMS-MWST-REQ-0016}. (UseCases: DRP15, LDF1)
-
 \subsubsection{DataUnit lookup: processing driven}
 
 \label{DMS-MWBT-REQ-0080}
@@ -355,50 +333,6 @@ All Data Discovery Systems shall make it possible to discover the DataUnits for 
 
 \textbf{Discussion:}
 Answering the question of what data could possibily be used to build a coadd associated with this DataRef? (UseCases: SQR1, SQR9)
-
-\subsubsection{Filter by config}
-
-\label{DMS-MWBT-REQ-0090}
-\textbf{ID:} DMS-MWBT-REQ-0090 (Priority: 1a)
-
-\textbf{Specification:}
-The Data Discovery System shall be able to filter search results based upon user-specified filters containing explicit Datasets to be removed from results.
-
-\textbf{Discussion:}
-This could be a list of raw data files in a text file that should not be included in the processing but which are not yet globally flagged. (UseCases: LDF1, LDF101)
-
-\subsubsection{Filter by data quality}
-
-\label{DMS-MWBT-REQ-0089}
-\textbf{ID:} DMS-MWBT-REQ-0089 (Priority: 1a)
-
-\textbf{Specification:}
-The Data Discovery System shall be able to filter search results based on data quality assessments.
-
-\textbf{Discussion:}
-For example, ask for raw data that has been flagged as bad to not be included in a coadd. (UseCases: LDF102, LDF1)
-
-\subsubsection{Filter by non-DatasetRef Database Entries}
-
-\label{DMS-MWBT-REQ-0088}
-\textbf{ID:} DMS-MWBT-REQ-0088 (Priority: 1a)
-
-\textbf{Specification:}
-The Data Discovery System shall be able to filter search results based upon specified filters that need non-DatasetRef database entries.
-
-\textbf{Discussion:}
-This includes joins with LDF Operator specific tables known to the Data Discovery System. These cuts could include, but will not be limited to, seeing, data quality flags, and airmass. (UseCases: LDF1, SQR2, COMM7, SQR1, SQR2, LDF102)
-
-\subsubsection{Introspection for DatasetExpressions}
-
-\label{DMS-MWBT-REQ-0092}
-\textbf{ID:} DMS-MWBT-REQ-0092 (Priority: 3)
-
-\textbf{Specification:}
-The Data Discovery System shall allow for a DatasetExpression to be constructed interactively using introspection on the DataRepository schema
-
-\textbf{Discussion:}
-An example of this would be tab-complete of DatasetTypes, which will make it easier for operators and astronomers to construct a DatasetExpression for an unknown DatasetRepository. Note that this could be provided by separate tooling, as long as sufficient information is available to develop such tooling. (UseCases: DRP23)
 
 \subsubsection{Multiple chained input DataRepositories}
 
@@ -421,6 +355,72 @@ The Data Discovery System shall be able to locate Datasets from multiple input D
 
 \textbf{Discussion:}
 This is to allow for comparison of the same data reduced with multiple different stacks. These need to be both local and remote and combinations of the two. It could also be different versions of a data release. This is not a requirement on whether this is two butlers or one, although some other requirements imply a single system that knows about all repositories in a particular context. (UseCases: SQR7, LDF104, SQR1.5)
+
+\subsubsection{Dataset Overrides}
+
+\label{DMS-MWBT-REQ-0087}
+\textbf{ID:} DMS-MWBT-REQ-0087 (Priority: 1a)
+
+\textbf{Specification:}
+It shall be possible for an operator to configure the Data Discovery System to override certain Datasets with others before retrieval.
+
+\textbf{Discussion:}
+This allows operators to override master calibration files for a particular Batch Processing run. It could be implemented by DataRepository chaining or by marking some Datasets as "preferred". See also related requirement \hyperref[DMS-MWST-REQ-0016]{DMS-MWST-REQ-0016}. (UseCases: DRP15, LDF1)
+
+\subsubsection{Filter by non-DatasetRef Database Entries}
+
+\label{DMS-MWBT-REQ-0088}
+\textbf{ID:} DMS-MWBT-REQ-0088 (Priority: 1a)
+
+\textbf{Specification:}
+The Data Discovery System shall be able to filter search results based upon specified filters that need non-DatasetRef database entries.
+
+\textbf{Discussion:}
+This includes joins with LDF Operator specific tables known to the Data Discovery System. These cuts could include, but will not be limited to, seeing, data quality flags, and airmass. (UseCases: LDF1, SQR2, COMM7, SQR1, SQR2, LDF102)
+
+\subsubsection{Filter by data quality}
+
+\label{DMS-MWBT-REQ-0089}
+\textbf{ID:} DMS-MWBT-REQ-0089 (Priority: 1a)
+
+\textbf{Specification:}
+The Data Discovery System shall be able to filter search results based on data quality assessments.
+
+\textbf{Discussion:}
+For example, ask for raw data that has been flagged as bad to not be included in a coadd. (UseCases: LDF102, LDF1)
+
+\subsubsection{Filter by config}
+
+\label{DMS-MWBT-REQ-0090}
+\textbf{ID:} DMS-MWBT-REQ-0090 (Priority: 1a)
+
+\textbf{Specification:}
+The Data Discovery System shall be able to filter search results based upon user-specified filters containing explicit Datasets to be removed from results.
+
+\textbf{Discussion:}
+This could be a list of raw data files in a text file that should not be included in the processing but which are not yet globally flagged. (UseCases: LDF1, LDF101)
+
+\subsubsection{DataRepository metadata lookup}
+
+\label{DMS-MWBT-REQ-0091}
+\textbf{ID:} DMS-MWBT-REQ-0091 (Priority: 1b)
+
+\textbf{Specification:}
+It shall be possible to use the Data Discovery system to obtain metadata corresponding to a Dataset without reading the file(s) used to store the Dataset, as long as the desired metadata entries are identified when the DatasetType is defined.
+
+\textbf{Discussion:}
+If the system stores metadata, the batch processing service should be able to ask the DataRepository for the metadata of particular DatasetRefs. This can be useful for debugging a batch processing job. (UseCases: LDF1)
+
+\subsubsection{Introspection for DatasetExpressions}
+
+\label{DMS-MWBT-REQ-0092}
+\textbf{ID:} DMS-MWBT-REQ-0092 (Priority: 3)
+
+\textbf{Specification:}
+The Data Discovery System shall allow for a DatasetExpression to be constructed interactively using introspection on the DataRepository schema
+
+\textbf{Discussion:}
+An example of this would be tab-complete of DatasetTypes, which will make it easier for operators and astronomers to construct a DatasetExpression for an unknown DatasetRepository. Note that this could be provided by separate tooling, as long as sufficient information is available to develop such tooling. (UseCases: DRP23)
 
 \subsubsection{Discovery Interface Consistency}
 
@@ -470,16 +470,16 @@ The interface does not need to be available in the compute environment in which 
 
 \subsection{Data Input/Output System}
 
-\subsubsection{Dataset Storage Elision}
+\subsubsection{Format pluggability}
 
-\label{DMS-MWBT-REQ-0027}
-\textbf{ID:} DMS-MWBT-REQ-0027 (Priority: 1a)
+\label{DMS-MWBT-REQ-0025}
+\textbf{ID:} DMS-MWBT-REQ-0025 (Priority: 1a)
 
 \textbf{Specification:}
-It shall be possible to configure the Data Input/Output System such that Datasets of specific types are simply held in memory instead of written to storage when the Data Output System is invoked, and simply retrieved from memory when requested via the Data Input System, as long as both operations happen within the same process.
+It shall be possible to control the method used to read and write a particular DatasetType using a text configuration file such that the Python object and the form of the persisted dataset can be configured externally.
 
 \textbf{Discussion:}
-We want the Data Input/Output System to pass all information between SuperTasks, but for performance reasons we don't always want this to involve I/O. (UseCases: DRP4)
+For example, raw data could be configured to be read in FITS format, but a calexp could be configured to be written in HDF5 format. Additionally, a calexp could be read in from HDF5 but appear in Python as an Astropy object rather than a AFW object; or a table could be persisted as a plot in PNG format. (UseCases: ARCH1, SQR4, SQR6)
 
 \subsubsection{Dump current configuration}
 
@@ -492,27 +492,16 @@ A mechanism shall be available for dumping the active configuration of the Data 
 \textbf{Discussion:}
 Especially important if configuration comes from multiple sources and is required to be validated before submitting processing jobs. (UseCases: LDF1, LDF3)
 
-\subsubsection{Format pluggability}
+\subsubsection{Dataset Storage Elision}
 
-\label{DMS-MWBT-REQ-0025}
-\textbf{ID:} DMS-MWBT-REQ-0025 (Priority: 1a)
-
-\textbf{Specification:}
-It shall be possible to control the method used to read and write a particular DatasetType using a text configuration file such that the Python object and the form of the persisted dataset can be configured externally.
-
-\textbf{Discussion:}
-For example, raw data could be configured to be read in FITS format, but a calexp could be configured to be written in HDF5 format. Additionally, a calexp could be read in from HDF5 but appear in Python as an Astropy object rather than a AFW object; or a table could be persisted as a plot in PNG format. (UseCases: ARCH1, SQR4, SQR6)
-
-\subsubsection{I/O using cloud storage}
-
-\label{DMS-MWBT-REQ-0031}
-\textbf{ID:} DMS-MWBT-REQ-0031 (Priority: 1a)
+\label{DMS-MWBT-REQ-0027}
+\textbf{ID:} DMS-MWBT-REQ-0027 (Priority: 1a)
 
 \textbf{Specification:}
-The Data Input/Output System shall be able to utilize cloud-based storage engines.
+It shall be possible to configure the Data Input/Output System such that Datasets of specific types are simply held in memory instead of written to storage when the Data Output System is invoked, and simply retrieved from memory when requested via the Data Input System, as long as both operations happen within the same process.
 
 \textbf{Discussion:}
-For example Amazon's S3. In the case of CI, multiple CI jobs hosted in containers will all need parts of the same data, but it's too large to host locally. S3 allows each job to pull local only the data necessary for processing in that job. (UseCases: CI3)
+We want the Data Input/Output System to pass all information between SuperTasks, but for performance reasons we don't always want this to involve I/O. (UseCases: DRP4)
 
 \subsubsection{I/O using distributed file system}
 
@@ -525,16 +514,16 @@ The Data Input/Output System shall be able to read/write from/to distributed fil
 \textbf{Discussion:}
 The commissioning cluster will provide resources both for ad hoc and batch style processing. Both will likely utilize the same storage context. (UseCases: COMM1)
 
-\subsubsection{Science Platform VOSpace}
+\subsubsection{I/O using cloud storage}
 
-\label{DMS-MWBT-REQ-0029}
-\textbf{ID:} DMS-MWBT-REQ-0029 (Priority: 1a)
+\label{DMS-MWBT-REQ-0031}
+\textbf{ID:} DMS-MWBT-REQ-0031 (Priority: 1a)
 
 \textbf{Specification:}
-The Data Input/Output System interface shall provide access to the shared VOSpace file system from Jupyter notebooks running on the Science Platform
+The Data Input/Output System shall be able to utilize cloud-based storage engines.
 
 \textbf{Discussion:}
-(UseCases: DRP2, DRP8, SCIVAL1, SCIVAL2, SCIVAL3)
+For example Amazon's S3. In the case of CI, multiple CI jobs hosted in containers will all need parts of the same data, but it's too large to host locally. S3 allows each job to pull local only the data necessary for processing in that job. (UseCases: CI3)
 
 \subsubsection{VOSpace}
 
@@ -547,29 +536,84 @@ It shall be possible to implement a Data Input/Output System that can operate on
 \textbf{Discussion:}
 This means it should only pull data when it's needed. It shouldn't simply stage the entire repository to local disk as that is very inefficient. (UseCases: SQR14,LDF103)
 
+\subsubsection{Science Platform VOSpace}
+
+\label{DMS-MWBT-REQ-0029}
+\textbf{ID:} DMS-MWBT-REQ-0029 (Priority: 1a)
+
+\textbf{Specification:}
+The Data Input/Output System interface shall provide access to the shared VOSpace file system from Jupyter notebooks running on the Science Platform
+
+\textbf{Discussion:}
+(UseCases: DRP2, DRP8, SCIVAL1, SCIVAL2, SCIVAL3)
+
 \subsection{Data Input}
 
-\subsubsection{Aliases to Selections on Catalogs}
+\subsubsection{Reading persisted data}
 
-\label{DMS-MWBT-REQ-0056}
-\textbf{ID:} DMS-MWBT-REQ-0056 (Priority: 1a)
-
-\textbf{Specification:}
-The Data Input System shall support aliases to selections on catalog data so that different Tasks may refer to the same subset of a catalog Dataset by name.
-
-\textbf{Discussion:}
-This puts the onus on the database to store the aliases. It would be nice to see an implementation of a plugin that is able to set up the views from configuration if they don't already exist. It would be nice to support parameterized views, but this is not strictly necessary. (UseCases: SQR5)
-
-\subsubsection{Enabling SuperTasks to execute}
-
-\label{DMS-MWBT-REQ-0053}
-\textbf{ID:} DMS-MWBT-REQ-0053 (Priority: 1a)
+\label{DMS-MWBT-REQ-0032}
+\textbf{ID:} DMS-MWBT-REQ-0032 (Priority: 1a)
 
 \textbf{Specification:}
-It shall be possible for the Data Input System to construct a InMemoryDataset from a set of files stored locally on disk (without a remote database connection).
+The Data Input System shall be able to read any DataSet that has been written by the Data Output System using a Scientific Data Format.
 
 \textbf{Discussion:}
-For example, the batch processing system will have retrieved a valid set of files from the Data Backbone and copied them to a local disk. The Data Input System will be reading from that local disk. (UseCases: LDF1, LDF3)
+Here Scientific Data Format means a format that can be used as an intermediate file in processing such as FITS or HDF5. JPEG images are not included. (UseCases: ARCH2)
+
+\subsubsection{Parameterized Subset of a Dataset}
+
+\label{DMS-MWBT-REQ-0033}
+\textbf{ID:} DMS-MWBT-REQ-0033 (Priority: 1a)
+
+\textbf{Specification:}
+It shall be possible to load into memory a parameterized subset of a Dataset without loading the full Dataset.
+
+\textbf{Discussion:}
+An example of this could be reading a small postage stamp from a large image in a notebook where the notebook container has limited resource allocation. (UseCases: DRP18, DAX3, SQR15, COMM3)
+
+\subsubsection{Item from Composite Datasets}
+
+\label{DMS-MWBT-REQ-0034}
+\textbf{ID:} DMS-MWBT-REQ-0034 (Priority: 1a)
+
+\textbf{Specification:}
+It shall be possible to load into memory an item from a Composite Dataset without loading the full Dataset.
+
+\textbf{Discussion:}
+An example of this is reading just the PSF object from an Exposure. (UseCases: DRP18, DAX3, SQR15, COMM3)
+
+\subsubsection{Metadata merging}
+
+\label{DMS-MWBT-REQ-0035}
+\textbf{ID:} DMS-MWBT-REQ-0035 (Priority: 1a)
+
+\textbf{Specification:}
+It shall be possible to create an InMemoryDataset of a Dataset by gathering information from multiple distinct sources including a combination of files and databases.
+
+\textbf{Discussion:}
+Create a Python object from multiple sources. This could be reading a FITS file from disk and augmenting the header information from a database query or from a separate header file. (UseCases: ARCH3)
+
+\subsubsection{Remote Input DataRepository}
+
+\label{DMS-MWBT-REQ-0040}
+\textbf{ID:} DMS-MWBT-REQ-0040 (Priority: 1a)
+
+\textbf{Specification:}
+The Data Input System shall be able to read from non-local, non-POSIX input DataRepositories; this should include both database systems and file/object stores.
+
+\textbf{Discussion:}
+This is not meant to preclude use of a local cache. E.g. if the backend is S3, the files need to be streamed to disk before they can be un-persisted. For example, this could be a Data I/O system that understands TAP and SIA VO protocols; or one that understands VOSpace or HDF5-in-the-cloud; or possibly S3-like object stores. (UseCases: SQR4, SQR12, SQR14, CI3)
+
+\subsubsection{Metadata association}
+
+\label{DMS-MWBT-REQ-0045}
+\textbf{ID:} DMS-MWBT-REQ-0045 (Priority: 1a)
+
+\textbf{Specification:}
+The Data Input System shall be able to associate observation/engineering metadata with a given Dataset.
+
+\textbf{Discussion:}
+We will need to look at lightcurves and correlate with observation characteristics. This association will always be based on the date the given Dataset was observed. (UseCases: COMM5)
 
 \subsubsection{External Data Ingest}
 
@@ -593,16 +637,16 @@ The Data Input System shall be able to load non-LSST Datasets from a DataReposit
 \textbf{Discussion:}
 (UseCases: DRP11)
 
-\subsubsection{Failure on missing input file}
+\subsubsection{Third party datasets}
 
-\label{DMS-MWBT-REQ-0054}
-\textbf{ID:} DMS-MWBT-REQ-0054 (Priority: 1a)
+\label{DMS-MWBT-REQ-0048}
+\textbf{ID:} DMS-MWBT-REQ-0048 (Priority: 1a)
 
 \textbf{Specification:}
-It shall be possible via configuration to require the Data Input System to fail if an expected file is not found at the specified location.
+It shall be possible for the Data Input System to read from catalogs provided by outside sources using the same interface used for reading first class LSST datasets via a different plugin.
 
 \textbf{Discussion:}
-During Batch Processing Service compute jobs, if the input file isn't on the local disk, the desired behavior is failure (as opposed to trying to get the file from the Data Backbone) (UseCases: LDF1)
+We will need reference catalogs of all types (not just photometric and astrometric calibration). (UseCases: COMM9)
 
 \subsubsection{Input Staging}
 
@@ -615,27 +659,27 @@ The Data Input System shall be able to transfer Datasets selected by the SuperTa
 \textbf{Discussion:}
 (Note: Not currently planned to be used by the Operations Batch Processing Service) (UseCases: DRP5, DRP6, SCIVAL1, SCIVAL2)
 
-\subsubsection{Item from Composite Datasets}
+\subsubsection{Enabling SuperTasks to execute}
 
-\label{DMS-MWBT-REQ-0034}
-\textbf{ID:} DMS-MWBT-REQ-0034 (Priority: 1a)
-
-\textbf{Specification:}
-It shall be possible to load into memory an item from a Composite Dataset without loading the full Dataset.
-
-\textbf{Discussion:}
-An example of this is reading just the PSF object from an Exposure. (UseCases: DRP18, DAX3, SQR15, COMM3)
-
-\subsubsection{Local caching of remote resources}
-
-\label{DMS-MWBT-REQ-0058}
-\textbf{ID:} DMS-MWBT-REQ-0058 (Priority: 1a)
+\label{DMS-MWBT-REQ-0053}
+\textbf{ID:} DMS-MWBT-REQ-0053 (Priority: 1a)
 
 \textbf{Specification:}
-It shall be possible to configure the Data Input System to cache a local version of a Dataset that has been retrieved from a remote DataRepository.
+It shall be possible for the Data Input System to construct a InMemoryDataset from a set of files stored locally on disk (without a remote database connection).
 
 \textbf{Discussion:}
-For example, when running an LSP Notebook, the first time it runs the data will be retrieved from, say, the object store or VO web service, but the second time the notebook is run it will use a cached version for increased efficiency. This functionality only needs to be implemented when the remote repository guarantees that for a fixed request to the remote, the same dataset will be returned. Management of the cache, such as file expiry or disk usage limits, is an implementation detail. It is expected that this be implemented using shared infrastructure by the system doing the retrieval, rather than being implemented as a local subset of a remote DataRepository. (UseCases: SQR10)
+For example, the batch processing system will have retrieved a valid set of files from the Data Backbone and copied them to a local disk. The Data Input System will be reading from that local disk. (UseCases: LDF1, LDF3)
+
+\subsubsection{Failure on missing input file}
+
+\label{DMS-MWBT-REQ-0054}
+\textbf{ID:} DMS-MWBT-REQ-0054 (Priority: 1a)
+
+\textbf{Specification:}
+It shall be possible via configuration to require the Data Input System to fail if an expected file is not found at the specified location.
+
+\textbf{Discussion:}
+During Batch Processing Service compute jobs, if the input file isn't on the local disk, the desired behavior is failure (as opposed to trying to get the file from the Data Backbone) (UseCases: LDF1)
 
 \subsubsection{Local proxy}
 
@@ -648,38 +692,16 @@ It shall be possible to configure the Data Input system to use a local proxy to 
 \textbf{Discussion:}
 Thus allowing multiple local input requests (potentially from different users and systems) to use a shared cache. Note that this does not apply to the Data Output System (and may even be applicable only to read-only Data Input Systems) (UseCases: DRP17, DAX2)
 
-\subsubsection{Metadata association}
+\subsubsection{Aliases to Selections on Catalogs}
 
-\label{DMS-MWBT-REQ-0045}
-\textbf{ID:} DMS-MWBT-REQ-0045 (Priority: 1a)
-
-\textbf{Specification:}
-The Data Input System shall be able to associate observation/engineering metadata with a given Dataset.
-
-\textbf{Discussion:}
-We will need to look at lightcurves and correlate with observation characteristics. This association will always be based on the date the given Dataset was observed. (UseCases: COMM5)
-
-\subsubsection{Metadata merging}
-
-\label{DMS-MWBT-REQ-0035}
-\textbf{ID:} DMS-MWBT-REQ-0035 (Priority: 1a)
+\label{DMS-MWBT-REQ-0056}
+\textbf{ID:} DMS-MWBT-REQ-0056 (Priority: 1a)
 
 \textbf{Specification:}
-It shall be possible to create an InMemoryDataset of a Dataset by gathering information from multiple distinct sources including a combination of files and databases.
+The Data Input System shall support aliases to selections on catalog data so that different Tasks may refer to the same subset of a catalog Dataset by name.
 
 \textbf{Discussion:}
-Create a Python object from multiple sources. This could be reading a FITS file from disk and augmenting the header information from a database query or from a separate header file. (UseCases: ARCH3)
-
-\subsubsection{Parameterized Subset of a Dataset}
-
-\label{DMS-MWBT-REQ-0033}
-\textbf{ID:} DMS-MWBT-REQ-0033 (Priority: 1a)
-
-\textbf{Specification:}
-It shall be possible to load into memory a parameterized subset of a Dataset without loading the full Dataset.
-
-\textbf{Discussion:}
-An example of this could be reading a small postage stamp from a large image in a notebook where the notebook container has limited resource allocation. (UseCases: DRP18, DAX3, SQR15, COMM3)
+This puts the onus on the database to store the aliases. It would be nice to see an implementation of a plugin that is able to set up the views from configuration if they don't already exist. It would be nice to support parameterized views, but this is not strictly necessary. (UseCases: SQR5)
 
 \subsubsection{Queries as Datasets}
 
@@ -692,40 +714,40 @@ The Data Input System shall support database queries as first class Datasets.
 \textbf{Discussion:}
 This implies that the same Data Units and DatasetType may not return the same Dataset for all time. (UseCases: SQR5)
 
-\subsubsection{Reading persisted data}
+\subsubsection{Local caching of remote resources}
 
-\label{DMS-MWBT-REQ-0032}
-\textbf{ID:} DMS-MWBT-REQ-0032 (Priority: 1a)
-
-\textbf{Specification:}
-The Data Input System shall be able to read any DataSet that has been written by the Data Output System using a Scientific Data Format.
-
-\textbf{Discussion:}
-Here Scientific Data Format means a format that can be used as an intermediate file in processing such as FITS or HDF5. JPEG images are not included. (UseCases: ARCH2)
-
-\subsubsection{Remote Input DataRepository}
-
-\label{DMS-MWBT-REQ-0040}
-\textbf{ID:} DMS-MWBT-REQ-0040 (Priority: 1a)
+\label{DMS-MWBT-REQ-0058}
+\textbf{ID:} DMS-MWBT-REQ-0058 (Priority: 1a)
 
 \textbf{Specification:}
-The Data Input System shall be able to read from non-local, non-POSIX input DataRepositories; this should include both database systems and file/object stores.
+It shall be possible to configure the Data Input System to cache a local version of a Dataset that has been retrieved from a remote DataRepository.
 
 \textbf{Discussion:}
-This is not meant to preclude use of a local cache. E.g. if the backend is S3, the files need to be streamed to disk before they can be un-persisted. For example, this could be a Data I/O system that understands TAP and SIA VO protocols; or one that understands VOSpace or HDF5-in-the-cloud; or possibly S3-like object stores. (UseCases: SQR4, SQR12, SQR14, CI3)
-
-\subsubsection{Third party datasets}
-
-\label{DMS-MWBT-REQ-0048}
-\textbf{ID:} DMS-MWBT-REQ-0048 (Priority: 1a)
-
-\textbf{Specification:}
-It shall be possible for the Data Input System to read from catalogs provided by outside sources using the same interface used for reading first class LSST datasets via a different plugin.
-
-\textbf{Discussion:}
-We will need reference catalogs of all types (not just photometric and astrometric calibration). (UseCases: COMM9)
+For example, when running an LSP Notebook, the first time it runs the data will be retrieved from, say, the object store or VO web service, but the second time the notebook is run it will use a cached version for increased efficiency. This functionality only needs to be implemented when the remote repository guarantees that for a fixed request to the remote, the same dataset will be returned. Management of the cache, such as file expiry or disk usage limits, is an implementation detail. It is expected that this be implemented using shared infrastructure by the system doing the retrieval, rather than being implemented as a local subset of a remote DataRepository. (UseCases: SQR10)
 
 \subsubsection{Consistent Interfaces for Input}
+
+\paragraph{Consistent Input Interface}\hfill  % Force subsequent text onto new line
+
+\label{DMS-MWBT-REQ-0036}
+\textbf{ID:} DMS-MWBT-REQ-0036 (Priority: 1a)
+
+\textbf{Specification:}
+The Data Input System shall provide a consistent interface for loading Datasets into memory given a DatasetRef across different types of DataRepositories
+
+\textbf{Discussion:}
+This is an interface expected by SuperTask execution, and we need to make it consistent in all contexts in which SuperTasks will be executed. The same interface may be used in (possibly interactive) analysis and validation work. (UseCases: DRP2, DRP8, SCIVAL1, SCIVAL2, SCIVAL3)
+
+\paragraph{Accessing official Data Releases}\hfill  % Force subsequent text onto new line
+
+\label{DMS-MWBT-REQ-0037}
+\textbf{ID:} DMS-MWBT-REQ-0037 (Priority: 1a)
+
+\textbf{Specification:}
+The Data Input System interface shall provide access to official Data Releases from the LSST Science Platform.
+
+\textbf{Discussion:}
+(UseCases: DRP2, DRP8, SCIVAL1, SCIVAL2, SCIVAL3)
 
 \paragraph{Access to outputs from notebook batch jobs}\hfill  % Force subsequent text onto new line
 
@@ -749,28 +771,6 @@ The Data Input System shall provide access to processing runs initiated for test
 \textbf{Discussion:}
 (UseCase: DRP2, DRP8, SCIVAL1, SCIVAL2, SCIVAL3)
 
-\paragraph{Accessing official Data Releases}\hfill  % Force subsequent text onto new line
-
-\label{DMS-MWBT-REQ-0037}
-\textbf{ID:} DMS-MWBT-REQ-0037 (Priority: 1a)
-
-\textbf{Specification:}
-The Data Input System interface shall provide access to official Data Releases from the LSST Science Platform.
-
-\textbf{Discussion:}
-(UseCases: DRP2, DRP8, SCIVAL1, SCIVAL2, SCIVAL3)
-
-\paragraph{Consistent Input Interface}\hfill  % Force subsequent text onto new line
-
-\label{DMS-MWBT-REQ-0036}
-\textbf{ID:} DMS-MWBT-REQ-0036 (Priority: 1a)
-
-\textbf{Specification:}
-The Data Input System shall provide a consistent interface for loading Datasets into memory given a DatasetRef across different types of DataRepositories
-
-\textbf{Discussion:}
-This is an interface expected by SuperTask execution, and we need to make it consistent in all contexts in which SuperTasks will be executed. The same interface may be used in (possibly interactive) analysis and validation work. (UseCases: DRP2, DRP8, SCIVAL1, SCIVAL2, SCIVAL3)
-
 \subsubsection{Querying the EFD}
 
 \paragraph{Querying the Engineering and Facility Database}\hfill  % Force subsequent text onto new line
@@ -784,17 +784,6 @@ The Data Input System shall be able to query specific subsets of the Engineering
 \textbf{Discussion:}
 Calibration observations sometimes require extensive EFD data in high resolution covering the time of the visit. (UseCases: ARCH3, COMM2)
 
-\paragraph{Read from the base EFD}\hfill  % Force subsequent text onto new line
-
-\label{DMS-MWBT-REQ-0043}
-\textbf{ID:} DMS-MWBT-REQ-0043 (Priority: 1a)
-
-\textbf{Specification:}
-The Data Input System shall be able to read from the base EFD.
-
-\textbf{Discussion:}
-The commissioning cluster will not necessarily have access to the transformed EFD. (UseCases: COMM12, COMM1)
-
 \paragraph{Read from transformed EFD}\hfill  % Force subsequent text onto new line
 
 \label{DMS-MWBT-REQ-0042}
@@ -805,6 +794,17 @@ The Data Input System shall be able to read from the transformed engineering fac
 
 \textbf{Discussion:}
 (UseCases: COMM2)
+
+\paragraph{Read from the base EFD}\hfill  % Force subsequent text onto new line
+
+\label{DMS-MWBT-REQ-0043}
+\textbf{ID:} DMS-MWBT-REQ-0043 (Priority: 1a)
+
+\textbf{Specification:}
+The Data Input System shall be able to read from the base EFD.
+
+\textbf{Discussion:}
+The commissioning cluster will not necessarily have access to the transformed EFD. (UseCases: COMM12, COMM1)
 
 \paragraph{Unified interface to summit/base EFD and transformed EFD}\hfill  % Force subsequent text onto new line
 
@@ -818,17 +818,6 @@ Regardless of whether the Data Input System is reading from the raw or the trans
 The same SuperTask needs to run at both the commissioning cluster using the raw EFD and on the commissioning archive with the transformed EFD. (UseCases: COMM2, COMM12)
 
 \subsubsection{Raw Data}
-
-\paragraph{Override part of a composite dataset}\hfill  % Force subsequent text onto new line
-
-\label{DMS-MWBT-REQ-0051}
-\textbf{ID:} DMS-MWBT-REQ-0051 (Priority: 1a)
-
-\textbf{Specification:}
-It shall be possible to override part of a composite dataset with component datasets stored separately.
-
-\textbf{Discussion:}
-This might be reading an updated WCS from the L1 prompt processing system on the night, or from a specific Data Release. Provenance for the WCS solution itself does not need to be included other than a unique identifier to allow provenance lookup. It could also be a photometric solution from a data release. (UseCases: ARCH3)
 
 \paragraph{Reading raw data}\hfill  % Force subsequent text onto new line
 
@@ -852,51 +841,18 @@ The Data Input System shall be able to create an in-memory object from raw data,
 \textbf{Discussion:}
 This could be new headers from the EFD that were not considered important when the observation was taken; or fixes to headers that were known to be incorrect after investigation (maybe a sensor was miscalibrated). Bulk download is not included in this requirement. (UseCases: ARCH3)
 
+\paragraph{Override part of a composite dataset}\hfill  % Force subsequent text onto new line
+
+\label{DMS-MWBT-REQ-0051}
+\textbf{ID:} DMS-MWBT-REQ-0051 (Priority: 1a)
+
+\textbf{Specification:}
+It shall be possible to override part of a composite dataset with component datasets stored separately.
+
+\textbf{Discussion:}
+This might be reading an updated WCS from the L1 prompt processing system on the night, or from a specific Data Release. Provenance for the WCS solution itself does not need to be included other than a unique identifier to allow provenance lookup. It could also be a photometric solution from a data release. (UseCases: ARCH3)
+
 \subsection{Data Output}
-
-\subsubsection{Append to a DataRepository}
-
-\label{DMS-MWBT-REQ-0064}
-\textbf{ID:} DMS-MWBT-REQ-0064 (Priority: 1a)
-
-\textbf{Specification:}
-It shall be possible to add Datasets to a pre-existing DataRepository via additional processing.
-
-\textbf{Discussion:}
-This is the situation where a user runs a SuperTask and then runs further processing on the output of the first. It is desirable for the output of the second processing task to be stored in the same DataRepository as the output of the first. (UseCases: COMM1, LDF1)
-
-\subsubsection{Blocked write operation}
-
-\label{DMS-MWBT-REQ-0073}
-\textbf{ID:} DMS-MWBT-REQ-0073 (Priority: 1a)
-
-\textbf{Specification:}
-A put operation on the Data Output System shall block until it has either worked or failed
-
-\textbf{Discussion:}
-(UseCases: DRP22)
-
-\subsubsection{Combining composite datasets for export}
-
-\label{DMS-MWBT-REQ-0077}
-\textbf{ID:} DMS-MWBT-REQ-0077 (Priority: 1a)
-
-\textbf{Specification:}
-A facility shall be available to combine file-based composite datasets into a single file in a Scientific Data Format.
-
-\textbf{Discussion:}
-For example, when downloading a PVI, the WCS solution, PSF and, possibly, provenance, components would be combined into a single HDF5 file for export to an external user. (UseCases: DAX9, ARCH5)
-
-\subsubsection{Consistent Output Interface}
-
-\label{DMS-MWBT-REQ-0067}
-\textbf{ID:} DMS-MWBT-REQ-0067 (Priority: 1a)
-
-\textbf{Specification:}
-The Data Output System shall provide a consistent interface for writing InMemoryDatasets to storage given a DatasetRef across different types of DataRepositories.
-
-\textbf{Discussion:}
-This is an interface expected by SuperTask execution, and we need to make it consistent in all contexts in which SuperTasks will be executed. The same interface may be used in (possibly interactive) analysis and validation work. (UseCases: DRP3, SCIVAL1, SCIVAL2, SCIVAL3)
 
 \subsubsection{Creation of new DatasetTypes}
 
@@ -909,38 +865,16 @@ The Data Output system shall allow a new DatasetType to be registered with a Dat
 \textbf{Discussion:}
 This allows persisting config and metadata from a new supertask or command-line task without editing any obs packages. It could also simplify repository configuration as many predefined dataset types could be specified as a much smaller of dataset prototypes. (UseCases: DRP12, SCIVAL1, AP3, SQR4, SQR6)
 
-\subsubsection{Data Output references}
+\subsubsection{Writer configurability}
 
-\label{DMS-MWBT-REQ-0075}
-\textbf{ID:} DMS-MWBT-REQ-0075 (Priority: 1a)
-
-\textbf{Specification:}
-The Data Output System shall give the Data Discovery System a full DatasetRef that can be used to later discover the DataSet that was just written.
-
-\textbf{Discussion:}
-(UseCases: DRP3, SCIVAL1, SCIVAL2)
-
-\subsubsection{Filename invariance}
-
-\label{DMS-MWBT-REQ-0078}
-\textbf{ID:} DMS-MWBT-REQ-0078 (Priority: 1a)
+\label{DMS-MWBT-REQ-0060}
+\textbf{ID:} DMS-MWBT-REQ-0060 (Priority: 1a)
 
 \textbf{Specification:}
-For all datasets stored with unique filenames (or paths) as part of a Data Release, the name of the file retrieved by an external user shall also be unique and have a predictable name that is not dependent on data access mechanism.
+The Data Output System shall be able to support local configuration of individual writer behavior.
 
 \textbf{Discussion:}
-If a coadd FITS file is downloaded using the portal, it shall have the same name as if it was downloaded using VO access protocols. The file is allowed to have a different suffix if format translation has occurred. Additionally, if a composite is being merged into a single file (\hyperref[DMS-MWBT-REQ-0077]{DMS-MWBT-REQ-0077}), that file may have a different name to those stored internally. It is not required to include directory hierarchy in this output name if that hierarchy is also encoded in the original filename. (UseCases: DAX9, ARCH5)
-
-\subsubsection{No clobber}
-
-\label{DMS-MWBT-REQ-0074}
-\textbf{ID:} DMS-MWBT-REQ-0074 (Priority: 1a)
-
-\textbf{Specification:}
-It shall be possible to configure the Data Output System such that it is an error to attempt to persist a dataset that is already present in the output repository
-
-\textbf{Discussion:}
-(UseCases: LDF1)
+For example, enabling a FITS writer to use a specific data compression scheme. (UseCases: DRP26)
 
 \subsubsection{One Dataset to multiple output repositories}
 
@@ -953,82 +887,16 @@ It shall be possible for a single request to write a particular Dataset in more 
 \textbf{Discussion:}
 This would allow an output FITS file to be written to one location and an HDF5 variant to be written to another. (UseCases: ARCH2)
 
-\subsubsection{Output location}
+\subsubsection{Append to a DataRepository}
 
-\label{DMS-MWBT-REQ-0066}
-\textbf{ID:} DMS-MWBT-REQ-0066 (Priority: 1a)
-
-\textbf{Specification:}
-It shall be possible to configure the Data Output System to define output locations for outputs to POSIX file systems
-
-\textbf{Discussion:}
-This will result in completely predictable output file paths. (UseCases: LDF1, SQR12, SQR1.5)
-
-\subsubsection{Output Staging}
-
-\label{DMS-MWBT-REQ-0079}
-\textbf{ID:} DMS-MWBT-REQ-0079 (Priority: 1b)
+\label{DMS-MWBT-REQ-0064}
+\textbf{ID:} DMS-MWBT-REQ-0064 (Priority: 1a)
 
 \textbf{Specification:}
-The Data Output System shall be able to transfer output Datasets produced by batch processing from temporary storage on compute nodes to persistent storage.
+It shall be possible to add Datasets to a pre-existing DataRepository via additional processing.
 
 \textbf{Discussion:}
-(UseCases: DRP5, DRP6, SCIVAL1, SCIVAL2)
-
-\subsubsection{Outputs from Alert Production}
-
-\label{DMS-MWBT-REQ-0069}
-\textbf{ID:} DMS-MWBT-REQ-0069 (Priority: 1a)
-
-\textbf{Specification:}
-The Data Output System interface shall be usable by algorithmic code being run as part of Alert Production.
-
-\textbf{Discussion:}
-If algorithmic code always writes to a temporary location rather than a persistent archive, only writing to the temporary location needs to support the consistent interface. (UseCases: DRP3, SCIVAL1, SCIVAL2, SCIVAL3)
-
-\subsubsection{Outputs from Data Release Production}
-
-\label{DMS-MWBT-REQ-0068}
-\textbf{ID:} DMS-MWBT-REQ-0068 (Priority: 1a)
-
-\textbf{Specification:}
-The Data Output System interface shall be usable by algorithmic code being run as part of Data Release Production.
-
-\textbf{Discussion:}
-If algorithmic code always writes to a temporary location rather than a persistent archive, only writing to the temporary location needs to support the consistent interface. (UseCases: DRP3, SCIVAL1, SCIVAL2, SCIVAL3)
-
-\subsubsection{Outputs from Science Platform}
-
-\label{DMS-MWBT-REQ-0070}
-\textbf{ID:} DMS-MWBT-REQ-0070 (Priority: 1a)
-
-\textbf{Specification:}
-The Data Output System interface shall be usable by algorithmic code run in the Science Platform.
-
-\textbf{Discussion:}
-This applies to both code run by a batch service in the Science Platform and code run directly in a user process in the Science Platform. (UseCases: DRP3, SCIVAL1, SCIVAL2, SCIVAL3)
-
-\subsubsection{Outputs from test processing runs}
-
-\label{DMS-MWBT-REQ-0071}
-\textbf{ID:} DMS-MWBT-REQ-0071 (Priority: 1a)
-
-\textbf{Specification:}
-The Data Output System interface shall be usable by algorithmic code being run for test/development purposes, on both development compute environments at the archive center and in personal environments.
-
-\textbf{Discussion:}
-(UseCases: DRP3, SCIVAL1, SCIVAL2, SCIVAL3)
-
-\subsubsection{Publishing to external microservices}
-
-\label{DMS-MWBT-REQ-0072}
-\textbf{ID:} DMS-MWBT-REQ-0072 (Priority: 1a)
-
-\textbf{Specification:}
-The Data Output System shall be able to publish to non-node-local micro services, via common web APIs.
-
-\textbf{Discussion:}
-Measurements of metrics will need to be exported from the CI system and a good approach seems to be to publish the measurements using the QA microservice endpoints, via e.g. REST. (UseCases: CI2)
+This is the situation where a user runs a SuperTask and then runs further processing on the output of the first. It is desirable for the output of the second processing task to be stored in the same DataRepository as the output of the first. (UseCases: COMM1, LDF1)
 
 \subsubsection{Remote Output DataRepositories}
 
@@ -1041,6 +909,61 @@ The Data Ouput System shall be able to write to non-local, non-POSIX output Data
 \textbf{Discussion:}
 For example, this could be a Data I/O system that understands TAP and SIA VO protocols; or one that understands VOSpace or HDF5-in-the-cloud; or possibly S3-like object stores. (UseCases: SQR4, SQR12, SQR14, CI3)
 
+\subsubsection{Output location}
+
+\label{DMS-MWBT-REQ-0066}
+\textbf{ID:} DMS-MWBT-REQ-0066 (Priority: 1a)
+
+\textbf{Specification:}
+It shall be possible to configure the Data Output System to define output locations for outputs to POSIX file systems
+
+\textbf{Discussion:}
+This will result in completely predictable output file paths. (UseCases: LDF1, SQR12, SQR1.5)
+
+\subsubsection{Publishing to external microservices}
+
+\label{DMS-MWBT-REQ-0072}
+\textbf{ID:} DMS-MWBT-REQ-0072 (Priority: 1a)
+
+\textbf{Specification:}
+The Data Output System shall be able to publish to non-node-local micro services, via common web APIs.
+
+\textbf{Discussion:}
+Measurements of metrics will need to be exported from the CI system and a good approach seems to be to publish the measurements using the QA microservice endpoints, via e.g. REST. (UseCases: CI2)
+
+\subsubsection{Blocked write operation}
+
+\label{DMS-MWBT-REQ-0073}
+\textbf{ID:} DMS-MWBT-REQ-0073 (Priority: 1a)
+
+\textbf{Specification:}
+A put operation on the Data Output System shall block until it has either worked or failed
+
+\textbf{Discussion:}
+(UseCases: DRP22)
+
+\subsubsection{No clobber}
+
+\label{DMS-MWBT-REQ-0074}
+\textbf{ID:} DMS-MWBT-REQ-0074 (Priority: 1a)
+
+\textbf{Specification:}
+It shall be possible to configure the Data Output System such that it is an error to attempt to persist a dataset that is already present in the output repository
+
+\textbf{Discussion:}
+(UseCases: LDF1)
+
+\subsubsection{Data Output references}
+
+\label{DMS-MWBT-REQ-0075}
+\textbf{ID:} DMS-MWBT-REQ-0075 (Priority: 1a)
+
+\textbf{Specification:}
+The Data Output System shall give the Data Discovery System a full DatasetRef that can be used to later discover the DataSet that was just written.
+
+\textbf{Discussion:}
+(UseCases: DRP3, SCIVAL1, SCIVAL2)
+
 \subsubsection{Strong exception guarantee}
 
 \label{DMS-MWBT-REQ-0076}
@@ -1052,16 +975,38 @@ A put operation on the Data Output System shall provide the strong exception gua
 \textbf{Discussion:}
 A put operation either works in full, or have no effect. In particular, if a dataset is a composite, all the parts must succeed, including any database writes. In particular, there is no guarantee that multiple puts are transactional.  Purely private state may be modified by a failed put. (UseCases: DRP22)
 
-\subsubsection{Writer configurability}
+\subsubsection{Combining composite datasets for export}
 
-\label{DMS-MWBT-REQ-0060}
-\textbf{ID:} DMS-MWBT-REQ-0060 (Priority: 1a)
+\label{DMS-MWBT-REQ-0077}
+\textbf{ID:} DMS-MWBT-REQ-0077 (Priority: 1a)
 
 \textbf{Specification:}
-The Data Output System shall be able to support local configuration of individual writer behavior.
+A facility shall be available to combine file-based composite datasets into a single file in a Scientific Data Format.
 
 \textbf{Discussion:}
-For example, enabling a FITS writer to use a specific data compression scheme. (UseCases: DRP26)
+For example, when downloading a PVI, the WCS solution, PSF and, possibly, provenance, components would be combined into a single HDF5 file for export to an external user. (UseCases: DAX9, ARCH5)
+
+\subsubsection{Filename invariance}
+
+\label{DMS-MWBT-REQ-0078}
+\textbf{ID:} DMS-MWBT-REQ-0078 (Priority: 1a)
+
+\textbf{Specification:}
+For all datasets stored with unique filenames (or paths) as part of a Data Release, the name of the file retrieved by an external user shall also be unique and have a predictable name that is not dependent on data access mechanism.
+
+\textbf{Discussion:}
+If a coadd FITS file is downloaded using the portal, it shall have the same name as if it was downloaded using VO access protocols. The file is allowed to have a different suffix if format translation has occurred. Additionally, if a composite is being merged into a single file (\hyperref[DMS-MWBT-REQ-0077]{DMS-MWBT-REQ-0077}), that file may have a different name to those stored internally. It is not required to include directory hierarchy in this output name if that hierarchy is also encoded in the original filename. (UseCases: DAX9, ARCH5)
+
+\subsubsection{Output Staging}
+
+\label{DMS-MWBT-REQ-0079}
+\textbf{ID:} DMS-MWBT-REQ-0079 (Priority: 1b)
+
+\textbf{Specification:}
+The Data Output System shall be able to transfer output Datasets produced by batch processing from temporary storage on compute nodes to persistent storage.
+
+\textbf{Discussion:}
+(UseCases: DRP5, DRP6, SCIVAL1, SCIVAL2)
 
 \subsubsection{FITS Format}
 
@@ -1097,29 +1042,64 @@ The Data Output System shall be able to write in-memory table objects as FITS fi
 DMS-REQ-0078:
 Catalog Export Formats \newline
 
+\subsubsection{Output Interface Consistency}
+
+\paragraph{Consistent Output Interface}\hfill  % Force subsequent text onto new line
+
+\label{DMS-MWBT-REQ-0067}
+\textbf{ID:} DMS-MWBT-REQ-0067 (Priority: 1a)
+
+\textbf{Specification:}
+The Data Output System shall provide a consistent interface for writing InMemoryDatasets to storage given a DatasetRef across different types of DataRepositories.
+
+\textbf{Discussion:}
+This is an interface expected by SuperTask execution, and we need to make it consistent in all contexts in which SuperTasks will be executed. The same interface may be used in (possibly interactive) analysis and validation work. (UseCases: DRP3, SCIVAL1, SCIVAL2, SCIVAL3)
+
+\paragraph{Outputs from Alert Production}\hfill  % Force subsequent text onto new line
+
+\label{DMS-MWBT-REQ-0069}
+\textbf{ID:} DMS-MWBT-REQ-0069 (Priority: 1a)
+
+\textbf{Specification:}
+The Data Output System interface shall be usable by algorithmic code being run as part of Alert Production.
+
+\textbf{Discussion:}
+If algorithmic code always writes to a temporary location rather than a persistent archive, only writing to the temporary location needs to support the consistent interface. (UseCases: DRP3, SCIVAL1, SCIVAL2, SCIVAL3)
+
+\paragraph{Outputs from Data Release Production}\hfill  % Force subsequent text onto new line
+
+\label{DMS-MWBT-REQ-0068}
+\textbf{ID:} DMS-MWBT-REQ-0068 (Priority: 1a)
+
+\textbf{Specification:}
+The Data Output System interface shall be usable by algorithmic code being run as part of Data Release Production.
+
+\textbf{Discussion:}
+If algorithmic code always writes to a temporary location rather than a persistent archive, only writing to the temporary location needs to support the consistent interface. (UseCases: DRP3, SCIVAL1, SCIVAL2, SCIVAL3)
+
+\paragraph{Outputs from Science Platform}\hfill  % Force subsequent text onto new line
+
+\label{DMS-MWBT-REQ-0070}
+\textbf{ID:} DMS-MWBT-REQ-0070 (Priority: 1a)
+
+\textbf{Specification:}
+The Data Output System interface shall be usable by algorithmic code run in the Science Platform.
+
+\textbf{Discussion:}
+This applies to both code run by a batch service in the Science Platform and code run directly in a user process in the Science Platform. (UseCases: DRP3, SCIVAL1, SCIVAL2, SCIVAL3)
+
+\paragraph{Outputs from test processing runs}\hfill  % Force subsequent text onto new line
+
+\label{DMS-MWBT-REQ-0071}
+\textbf{ID:} DMS-MWBT-REQ-0071 (Priority: 1a)
+
+\textbf{Specification:}
+The Data Output System interface shall be usable by algorithmic code being run for test/development purposes, on both development compute environments at the archive center and in personal environments.
+
+\textbf{Discussion:}
+(UseCases: DRP3, SCIVAL1, SCIVAL2, SCIVAL3)
+
 \subsection{Provenance Tracking}
-
-\subsubsection{Dataset lookup: provenance driven}
-
-\label{DMS-MWBT-REQ-0095}
-\textbf{ID:} DMS-MWBT-REQ-0095 (Priority: 1a)
-
-\textbf{Specification:}
-The Data Output System and the Data Discovery System shall provide interfaces for recording and subsequently reporting (respectively) the Datasets that were used as inputs when creating a given Dataset.
-
-\textbf{Discussion:}
-This may record either the Datasets that were predicted to be used as inputs, the Datasets that were actually used as inputs (a strict subset of those predicted to be used as inputs), or both; some systems may require both. For example, if a task is given 10 input datasets but only uses 9 then this information must be tracked.  (UseCases: SQR1, SQR9)
-
-\subsubsection{Provenance in Datasets}
-
-\label{DMS-MWBT-REQ-0096}
-\textbf{ID:} DMS-MWBT-REQ-0096 (Priority: 2)
-
-\textbf{Specification:}
-The Data Output System shall persist provenance metadata relating to the immediate parents of the Dataset, when persisting to a Scientific Data Format.
-
-\textbf{Discussion:}
-This could be implemented as a composite dataset so long as we have the ability to persist a composite dataset into a single entity. (UseCases: ARCH5)
 
 \subsubsection{Provenance to raw data}
 
@@ -1142,6 +1122,28 @@ The Data Backbone shall contain provenance data that allows queries to report on
 
 \textbf{Discussion:}
 If a raw observation is later determined to be bad, all coadds created from that raw observation should be locatable and reprocessed. (UseCases: LDF1, LDF101)
+
+\subsubsection{Dataset lookup: provenance driven}
+
+\label{DMS-MWBT-REQ-0095}
+\textbf{ID:} DMS-MWBT-REQ-0095 (Priority: 1a)
+
+\textbf{Specification:}
+The Data Output System and the Data Discovery System shall provide interfaces for recording and subsequently reporting (respectively) the Datasets that were used as inputs when creating a given Dataset.
+
+\textbf{Discussion:}
+This may record either the Datasets that were predicted to be used as inputs, the Datasets that were actually used as inputs (a strict subset of those predicted to be used as inputs), or both; some systems may require both. For example, if a task is given 10 input datasets but only uses 9 then this information must be tracked.  (UseCases: SQR1, SQR9)
+
+\subsubsection{Provenance in Datasets}
+
+\label{DMS-MWBT-REQ-0096}
+\textbf{ID:} DMS-MWBT-REQ-0096 (Priority: 2)
+
+\textbf{Specification:}
+The Data Output System shall persist provenance metadata relating to the immediate parents of the Dataset, when persisting to a Scientific Data Format.
+
+\textbf{Discussion:}
+This could be implemented as a composite dataset so long as we have the ability to persist a composite dataset into a single entity. (UseCases: ARCH5)
 
 \section{Task Framework}
 
