@@ -9,9 +9,9 @@
 
 %% Retrieve date and model version
 \setDocUpstreamLocation{MagicDraw SysML}
-\setDocUpstreamVersion{86}
+\setDocUpstreamVersion{90}
 
-\date{2018-04-08}
+\date{2018-04-11}
 
 %% Allow arbitrary latex to be inserted at the end of the document.
 %% Define a new version of this command in metadata.tex. It will
@@ -1300,7 +1300,7 @@ It is anticipated that different specializations of the framework may connect th
 (desirable) The supervisory framework shall provide for “non-intrusive provenance” discovery, tracking the actual execution (in the "Run" phase) of units of processing on input datasets, their outputs, and their associated Task structure and configuration.
 
 \textbf{Discussion:}
-This is intended to be done via instrumentation of Butler calls. The recording mechanism is TBD. The information so collected is complementary to the predictions of inputs and outputs from the "Pre-flight" phase. The production system is not expected to preserve this information when operating in its normal mode.
+This is intended to be done via instrumentation of Butler calls. The recording mechanism is TBD. The information so collected is complementary to the predictions of inputs and outputs from the "Pre-flight" phase. The production system is not expected to preserve this information when operating in its normal mode.  Either this information, or the "Pre-flight" phase predictions, could be used to meet a part of the OSS-REQ-0122 Provenance requirements.
 
 \paragraph{Fine-grained provenance configuration}\hfill  % Force subsequent text onto new line
 
@@ -1438,7 +1438,10 @@ The Pipeline specification interface shall be available as a Python API.
 \textbf{ID:} DMS-MWST-REQ-0010
 
 \textbf{Specification:}
-The Pipeline API design shall permit a supervisory framework to execute any Pipeline, based solely on information obtained programmatically from the Pipeline specification, against a data specification provided by a user (see in particular \hyperref[DMS-MWST-REQ-0021]{DMS-MWST-REQ-0021} and \hyperref[DMS-MWST-REQ-0027]{DMS-MWST-REQ-0027}).
+The Pipeline API design shall permit a supervisory framework to execute any Pipeline, based solely on information obtained programmatically from the Pipeline specification, against a data specification provided by a user.
+
+\textbf{Discussion:}
+See in particular requirement \hyperref[DMS-MWST-REQ-0027]{DMS-MWST-REQ-0027} for regarding running a Pipeline against a data specification.
 
 \paragraph{Phases of execution}\hfill  % Force subsequent text onto new line
 
@@ -1495,9 +1498,13 @@ Some exceptional cases requiring direct I/O to databases may be excluded from th
 \textbf{ID:} DMS-MWST-REQ-0009
 
 \textbf{Specification:}
-(Proposed to be deleted) The API for the execution of an individual processing step on specific data shall allow the caller to supply a Butler instance for the step's use.
+(Proposed to be deleted as redundant.)
+
+The API for the execution of an individual processing step on specific data shall allow the caller to supply a Butler instance for the step's use.
 
 \textbf{Discussion:}
+(In preparation for the deletion of this requirement, the comments below have been replicated into \hyperref[DMS-MWST-REQ-0013]{DMS-MWST-REQ-0013}.)
+
 Steps (i.e., SuperTasks) are expected to generally perform I/O via a Butler, using Butler.get() to obtain inputs for Tasks' run() methods and Butler.put() to output the results produced by Tasks.
 
 As in current Science Pipelines usage, Tasks are assumed to operate solely on Python-domain objects supplied as arguments to their run() methods, with results returned through a pipe.base.Struct return value. This is sometimes called the "no I/O in Tasks rule".
@@ -1521,7 +1528,7 @@ The use of string constants in Butler.get() calls will be replaced by the use of
 \textbf{ID:} DMS-MWST-REQ-0015
 
 \textbf{Specification:}
-The Pipeline design shall support programmatic insertions (before the "Pre-flight" phase) of additional processing steps to an already-specified Pipeline’s processing sequence. The provenance mechanism (see \hyperref[DMS-MWST-REQ-0024]{DMS-MWST-REQ-0024}) must be capable of capturing these additional steps.
+The Pipeline design shall support programmatic insertions (before the "Pre-flight" phase) of additional processing steps to an already-specified Pipeline’s processing sequence. The provenance mechanism defined in \hyperref[DMS-MWST-REQ-0024]{DMS-MWST-REQ-0024} must be capable of capturing these additional steps.
 
 \textbf{Discussion:}
 The intent is that this interface could be used by a supervisory framework to add, e.g., quality analysis or other monitoring steps.
