@@ -9,9 +9,9 @@
 
 %% Retrieve date and model version
 \setDocUpstreamLocation{MagicDraw SysML}
-\setDocUpstreamVersion{90}
+\setDocUpstreamVersion{121}
 
-\date{2018-04-11}
+\date{2018-05-17}
 
 %% Allow arbitrary latex to be inserted at the end of the document.
 %% Define a new version of this command in metadata.tex. It will
@@ -1617,45 +1617,6 @@ second
 timeToIssueAlerts
 } \\\hline
 \end{parameters}
-
-\section{Pending}
-
-\subsection{LSST Data Facility}
-
-These requirements came out of the \citeds{LDM-592} Use Case analysis but should be handled in an LSST Data Facility requirements document, where they would receive a proper ID.
-
-\subsubsection{Execution on archived data}
-
-\label{16}
-\textbf{ID:} 16 (Priority: 2)
-
-\textbf{Specification:}
-The LDF shall make it possible to request data that may have been archived and have it retrieved asynchronously and made available in a user's workspace.
-
-\textbf{Discussion:}
-The remote storage could include tape storage.  This differs from \hyperref[DMS-MWBT-REQ-0058]{DMS-MWBT-REQ-0058} in that the Datasets are transferred explicitly in advance, rather than as-needed, and it differs from \hyperref[DMS-MWBT-REQ-0052]{DMS-MWBT-REQ-0052} in that the targeted storage is a full data repository on at least semi-persistent storage, rather than a scratch area. (UseCases: SQR16)
-
-\subsubsection{Read from development shared persistent storage}
-
-\label{15}
-\textbf{ID:} 15 (Priority: 1a)
-
-\textbf{Specification:}
-The LDF shall make it possible for privileged users to be able to run SuperTasks that read directly from curated datasets held in the development provenance enabled, shared, persistent storage area.
-
-\textbf{Discussion:}
-The CI system won't be like the regular batch system.  Instead it will be running a few jobs concurrently on well known datasets. (UseCases: CI1)
-
-\subsubsection{Write to development shared persistent storage}
-
-\label{14}
-\textbf{ID:} 14 (Priority: 1a)
-
-\textbf{Specification:}
-The LDF shall make it possible, given sufficient permissions, to output to a persistent, shared, provenance enabled storage space all information supplied while running a pipeline, including writes of provenance information, files, and database rows if required.
-
-\textbf{Discussion:}
-The outputs of historical reductions will need to be curated and readily available. (UseCases: CI1)
 
 \addendum
 
