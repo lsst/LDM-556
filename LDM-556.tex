@@ -103,7 +103,7 @@ Authorization means whatever mechanism provided by storage system (e.g., POSIX p
 \textbf{ID:} DMS-MWBT-REQ-0005 (Priority: 1a)
 
 \textbf{Specification:}
-It shall be possible for an authorized user to remove a DataRepository from any storage environment.
+It shall be possible for an authorized user to remove a Collection from any storage environment.
 
 \textbf{Discussion:}
 Some DataRepositories (e.g. Data Releases) may not have any thusly authorized users. This would also involve removing it from registries. Removing the repository might require database table modifications. (UseCases: LDF3, DRP29)
@@ -114,10 +114,10 @@ Some DataRepositories (e.g. Data Releases) may not have any thusly authorized us
 \textbf{ID:} DMS-MWBT-REQ-0006 (Priority: 1a)
 
 \textbf{Specification:}
-When a DataRepository is removed, the Datasets it references shall be removed if and only if they are not also referenced by one or more additional DataRepositories that have been explicitly identified.
+When a Collection is removed, the Datasets it references shall be removed if and only if they are not also referenced by one or more additional DataRepositories that have been explicitly identified.
 
 \textbf{Discussion:}
-The "additional DataRepositories" may simply be those defined in the same database system used to define the DataRepository that is being removed. There is no expectation that all DataRepositories that reference to a Dataset can be tracked in general. (UseCases: DRP29)
+The "additional Collections" may simply be those defined in the same database system used to define the Collection that is being removed. There is no expectation that all Collections that reference to a Dataset can be tracked in general. (UseCases: DRP29)
 
 \subsubsection{Repository Merging}
 
@@ -218,20 +218,20 @@ There shall be a mechanism for registering DataRepositories as they are created.
 \textbf{Discussion:}
 For example, if I have several DataRepositories in a single storage context, I shouldn't have to change how I refer to those repositories if the storage context changes. This also allows for discoverability in, e.g. the release registry. Registration should be automatic. (UseCases: SQR9)
 
-\subsubsection{DataRepository Layering Requirements}
+\subsubsection{DataRepository/Collection Layering Requirements}
 
-\paragraph{DataRepository Layering}\hfill  % Force subsequent text onto new line
+\paragraph{Collection Layering}\hfill  % Force subsequent text onto new line
 
 \label{DMS-MWBT-REQ-0012}
 \textbf{ID:} DMS-MWBT-REQ-0012 (Priority: 1a)
 
 \textbf{Specification:}
-A DataRepository (A) shall be usable as an input for processing in a context (B), with its contents appearing as part of the DataRepository used to hold the outputs of the processing, for certain combinations of (A) and (B).
+A Collection (A) shall be usable as an input for processing in a context (B), with its contents appearing as part of the Collection used to hold the outputs of the processing, for certain combinations of (A) and (B).
 
 \textbf{Discussion:}
 Generally speaking, smaller-scale processing runs initiated by users with fewer permissions should be able to build on larger-scale processing runs iniated by users with more permissions. This requirement probably cannot be satisfied efficiently by always copying the full original input data repository (A) to the final output repository (B); it almost certainly implies some kind of on-demand transfer or aliasing. (UseCases: DRP1, DRP2, DRP3, DRP7, DRP8, SCIVAL1, SCIVAL2, SCIVAL3, SCIVAL4)
 
-\paragraph{DataRepository Layering: Data Release and Science Platform}\hfill  % Force subsequent text onto new line
+\paragraph{Collection Layering: Data Release and Science Platform}\hfill  % Force subsequent text onto new line
 
 \label{DMS-MWBT-REQ-0013}
 \textbf{ID:} DMS-MWBT-REQ-0013 (Priority: 1a)
@@ -242,7 +242,7 @@ A Data Release shall be usable as the inputs for processing initiated in the Sci
 \textbf{Discussion:}
 (UseCases: DRP1, DRP2, DRP3, SCIVAL1)
 
-\paragraph{DataRepository Layering: Data Release and external hardware}\hfill  % Force subsequent text onto new line
+\paragraph{Collection Layering: Data Release and external hardware}\hfill  % Force subsequent text onto new line
 
 \label{DMS-MWBT-REQ-0014}
 \textbf{ID:} DMS-MWBT-REQ-0014 (Priority: 1a)
@@ -253,7 +253,7 @@ A Data Release shall be usable as the inputs for test/development processing on 
 \textbf{Discussion:}
 (UseCases: DRP1, DRP2, DRP3, DRP7, DRP8, SCIVAL1, SCIVAL3)
 
-\paragraph{DataRepository Layering: Data Release Production}\hfill  % Force subsequent text onto new line
+\paragraph{Collection Layering: Data Release Production}\hfill  % Force subsequent text onto new line
 
 \label{DMS-MWBT-REQ-0015}
 \textbf{ID:} DMS-MWBT-REQ-0015 (Priority: 1a)
@@ -264,7 +264,7 @@ Intermediate outputs of Data Release Production [test] processing shall be usabl
 \textbf{Discussion:}
 These "intermediates" are normal pipeline outputs that may not be included in a formal data release, and this requirement only applies when these have not been discarded or elided. (UseCases: DRP1, DRP2, DRP3, SCIVAL2)
 
-\paragraph{DataRepository Layering: Data Release Production intermediates to external hardware}\hfill  % Force subsequent text onto new line
+\paragraph{Collections Layering: Data Release Production intermediates to external hardware}\hfill  % Force subsequent text onto new line
 
 \label{DMS-MWBT-REQ-0016}
 \textbf{ID:} DMS-MWBT-REQ-0016 (Priority: 1a)
@@ -275,24 +275,24 @@ Intermediate outputs of Data Release Production [test] processing shall be usabl
 \textbf{Discussion:}
 (UseCases: DRP1, DRP2, DRP3, DRP7, DRP8, SCIVAL1, SCIVAL2, SCIVAL3)
 
-\paragraph{DataRepository Layering: Science Platform}\hfill  % Force subsequent text onto new line
+\paragraph{Collection Layering: Science Platform}\hfill  % Force subsequent text onto new line
 
 \label{DMS-MWBT-REQ-0017}
 \textbf{ID:} DMS-MWBT-REQ-0017 (Priority: 1a)
 
 \textbf{Specification:}
-DataRepositories created in the Science Platform shall be usable as inputs for processing initiated in the Science Platform.
+Collections created in the Science Platform shall be usable as inputs for processing initiated in the Science Platform.
 
 \textbf{Discussion:}
 (UseCases: DRP1, DRP2, DRP3, DRP7, DRP8, SCIVAL1, SCIVAL3, SCIVAL4)
 
-\paragraph{DataRepository Layering: Science Platform to external hardware}\hfill  % Force subsequent text onto new line
+\paragraph{Collection Layering: Science Platform to external hardware}\hfill  % Force subsequent text onto new line
 
 \label{DMS-MWBT-REQ-0018}
 \textbf{ID:} DMS-MWBT-REQ-0018 (Priority: 1a)
 
 \textbf{Specification:}
-DataRepositories created in the Science Platform shall be usable as inputs for test/development processing on external hardware.
+Collections created in the Science Platform shall be usable as inputs for test/development processing on external hardware.
 
 \textbf{Discussion:}
 (UseCases: DRP1, DRP2, DRP3, DRP7, DRP8, SCIVAL1, SCIVAL3)
@@ -334,24 +334,24 @@ All Data Discovery Systems shall make it possible to discover the DataCoordinate
 \textbf{Discussion:}
 Answering the question of what data could possibily be used to build a coadd associated with this DatasetRef? (UseCases: SQR1, SQR9)
 
-\subsubsection{Multiple chained input DataRepositories}
+\subsubsection{Multiple chained input Collections}
 
 \label{DMS-MWBT-REQ-0081}
 \textbf{ID:} DMS-MWBT-REQ-0081 (Priority: 1a)
 
 \textbf{Specification:}
-The Data Discovery System shall be able treat multiple input DataRepositories as a single coherent logical repository.
+The Data Discovery System shall be able treat multiple input Collections as a single coherent logical collection.
 
 \textbf{Discussion:}
-This could be a local on disk repository and a remote repository, with the Data Discovery System scanning each in turn. Each dataset read in will contain provenance describing the DataRepository it came from. (UseCases: COMM4, LDF104)
+This could be a local on disk repository and a remote repository, with the Data Discovery System scanning each in turn. Each dataset read in will contain provenance describing the Collection it came from. (UseCases: COMM4, LDF104)
 
-\subsubsection{Multiple parallel input DataRepositories}
+\subsubsection{Multiple parallel input Collections}
 
 \label{DMS-MWBT-REQ-0082}
 \textbf{ID:} DMS-MWBT-REQ-0082 (Priority: 1a)
 
 \textbf{Specification:}
-The Data Discovery System shall be able to locate Datasets from multiple input DataRepositories in order to retrieve the same logical Dataset from them all.
+The Data Discovery System shall be able to locate Datasets from multiple input Collections in order to retrieve the same logical Dataset from them all.
 
 \textbf{Discussion:}
 This is to allow for comparison of the same data reduced with multiple different stacks. These need to be both local and remote and combinations of the two. It could also be different versions of a data release. This is not a requirement on whether this is two butlers or one, although some other requirements imply a single system that knows about all repositories in a particular context. (UseCases: SQR7, LDF104, SQR1.5)
@@ -365,7 +365,7 @@ This is to allow for comparison of the same data reduced with multiple different
 It shall be possible for an operator to configure the Data Discovery System to override certain Datasets with others before retrieval.
 
 \textbf{Discussion:}
-This allows operators to override master calibration files for a particular Batch Processing run. It could be implemented by DataRepository chaining or by marking some Datasets as "preferred". See also related requirement \hyperref[DMS-MWST-REQ-0016]{DMS-MWST-REQ-0016}. (UseCases: DRP15, LDF1)
+This allows operators to override master calibration files for a particular Batch Processing run. It could be implemented by Collection chaining or by marking some Datasets as "preferred". See also related requirement \hyperref[DMS-MWST-REQ-0016]{DMS-MWST-REQ-0016}. (UseCases: DRP15, LDF1)
 
 \subsubsection{Filter by non-DatasetRef Database Entries}
 
@@ -593,13 +593,13 @@ It shall be possible to create an InMemoryDataset of a Dataset by gathering info
 \textbf{Discussion:}
 Create a Python object from multiple sources. This could be reading a FITS file from disk and augmenting the header information from a database query or from a separate header file. (UseCases: ARCH3)
 
-\subsubsection{Remote Input DataRepository}
+\subsubsection{Remote Input Storage}
 
 \label{DMS-MWBT-REQ-0040}
 \textbf{ID:} DMS-MWBT-REQ-0040 (Priority: 1a)
 
 \textbf{Specification:}
-The Data Input System shall be able to read from non-local, non-POSIX input DataRepositories; this should include both database systems and file/object stores.
+The Data Input System shall be able to read from non-local, non-POSIX input storage; this should include both database systems and file/object stores.
 
 \textbf{Discussion:}
 This is not meant to preclude use of a local cache. E.g. if the backend is S3, the files need to be streamed to disk before they can be un-persisted. For example, this could be a Data I/O system that understands TAP and SIA VO protocols; or one that understands VOSpace or HDF5-in-the-cloud; or possibly S3-like object stores. (UseCases: SQR4, SQR12, SQR14, CI3)
@@ -876,7 +876,7 @@ The Data Output System shall be able to support local configuration of individua
 \textbf{Discussion:}
 For example, enabling a FITS writer to use a specific data compression scheme. (UseCases: DRP26)
 
-\subsubsection{One Dataset to multiple output repositories}
+\subsubsection{One Dataset to multiple output storage systems}
 
 \label{DMS-MWBT-REQ-0063}
 \textbf{ID:} DMS-MWBT-REQ-0063 (Priority: 1a)
@@ -898,13 +898,13 @@ It shall be possible to add Datasets to a pre-existing DataRepository via additi
 \textbf{Discussion:}
 This is the situation where a user runs a PipelineTask and then runs further processing on the output of the first. It is desirable for the output of the second processing task to be stored in the same DataRepository as the output of the first. (UseCases: COMM1, LDF1)
 
-\subsubsection{Remote Output DataRepositories}
+\subsubsection{Remote Output Storage}
 
 \label{DMS-MWBT-REQ-0065}
 \textbf{ID:} DMS-MWBT-REQ-0065 (Priority: 1a)
 
 \textbf{Specification:}
-The Data Ouput System shall be able to write to non-local, non-POSIX output DataRepositories; this should include both database systems and file/object stores.
+The Data Ouput System shall be able to write to non-local, non-POSIX output storage; this should include both database systems and file/object stores.
 
 \textbf{Discussion:}
 For example, this could be a Data I/O system that understands TAP and SIA VO protocols; or one that understands VOSpace or HDF5-in-the-cloud; or possibly S3-like object stores. (UseCases: SQR4, SQR12, SQR14, CI3)
