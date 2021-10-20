@@ -158,10 +158,10 @@ The DataRepository Creation System shall be able to ingest raw LSST calibration 
 \textbf{ID:} DMS-MWBT-REQ-0010 (Priority: 1a)
 
 \textbf{Specification:}
-It shall be possible to easily create a new DataRepository which is a view of a sub-section of an existing DataRepository, given a list of DataUnits and a list of DatasetTypes.
+It shall be possible to easily create a new DataRepository which is a view of a sub-section of an existing DataRepository, given a list of DataCoordinates and a list of DatasetTypes.
 
 \textbf{Discussion:}
-That is, given a list of DataUnits and a list of DatasetTypes, create a new DataRepository with enough information to access any of the DatasetTypes for which the necessary Data Units exist for the input list of DataUnits. This does not involve copying datasets. (UseCases: SQR1, AP1dev)
+That is, given a list of DataCoordinates and a list of DatasetTypes, create a new DataRepository with enough information to access any of the Datasets of those DatasetTypes that correspond to the input list of DataCoordinates. This does not involve copying datasets. (UseCases: SQR1, AP1dev)
 
 \subsubsection{Subsetting a DataRepository with data transfer}
 
@@ -169,7 +169,7 @@ That is, given a list of DataUnits and a list of DatasetTypes, create a new Data
 \textbf{ID:} DMS-MWBT-REQ-0011 (Priority: 1a)
 
 \textbf{Specification:}
-It shall be possible to easily create a new DataRepository which contains a copy of a sub-section of an existing DataRepository, given a list of DataUnits and a list of DatasetTypes.
+It shall be possible to easily create a new DataRepository which contains a copy of a sub-section of an existing DataRepository, given a list of DataCoordinates and a list of DatasetTypes.
 
 \textbf{Discussion:}
 This would transfer the files but not load them into Python objects, thus allowing for instance a processing run to be done without network connection. (UseCases: DRP16, DAX1, LDF103, SQR1)
@@ -191,21 +191,21 @@ This is effectively a weaker version of \hyperref[DMS-MWBT-REQ-0012]{DMS-MWBT-RE
 \textbf{ID:} DMS-MWBT-REQ-0022 (Priority: 1b)
 
 \textbf{Specification:}
-A DataRepository shall be able to hold Datasets with Data Units corresponding to different cameras simultaneously.
+A DataRepository shall be able to hold Datasets with Dimensions corresponding to different cameras simultaneously.
 
 \textbf{Discussion:}
 This would include simulated data. (UseCases: DRP11, COMM11)
 
-\subsubsection{DataUnit Update}
+\subsubsection{Dimension Update}
 
 \label{DMS-MWBT-REQ-0023}
 \textbf{ID:} DMS-MWBT-REQ-0023 (Priority: 1b)
 
 \textbf{Specification:}
-It shall be possible to create a new DataRepository that contains DataUnits whose metadata and relationship values are defined by processing outputs in another DataRepository.
+It shall be possible to create a new DataRepository that contains Dimension records whose metadata and relationship values are defined by processing outputs in another DataRepository.
 
 \textbf{Discussion:}
-This permits values like the WCS or PSF size associated with a visit to be improved with processing results. Note that this is not a requirement that existing DataRepositories permit their DataUnits to be updated in-place. (UseCases: DRP14)
+This permits values like the WCS or PSF size associated with a visit to be improved with processing results. Note that this is not a requirement that existing DataRepositories permit their Dimension records to be updated in-place. (UseCases: DRP14)
 
 \subsubsection{Registries of DataRepositories}
 
@@ -323,16 +323,16 @@ We may have code that maps images between differently-defined tiles, or uses dif
 
 \subsection{Data Discovery System}
 
-\subsubsection{DataUnit lookup: processing driven}
+\subsubsection{Dimension lookup: processing driven}
 
 \label{DMS-MWBT-REQ-0080}
 \textbf{ID:} DMS-MWBT-REQ-0080 (Priority: 1a)
 
 \textbf{Specification:}
-All Data Discovery Systems shall make it possible to discover the DataUnits for all Datasets that could potentially be used to produce a given DatasetType with known DataUnits.
+All Data Discovery Systems shall make it possible to discover the DataCoordinates for all Datasets that could potentially be used to produce a given DatasetType with known DataCoordinates.
 
 \textbf{Discussion:}
-Answering the question of what data could possibily be used to build a coadd associated with this DataRef? (UseCases: SQR1, SQR9)
+Answering the question of what data could possibily be used to build a coadd associated with this DatasetRef? (UseCases: SQR1, SQR9)
 
 \subsubsection{Multiple chained input DataRepositories}
 
@@ -430,7 +430,7 @@ An example of this would be tab-complete of DatasetTypes, which will make it eas
 \textbf{ID:} DMS-MWBT-REQ-0083 (Priority: 1a)
 
 \textbf{Specification:}
-The Data Discovery System shall provide a consistent interface for obtaining a graph that represents the DataUnits and Datasets in a DataRepository that match user-specified criteria.
+The Data Discovery System shall provide a consistent interface for obtaining a graph that represents the DataCoordinates and Datasets in a DataRepository that match user-specified criteria.
 
 \textbf{Discussion:}
 This is an interface expected by PipelineTask preflight, and we need to make it consistent in all contexts in which PipelineTasks will be launched. The same interface may be used in (possibly interactive) analysis and validation work. Note that many common queries on DataRepository contents may result in simple graphs that can be iterated as flat lists. (UseCases: DRP1, DRP7, SCIVAL1, SCIVAL2, SCIVAL3, AP2, DRP27, COMM8, COMM10, COMM13)
@@ -712,7 +712,7 @@ This puts the onus on the database to store the aliases. It would be nice to see
 The Data Input System shall support database queries as first class Datasets.
 
 \textbf{Discussion:}
-This implies that the same Data Units and DatasetType may not return the same Dataset for all time. (UseCases: SQR5)
+This implies that the same Dimensions and DatasetType may not return the same Dataset for all time. (UseCases: SQR5)
 
 \subsubsection{Local caching of remote resources}
 
