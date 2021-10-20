@@ -433,7 +433,7 @@ An example of this would be tab-complete of DatasetTypes, which will make it eas
 The Data Discovery System shall provide a consistent interface for obtaining a graph that represents the DataUnits and Datasets in a DataRepository that match user-specified criteria.
 
 \textbf{Discussion:}
-This is an interface expected by SuperTask preflight, and we need to make it consistent in all contexts in which SuperTasks will be launched. The same interface may be used in (possibly interactive) analysis and validation work. Note that many common queries on DataRepository contents may result in simple graphs that can be iterated as flat lists. (UseCases: DRP1, DRP7, SCIVAL1, SCIVAL2, SCIVAL3, AP2, DRP27, COMM8, COMM10, COMM13)
+This is an interface expected by PipelineTask preflight, and we need to make it consistent in all contexts in which PipelineTasks will be launched. The same interface may be used in (possibly interactive) analysis and validation work. Note that many common queries on DataRepository contents may result in simple graphs that can be iterated as flat lists. (UseCases: DRP1, DRP7, SCIVAL1, SCIVAL2, SCIVAL3, AP2, DRP27, COMM8, COMM10, COMM13)
 
 \paragraph{Data Discovery for Data Release Production}\hfill  % Force subsequent text onto new line
 
@@ -501,7 +501,7 @@ Especially important if configuration comes from multiple sources and is require
 It shall be possible to configure the Data Input/Output System such that Datasets of specific types are simply held in memory instead of written to storage when the Data Output System is invoked, and simply retrieved from memory when requested via the Data Input System, as long as both operations happen within the same process.
 
 \textbf{Discussion:}
-We want the Data Input/Output System to pass all information between SuperTasks, but for performance reasons we don't always want this to involve I/O. (UseCases: DRP4)
+We want the Data Input/Output System to pass all information between PipelineTasks, but for performance reasons we don't always want this to involve I/O. (UseCases: DRP4)
 
 \subsubsection{I/O using distributed file system}
 
@@ -654,12 +654,12 @@ We will need reference catalogs of all types (not just photometric and astrometr
 \textbf{ID:} DMS-MWBT-REQ-0052 (Priority: 1b)
 
 \textbf{Specification:}
-The Data Input System shall be able to transfer Datasets selected by the SuperTask pre-flight stage from persistent storage to compute nodes for batch processing.
+The Data Input System shall be able to transfer Datasets selected by the PipelineTask pre-flight stage from persistent storage to compute nodes for batch processing.
 
 \textbf{Discussion:}
 (Note: Not currently planned to be used by the Operations Batch Processing Service) (UseCases: DRP5, DRP6, SCIVAL1, SCIVAL2)
 
-\subsubsection{Enabling SuperTasks to execute}
+\subsubsection{Enabling PipelineTasks to execute}
 
 \label{DMS-MWBT-REQ-0053}
 \textbf{ID:} DMS-MWBT-REQ-0053 (Priority: 1a)
@@ -736,7 +736,7 @@ For example, when running an LSP Notebook, the first time it runs the data will 
 The Data Input System shall provide a consistent interface for loading Datasets into memory given a DatasetRef across different types of DataRepositories
 
 \textbf{Discussion:}
-This is an interface expected by SuperTask execution, and we need to make it consistent in all contexts in which SuperTasks will be executed. The same interface may be used in (possibly interactive) analysis and validation work. (UseCases: DRP2, DRP8, SCIVAL1, SCIVAL2, SCIVAL3)
+This is an interface expected by PipelineTask execution, and we need to make it consistent in all contexts in which PipelineTasks will be executed. The same interface may be used in (possibly interactive) analysis and validation work. (UseCases: DRP2, DRP8, SCIVAL1, SCIVAL2, SCIVAL3)
 
 \paragraph{Accessing official Data Releases}\hfill  % Force subsequent text onto new line
 
@@ -815,7 +815,7 @@ The commissioning cluster will not necessarily have access to the transformed EF
 Regardless of whether the Data Input System is reading from the raw or the transformed Engineering and Facilities Database, the interface (including arguments) from the pipelines perspective shall be the same.
 
 \textbf{Discussion:}
-The same SuperTask needs to run at both the commissioning cluster using the raw EFD and on the commissioning archive with the transformed EFD. (UseCases: COMM2, COMM12)
+The same PipelineTask needs to run at both the commissioning cluster using the raw EFD and on the commissioning archive with the transformed EFD. (UseCases: COMM2, COMM12)
 
 \subsubsection{Raw Data}
 
@@ -860,10 +860,10 @@ This might be reading an updated WCS from the L1 prompt processing system on the
 \textbf{ID:} DMS-MWBT-REQ-0059 (Priority: 1a)
 
 \textbf{Specification:}
-The Data Output system shall allow a new DatasetType to be registered with a DataRepository, programmatically and at Supertask preflight-time, allowing Datasets of that DatasetType to be added to that DataRepository thereafter
+The Data Output system shall allow a new DatasetType to be registered with a DataRepository, programmatically and at PipelineTask preflight-time, allowing Datasets of that DatasetType to be added to that DataRepository thereafter
 
 \textbf{Discussion:}
-This allows persisting config and metadata from a new supertask or command-line task without editing any obs packages. It could also simplify repository configuration as many predefined dataset types could be specified as a much smaller of dataset prototypes. (UseCases: DRP12, SCIVAL1, AP3, SQR4, SQR6)
+This allows persisting config and metadata from a new PipelineTask or command-line task without editing any obs packages. It could also simplify repository configuration as many predefined dataset types could be specified as a much smaller of dataset prototypes. (UseCases: DRP12, SCIVAL1, AP3, SQR4, SQR6)
 
 \subsubsection{Writer configurability}
 
@@ -896,7 +896,7 @@ This would allow an output FITS file to be written to one location and an HDF5 v
 It shall be possible to add Datasets to a pre-existing DataRepository via additional processing.
 
 \textbf{Discussion:}
-This is the situation where a user runs a SuperTask and then runs further processing on the output of the first. It is desirable for the output of the second processing task to be stored in the same DataRepository as the output of the first. (UseCases: COMM1, LDF1)
+This is the situation where a user runs a PipelineTask and then runs further processing on the output of the first. It is desirable for the output of the second processing task to be stored in the same DataRepository as the output of the first. (UseCases: COMM1, LDF1)
 
 \subsubsection{Remote Output DataRepositories}
 
@@ -1053,7 +1053,7 @@ Catalog Export Formats \newline
 The Data Output System shall provide a consistent interface for writing InMemoryDatasets to storage given a DatasetRef across different types of DataRepositories.
 
 \textbf{Discussion:}
-This is an interface expected by SuperTask execution, and we need to make it consistent in all contexts in which SuperTasks will be executed. The same interface may be used in (possibly interactive) analysis and validation work. (UseCases: DRP3, SCIVAL1, SCIVAL2, SCIVAL3)
+This is an interface expected by PipelineTask execution, and we need to make it consistent in all contexts in which PipelineTasks will be executed. The same interface may be used in (possibly interactive) analysis and validation work. (UseCases: DRP3, SCIVAL1, SCIVAL2, SCIVAL3)
 
 \paragraph{Outputs from Alert Production}\hfill  % Force subsequent text onto new line
 
@@ -1147,9 +1147,9 @@ This could be implemented as a composite dataset so long as we have the ability 
 
 \section{Task Framework}
 
-\subsection{SuperTask}
+\subsection{PipelineTask}
 
-The following requirements were developed initially by the SuperTask Working Group. We have concluded that writing down every requirement in a completely design-independent way is some cases a difficult and artificial exercise with limited benefits. With that in mind, we have still tried to avoid too much design-dependence. The most important place where design-dependence emerges is in the assumption of a Python API and not a purely command-line-oriented system.
+The following requirements were developed initially by the SuperTask Working Group (SuperTask was since renamed to PipelineTask). We have concluded that writing down every requirement in a completely design-independent way is some cases a difficult and artificial exercise with limited benefits. With that in mind, we have still tried to avoid too much design-dependence. The most important place where design-dependence emerges is in the assumption of a Python API and not a purely command-line-oriented system.
 
 The key motivating considerations were:
 
@@ -1167,7 +1167,7 @@ Ability to predict all inputs and outputs to support data staging and creation o
 Butler I/O
 
 \item
-A flexible system for representing the data-grouping constraints of each processing step as code in the same module as the implementation of the step (i.e., the grouping constraints of co-addition should be represented as part of a co-addition SuperTask)
+A flexible system for representing the data-grouping constraints of each processing step as code in the same module as the implementation of the step (i.e., the grouping constraints of co-addition should be represented as part of a co-addition PipelineTask)
 
     \end{itemize}
 
@@ -1203,7 +1203,7 @@ The design shall allow a given Pipeline specification to be used in both develop
 The supervisory framework shall be designed to support the creation of multiple specializations for different execution environments.
 
 \textbf{Discussion:}
-The "supervisory framework" is an evolution of the "Activator" concept from the original SuperTask design. Very likely we'll still use the word "Activator" in the code - I still think it's evocative. However, we avoided it in the requirements to ward off the implication that the concept was completely unchanged - the separation of "Pre-flight" from "Run" phases is more explicit now following the WG's efforts.
+The "supervisory framework" is an evolution of the "Activator" concept from the original PipelineTask design. Very likely we'll still use the word "Activator" in the code - I still think it's evocative. However, we avoided it in the requirements to ward off the implication that the concept was completely unchanged - the separation of "Pre-flight" from "Run" phases is more explicit now following the WG's efforts.
 
 \paragraph{Mandatory supported specializations}\hfill  % Force subsequent text onto new line
 
@@ -1311,7 +1311,7 @@ This is intended to be done via instrumentation of Butler calls. The recording m
 (Assuming the originally proposed DM provenance mechanism, which was envisioned to collect more fine-grained information than is likely to be available from non-intrusive Butler instrumentation, is still part of the production baseline:) The supervisory framework shall perform whatever setup is required for the fine-grained provenance mechanism.
 
 \textbf{Discussion:}
-Resolution of Butler dataset / SuperTask - level non-intrusive provenance versus – or in addition to – the originally proposed provenance mechanism was beyond the scope of the SuperTask WG. This question should be addressed soon by DM.
+Resolution of Butler dataset / PipelineTask - level non-intrusive provenance versus – or in addition to – the originally proposed provenance mechanism was beyond the scope of the PipelineTask WG. This question should be addressed soon by DM.
 
 \paragraph{Campaign specifications}\hfill  % Force subsequent text onto new line
 
@@ -1342,10 +1342,10 @@ There are open questions about exactly what form the DataId specifications will 
 \textbf{ID:} DMS-MWST-REQ-0030
 
 \textbf{Specification:}
-The supervisory framework design shall permit two steps (SuperTasks) to run in parallel and cooperate with each other, such that step B can block waiting for data that step A needs while A is busy doing something else, then A can use the data obtained by B.
+The supervisory framework design shall permit two steps (PipelineTasks) to run in parallel and cooperate with each other, such that step B can block waiting for data that step A needs while A is busy doing something else, then A can use the data obtained by B.
 
 \textbf{Discussion:}
-This will be used to provide DIA Objects to the alert generation Supertask (UseCase: AP1.e)
+This will be used to provide DIA Objects to the alert generation PipelineTask (UseCase: AP1.e)
 
 \paragraph{Task memoization}\hfill  % Force subsequent text onto new line
 
@@ -1353,9 +1353,9 @@ This will be used to provide DIA Objects to the alert generation Supertask (UseC
 \textbf{ID:} DMS-MWST-REQ-0031
 
 \textbf{Specification:}
-The system design shall support a mode of operation in which, for an attempt to execute a properly configured step (SuperTask) more than once with the same Butler, dataset references, configuration, and code, a "cached" version of the result (a datasetRef to the dataset, or the dataset itself whichever is appropriate) is returned, instead of redoing the computation.
+The system design shall support a mode of operation in which, for an attempt to execute a properly configured step (PipelineTask) more than once with the same Butler, dataset references, configuration, and code, a "cached" version of the result (a datasetRef to the dataset, or the dataset itself whichever is appropriate) is returned, instead of redoing the computation.
 
-It shall be possible to configure the SuperTask to turn this "memoization" off. In this case, a repeated execution would produce an error if an output dataset exists.
+It shall be possible to configure the PipelineTask to turn this "memoization" off. In this case, a repeated execution would produce an error if an output dataset exists.
 
 \textbf{Discussion:}
 The design should contain enough internal state to memoize the execution methods. This allows notebooks in the Science Platform to efficiently use limited computation resources. (UseCase: SQR10)
@@ -1373,7 +1373,7 @@ A Pipeline specification shall specify the units of code to be run and a sequenc
 \textbf{Discussion:}
 The sequence specification need only be a explicit ordered list.  It is not required to support looping, branching, or step-skipping.
 
-The "units of code" are the SuperTasks.
+The "units of code" are the PipelineTasks.
 
 \paragraph{Pipeline configuration}\hfill  % Force subsequent text onto new line
 
@@ -1384,7 +1384,7 @@ The "units of code" are the SuperTasks.
 A Pipeline specification shall specify the configurations of all the units of code to be run, using the existing LSST stack “pex\_config” mechanism.
 
 \textbf{Discussion:}
-SuperTasks will have pex\_config configurations of their own in addition to the configurations of the Tasks they contain (see \hyperref[DMS-MWST-REQ-0008]{DMS-MWST-REQ-0008}).
+PipelineTasks will have pex\_config configurations of their own in addition to the configurations of the Tasks they contain (see \hyperref[DMS-MWST-REQ-0008]{DMS-MWST-REQ-0008}).
 
 \emph{Derived from Requirements:}
 
@@ -1400,7 +1400,7 @@ Task Configuration \newline
 A Pipeline specification shall specify how datasets must be grouped for each step in the sequence.
 
 \textbf{Discussion:}
-For example, this would cover the grouping of inputs to a coaddition SuperTask by filter band and sky tile (tract and patch).
+For example, this would cover the grouping of inputs to a coaddition PipelineTask by filter band and sky tile (tract and patch).
 
 \paragraph{Changes of parallelization}\hfill  % Force subsequent text onto new line
 
@@ -1422,7 +1422,7 @@ For example, a Pipeline could include a 1:1 step performing single-exposure cali
 A Pipeline specification shall support the organization of work within a step in terms of Tasks, and shall supply the configurations the Tasks require.
 
 \textbf{Discussion:}
-A SuperTask is assumed to be built from Tasks, and uses the existing hierarchical configuration mechanism for Tasks and sub-Tasks to represent their configuration.
+A PipelineTask is assumed to be built from Tasks, and uses the existing hierarchical configuration mechanism for Tasks and sub-Tasks to represent their configuration.
 
 \paragraph{Programming API}\hfill  % Force subsequent text onto new line
 
@@ -1463,9 +1463,9 @@ Run: shall support the invocation of the units of work defined in the DAG (a uni
 \textbf{Discussion:}
 The DAG produced by the "Pre-flight" phase is then able to be analyzed by the supervisory framework to determine how to batch up and/or parallelize units of work for actual execution in the "Run" phase.
 
-The information obtained at the "Pre-flight" phase also allows the offline production workflow system to set up "walled gardens" for individual SuperTask executions in the "Run" phase, to which only the identified inputs are staged.
+The information obtained at the "Pre-flight" phase also allows the offline production workflow system to set up "walled gardens" for individual PipelineTask executions in the "Run" phase, to which only the identified inputs are staged.
 
-The "Pre-flight" phase is permitted to predict the use of a superset of the inputs that end up actually being required in the "Run" phase, e.g., if estimates of the sky-tile coverage going into a coaddition stage are not quite accurate because the true WCS is not known until processing occurs. It is understood that this is intended to be a best effort to get close to the true requirements - as a matter of quality-of-implementation SuperTasks should not carelessly inflate their predictions.
+The "Pre-flight" phase is permitted to predict the use of a superset of the inputs that end up actually being required in the "Run" phase, e.g., if estimates of the sky-tile coverage going into a coaddition stage are not quite accurate because the true WCS is not known until processing occurs. It is understood that this is intended to be a best effort to get close to the true requirements - as a matter of quality-of-implementation PipelineTasks should not carelessly inflate their predictions.
 
 \paragraph{Implied inputs}\hfill  % Force subsequent text onto new line
 
@@ -1484,11 +1484,11 @@ The design shall include APIs that support resolution of full DataId specificati
 The Pipeline specification APIs used in the "Run" phase shall provide for a Butler instance (provided by the supervisory framework) to perform all required I/O for each step in the “Run” phase.
 
 \textbf{Discussion:}
-Steps (i.e., SuperTasks) are expected to generally perform I/O via a Butler, using Butler.get() to obtain inputs for Tasks' run() methods and Butler.put() to output the results produced by Tasks.
+Steps (i.e., PipelineTasks) are expected to generally perform I/O via a Butler, using Butler.get() to obtain inputs for Tasks' run() methods and Butler.put() to output the results produced by Tasks.
 
 As in current Science Pipelines usage, Tasks are assumed to operate solely on Python-domain objects supplied as arguments to their run() methods, with results returned through a pipe.base.Struct return value. This is sometimes called the "no I/O in Tasks rule".
 
-Therefore, in this design, the Butler calls are expected to occur at the SuperTask level, above the Task level of the call tree.
+Therefore, in this design, the Butler calls are expected to occur at the PipelineTask level, above the Task level of the call tree.
 
 Some exceptional cases requiring direct I/O to databases may be excluded from this restriction (e.g., to permit database ingest itself to be handled in this framework.)
 
@@ -1505,11 +1505,11 @@ The API for the execution of an individual processing step on specific data shal
 \textbf{Discussion:}
 (In preparation for the deletion of this requirement, the comments below have been replicated into \hyperref[DMS-MWST-REQ-0013]{DMS-MWST-REQ-0013}.)
 
-Steps (i.e., SuperTasks) are expected to generally perform I/O via a Butler, using Butler.get() to obtain inputs for Tasks' run() methods and Butler.put() to output the results produced by Tasks.
+Steps (i.e., PipelineTasks) are expected to generally perform I/O via a Butler, using Butler.get() to obtain inputs for Tasks' run() methods and Butler.put() to output the results produced by Tasks.
 
 As in current Science Pipelines usage, Tasks are assumed to operate solely on Python-domain objects supplied as arguments to their run() methods, with results returned through a pipe.base.Struct return value. This is sometimes called the "no I/O in Tasks rule".
 
-Therefore, in this design, the Butler calls are expected to occur at the SuperTask level, above the Task level of the call tree.
+Therefore, in this design, the Butler calls are expected to occur at the PipelineTask level, above the Task level of the call tree.
 
 \paragraph{Butler dataset type configuration}\hfill  % Force subsequent text onto new line
 
@@ -1563,13 +1563,13 @@ It is expected that the specification API will be implemented first, with the co
 \textbf{ID:} DMS-MWST-REQ-0028
 
 \textbf{Specification:}
-The total time for one Supertask to start writing DIA Objects and DIA Sources to the L1 database and another Supertask to query and finish retrieving those same products for the next field must be less than \textbf{timeToWriteReadAlertsDB} seconds. Supertask will use the Butler for the put, query and get, unless alternatives are required for adequate performance. This time should be divided between the put and the query+get, to make two requirements, with some slop between them.
+The total time for one PipelineTask to start writing DIA Objects and DIA Sources to the L1 database and another PipelineTask to query and finish retrieving those same products for the next field must be less than \textbf{timeToWriteReadAlertsDB} seconds. PipelineTask will use the Butler for the put, query and get, unless alternatives are required for adequate performance. This time should be divided between the put and the query+get, to make two requirements, with some slop between them.
 
 \textbf{Discussion:}
 The time from the start of one visit exposure to the start of the next is 35 seconds. The budgeted time for source association is roughly 9 seconds. That leaves roughly 26 seconds if we are to use DIA Objects from one visit for processing the next visit. (UseCase: AP1.e)
 
 \begin{parameters}
-Maximum time allowed between one SuperTask storing alerts in the database and another SuperTask reading those alerts from the database.
+Maximum time allowed between one PipelineTask storing alerts in the database and another PipelineTask reading those alerts from the database.
 &
 25
 &
@@ -1588,7 +1588,7 @@ timeToWriteReadAlertsDB
 \textbf{ID:} DMS-MWST-REQ-0029
 
 \textbf{Specification:}
-It shall be possible for a SuperTask to send at least (\textbf{nAlertVisitAvg}/number of science CCDs) alerts to the alert distribution system, plus the same number of DIA Objects and DIA Sources to the L1 database, all within \textbf{timeToIssueAlerts} seconds. The goal is to send this information via the Butler, but a more direct path is acceptable if needed.
+It shall be possible for a PipelineTask to send at least (\textbf{nAlertVisitAvg}/number of science CCDs) alerts to the alert distribution system, plus the same number of DIA Objects and DIA Sources to the L1 database, all within \textbf{timeToIssueAlerts} seconds. The goal is to send this information via the Butler, but a more direct path is acceptable if needed.
 
 \textbf{Discussion:}
 The time limit is based on a timing diagram by K-T Lim, which is the best guess we have in lieu of a formal timing breakdown. In that diagram the time allocated for generating alerts is approximately 10 seconds. Here, we have arbitrarily allocated half of that for computing the information (e.g. updating DIA Objects and creating alerts) and half for transmitting it. (UseCase: AP1.f)
