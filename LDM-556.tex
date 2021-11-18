@@ -207,16 +207,16 @@ It shall be possible to create a new DataRepository that contains Dimension reco
 \textbf{Discussion:}
 This permits values like the WCS or PSF size associated with a visit to be improved with processing results. Note that this is not a requirement that existing DataRepositories permit their Dimension records to be updated in-place. (UseCases: DRP14)
 
-\subsubsection{Registries of DataRepositories}
+\subsubsection{Registries of Collections}
 
 \label{DMS-MWBT-REQ-0024}
 \textbf{ID:} DMS-MWBT-REQ-0024 (Priority: 1a)
 
 \textbf{Specification:}
-There shall be a mechanism for registering DataRepositories as they are created.
+There shall be a mechanism for registering Collections as they are created.
 
 \textbf{Discussion:}
-For example, if I have several DataRepositories in a single storage context, I shouldn't have to change how I refer to those repositories if the storage context changes. This also allows for discoverability in, e.g. the release registry. Registration should be automatic. (UseCases: SQR9)
+For example, if I have several Collections in a single storage context, I shouldn't have to change how I refer to those repositories if the storage context changes. This also allows for discoverability in, e.g. the release registry. Registration should be automatic. (UseCases: SQR9)
 
 \subsubsection{DataRepository/Collection Layering Requirements}
 
@@ -229,7 +229,7 @@ For example, if I have several DataRepositories in a single storage context, I s
 A Collection (A) shall be usable as an input for processing in a context (B), with its contents appearing as part of the Collection used to hold the outputs of the processing, for certain combinations of (A) and (B).
 
 \textbf{Discussion:}
-Generally speaking, smaller-scale processing runs initiated by users with fewer permissions should be able to build on larger-scale processing runs iniated by users with more permissions. This requirement probably cannot be satisfied efficiently by always copying the full original input data repository (A) to the final output repository (B); it almost certainly implies some kind of on-demand transfer or aliasing. (UseCases: DRP1, DRP2, DRP3, DRP7, DRP8, SCIVAL1, SCIVAL2, SCIVAL3, SCIVAL4)
+Generally speaking, smaller-scale processing runs initiated by users with fewer permissions should be able to build on larger-scale processing runs initiated by users with more permissions. This requirement probably cannot be satisfied efficiently by always copying the full original input data repository (A) to the final output repository (B); it almost certainly implies some kind of on-demand transfer or aliasing. (UseCases: DRP1, DRP2, DRP3, DRP7, DRP8, SCIVAL1, SCIVAL2, SCIVAL3, SCIVAL4)
 
 \paragraph{Collection Layering: Data Release and Science Platform}\hfill  % Force subsequent text onto new line
 
@@ -332,7 +332,7 @@ We may have code that maps images between differently-defined tiles, or uses dif
 All Data Discovery Systems shall make it possible to discover the DataCoordinates for all Datasets that could potentially be used to produce a given DatasetType with known DataCoordinates.
 
 \textbf{Discussion:}
-Answering the question of what data could possibily be used to build a coadd associated with this DatasetRef? (UseCases: SQR1, SQR9)
+Answering the question of what data could possibly be used to build a coadd associated with this DatasetRef? (UseCases: SQR1, SQR9)
 
 \subsubsection{Multiple chained input Collections}
 
@@ -555,7 +555,7 @@ The Data Input/Output System interface shall provide access to the shared VOSpac
 \textbf{ID:} DMS-MWBT-REQ-0032 (Priority: 1a)
 
 \textbf{Specification:}
-The Data Input System shall be able to read any DataSet that has been written by the Data Output System using a Scientific Data Format.
+The Data Input System shall be able to read any Dataset that has been written by the Data Output System using a Scientific Data Format.
 
 \textbf{Discussion:}
 Here Scientific Data Format means a format that can be used as an intermediate file in processing such as FITS or HDF5. JPEG images are not included. (UseCases: ARCH2)
@@ -893,10 +893,10 @@ This would allow an output FITS file to be written to one location and an HDF5 v
 \textbf{ID:} DMS-MWBT-REQ-0064 (Priority: 1a)
 
 \textbf{Specification:}
-It shall be possible to add Datasets to a pre-existing DataRepository via additional processing.
+It shall be possible to add Datasets to a pre-existing Collection via additional processing.
 
 \textbf{Discussion:}
-This is the situation where a user runs a PipelineTask and then runs further processing on the output of the first. It is desirable for the output of the second processing task to be stored in the same DataRepository as the output of the first. (UseCases: COMM1, LDF1)
+This is the situation where a user runs a PipelineTask and then runs further processing on the output of the first. It is desirable for the output of the second processing task to be stored in the same Collection as the output of the first. (UseCases: COMM1, LDF1)
 
 \subsubsection{Remote Output Storage}
 
@@ -904,7 +904,7 @@ This is the situation where a user runs a PipelineTask and then runs further pro
 \textbf{ID:} DMS-MWBT-REQ-0065 (Priority: 1a)
 
 \textbf{Specification:}
-The Data Ouput System shall be able to write to non-local, non-POSIX output storage; this should include both database systems and file/object stores.
+The Data Output System shall be able to write to non-local, non-POSIX output storage; this should include both database systems and file/object stores.
 
 \textbf{Discussion:}
 For example, this could be a Data I/O system that understands TAP and SIA VO protocols; or one that understands VOSpace or HDF5-in-the-cloud; or possibly S3-like object stores. (UseCases: SQR4, SQR12, SQR14, CI3)
@@ -937,7 +937,7 @@ Measurements of metrics will need to be exported from the CI system and a good a
 \textbf{ID:} DMS-MWBT-REQ-0073 (Priority: 1a)
 
 \textbf{Specification:}
-A put operation on the Data Output System shall block until it has either worked or failed
+A put operation on the Data Output System shall block until it has either worked or failed.
 
 \textbf{Discussion:}
 (UseCases: DRP22)
