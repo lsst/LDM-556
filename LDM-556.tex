@@ -103,10 +103,10 @@ Authorization means whatever mechanism provided by storage system (e.g., POSIX p
 \textbf{ID:} DMS-MWBT-REQ-0005 (Priority: 1a)
 
 \textbf{Specification:}
-It shall be possible for an authorized user to remove a DataRepository from any storage environment.
+It shall be possible for an authorized user to remove a Collection from any storage environment.
 
 \textbf{Discussion:}
-Some DataRepositories (e.g. Data Releases) may not have any thusly authorized users. This would also involve removing it from registries. Removing the repository might require database table modifications. (UseCases: LDF3, DRP29)
+Some Collections (e.g. Data Releases) may not have any thusly authorized users. This would also involve removing it from registries. Removing the collection might require database table modifications. (UseCases: LDF3, DRP29)
 
 \subsubsection{Dataset Garbage Collection}
 
@@ -114,10 +114,10 @@ Some DataRepositories (e.g. Data Releases) may not have any thusly authorized us
 \textbf{ID:} DMS-MWBT-REQ-0006 (Priority: 1a)
 
 \textbf{Specification:}
-When a DataRepository is removed, the Datasets it references shall be removed if and only if they are not also referenced by one or more additional DataRepositories that have been explicitly identified.
+When a Collection is removed, the Datasets it references shall be removed if and only if they are not also referenced by one or more additional Collections that have been explicitly identified.
 
 \textbf{Discussion:}
-The "additional DataRepositories" may simply be those defined in the same database system used to define the DataRepository that is being removed. There is no expectation that all DataRepositories that reference to a Dataset can be tracked in general. (UseCases: DRP29)
+The "additional Collections" may simply be those defined in the same database system used to define the Collection that is being removed. There is no expectation that all Collections that reference a Dataset can be tracked in general. (UseCases: DRP29)
 
 \subsubsection{Repository Merging}
 
@@ -158,10 +158,10 @@ The DataRepository Creation System shall be able to ingest raw LSST calibration 
 \textbf{ID:} DMS-MWBT-REQ-0010 (Priority: 1a)
 
 \textbf{Specification:}
-It shall be possible to easily create a new DataRepository which is a view of a sub-section of an existing DataRepository, given a list of DataUnits and a list of DatasetTypes.
+It shall be possible to easily create a new DataRepository which is a view of a sub-section of an existing DataRepository, given a list of DataCoordinates and a list of DatasetTypes.
 
 \textbf{Discussion:}
-That is, given a list of DataUnits and a list of DatasetTypes, create a new DataRepository with enough information to access any of the DatasetTypes for which the necessary Data Units exist for the input list of DataUnits. This does not involve copying datasets. (UseCases: SQR1, AP1dev)
+That is, given a list of DataCoordinates and a list of DatasetTypes, create a new DataRepository with enough information to access any of the Datasets of those DatasetTypes that correspond to the input list of DataCoordinates. This does not involve copying datasets. (UseCases: SQR1, AP1dev)
 
 \subsubsection{Subsetting a DataRepository with data transfer}
 
@@ -169,7 +169,7 @@ That is, given a list of DataUnits and a list of DatasetTypes, create a new Data
 \textbf{ID:} DMS-MWBT-REQ-0011 (Priority: 1a)
 
 \textbf{Specification:}
-It shall be possible to easily create a new DataRepository which contains a copy of a sub-section of an existing DataRepository, given a list of DataUnits and a list of DatasetTypes.
+It shall be possible to easily create a new DataRepository which contains a copy of a sub-section of an existing DataRepository, given a list of DataCoordinates and a list of DatasetTypes.
 
 \textbf{Discussion:}
 This would transfer the files but not load them into Python objects, thus allowing for instance a processing run to be done without network connection. (UseCases: DRP16, DAX1, LDF103, SQR1)
@@ -191,47 +191,47 @@ This is effectively a weaker version of \hyperref[DMS-MWBT-REQ-0012]{DMS-MWBT-RE
 \textbf{ID:} DMS-MWBT-REQ-0022 (Priority: 1b)
 
 \textbf{Specification:}
-A DataRepository shall be able to hold Datasets with Data Units corresponding to different cameras simultaneously.
+A DataRepository shall be able to hold Datasets with Dimensions corresponding to different cameras simultaneously.
 
 \textbf{Discussion:}
 This would include simulated data. (UseCases: DRP11, COMM11)
 
-\subsubsection{DataUnit Update}
+\subsubsection{Dimension Update}
 
 \label{DMS-MWBT-REQ-0023}
 \textbf{ID:} DMS-MWBT-REQ-0023 (Priority: 1b)
 
 \textbf{Specification:}
-It shall be possible to create a new DataRepository that contains DataUnits whose metadata and relationship values are defined by processing outputs in another DataRepository.
+It shall be possible to create a new DataRepository that contains Dimension records whose metadata and relationship values are defined by processing outputs in another DataRepository.
 
 \textbf{Discussion:}
-This permits values like the WCS or PSF size associated with a visit to be improved with processing results. Note that this is not a requirement that existing DataRepositories permit their DataUnits to be updated in-place. (UseCases: DRP14)
+This permits values like the WCS or PSF size associated with a visit to be improved with processing results. Note that this is not a requirement that existing DataRepositories permit their Dimension records to be updated in-place. (UseCases: DRP14)
 
-\subsubsection{Registries of DataRepositories}
+\subsubsection{Registries of Collections}
 
 \label{DMS-MWBT-REQ-0024}
 \textbf{ID:} DMS-MWBT-REQ-0024 (Priority: 1a)
 
 \textbf{Specification:}
-There shall be a mechanism for registering DataRepositories as they are created.
+There shall be a mechanism for registering Collections as they are created.
 
 \textbf{Discussion:}
-For example, if I have several DataRepositories in a single storage context, I shouldn't have to change how I refer to those repositories if the storage context changes. This also allows for discoverability in, e.g. the release registry. Registration should be automatic. (UseCases: SQR9)
+For example, if I have several Collections in a single storage context, I shouldn't have to change how I refer to those repositories if the storage context changes. This also allows for discoverability in, e.g. the release registry. Registration should be automatic. (UseCases: SQR9)
 
-\subsubsection{DataRepository Layering Requirements}
+\subsubsection{DataRepository/Collection Layering Requirements}
 
-\paragraph{DataRepository Layering}\hfill  % Force subsequent text onto new line
+\paragraph{Collection Layering}\hfill  % Force subsequent text onto new line
 
 \label{DMS-MWBT-REQ-0012}
 \textbf{ID:} DMS-MWBT-REQ-0012 (Priority: 1a)
 
 \textbf{Specification:}
-A DataRepository (A) shall be usable as an input for processing in a context (B), with its contents appearing as part of the DataRepository used to hold the outputs of the processing, for certain combinations of (A) and (B).
+A Collection (A) shall be usable as an input for processing in a context (B), with its contents appearing as part of the Collection used to hold the outputs of the processing, for certain combinations of (A) and (B).
 
 \textbf{Discussion:}
-Generally speaking, smaller-scale processing runs initiated by users with fewer permissions should be able to build on larger-scale processing runs iniated by users with more permissions. This requirement probably cannot be satisfied efficiently by always copying the full original input data repository (A) to the final output repository (B); it almost certainly implies some kind of on-demand transfer or aliasing. (UseCases: DRP1, DRP2, DRP3, DRP7, DRP8, SCIVAL1, SCIVAL2, SCIVAL3, SCIVAL4)
+Generally speaking, smaller-scale processing runs initiated by users with fewer permissions should be able to build on larger-scale processing runs initiated by users with more permissions. This requirement probably cannot be satisfied efficiently by always copying the full original input data repository (A) to the final output repository (B); it almost certainly implies some kind of on-demand transfer or aliasing. (UseCases: DRP1, DRP2, DRP3, DRP7, DRP8, SCIVAL1, SCIVAL2, SCIVAL3, SCIVAL4)
 
-\paragraph{DataRepository Layering: Data Release and Science Platform}\hfill  % Force subsequent text onto new line
+\paragraph{Collection Layering: Data Release and Science Platform}\hfill  % Force subsequent text onto new line
 
 \label{DMS-MWBT-REQ-0013}
 \textbf{ID:} DMS-MWBT-REQ-0013 (Priority: 1a)
@@ -242,7 +242,7 @@ A Data Release shall be usable as the inputs for processing initiated in the Sci
 \textbf{Discussion:}
 (UseCases: DRP1, DRP2, DRP3, SCIVAL1)
 
-\paragraph{DataRepository Layering: Data Release and external hardware}\hfill  % Force subsequent text onto new line
+\paragraph{Collection Layering: Data Release and external hardware}\hfill  % Force subsequent text onto new line
 
 \label{DMS-MWBT-REQ-0014}
 \textbf{ID:} DMS-MWBT-REQ-0014 (Priority: 1a)
@@ -253,7 +253,7 @@ A Data Release shall be usable as the inputs for test/development processing on 
 \textbf{Discussion:}
 (UseCases: DRP1, DRP2, DRP3, DRP7, DRP8, SCIVAL1, SCIVAL3)
 
-\paragraph{DataRepository Layering: Data Release Production}\hfill  % Force subsequent text onto new line
+\paragraph{Collection Layering: Data Release Production}\hfill  % Force subsequent text onto new line
 
 \label{DMS-MWBT-REQ-0015}
 \textbf{ID:} DMS-MWBT-REQ-0015 (Priority: 1a)
@@ -264,7 +264,7 @@ Intermediate outputs of Data Release Production [test] processing shall be usabl
 \textbf{Discussion:}
 These "intermediates" are normal pipeline outputs that may not be included in a formal data release, and this requirement only applies when these have not been discarded or elided. (UseCases: DRP1, DRP2, DRP3, SCIVAL2)
 
-\paragraph{DataRepository Layering: Data Release Production intermediates to external hardware}\hfill  % Force subsequent text onto new line
+\paragraph{Collections Layering: Data Release Production intermediates to external hardware}\hfill  % Force subsequent text onto new line
 
 \label{DMS-MWBT-REQ-0016}
 \textbf{ID:} DMS-MWBT-REQ-0016 (Priority: 1a)
@@ -275,24 +275,24 @@ Intermediate outputs of Data Release Production [test] processing shall be usabl
 \textbf{Discussion:}
 (UseCases: DRP1, DRP2, DRP3, DRP7, DRP8, SCIVAL1, SCIVAL2, SCIVAL3)
 
-\paragraph{DataRepository Layering: Science Platform}\hfill  % Force subsequent text onto new line
+\paragraph{Collection Layering: Science Platform}\hfill  % Force subsequent text onto new line
 
 \label{DMS-MWBT-REQ-0017}
 \textbf{ID:} DMS-MWBT-REQ-0017 (Priority: 1a)
 
 \textbf{Specification:}
-DataRepositories created in the Science Platform shall be usable as inputs for processing initiated in the Science Platform.
+Collections created in the Science Platform shall be usable as inputs for processing initiated in the Science Platform.
 
 \textbf{Discussion:}
 (UseCases: DRP1, DRP2, DRP3, DRP7, DRP8, SCIVAL1, SCIVAL3, SCIVAL4)
 
-\paragraph{DataRepository Layering: Science Platform to external hardware}\hfill  % Force subsequent text onto new line
+\paragraph{Collection Layering: Science Platform to external hardware}\hfill  % Force subsequent text onto new line
 
 \label{DMS-MWBT-REQ-0018}
 \textbf{ID:} DMS-MWBT-REQ-0018 (Priority: 1a)
 
 \textbf{Specification:}
-DataRepositories created in the Science Platform shall be usable as inputs for test/development processing on external hardware.
+Collections created in the Science Platform shall be usable as inputs for test/development processing on external hardware.
 
 \textbf{Discussion:}
 (UseCases: DRP1, DRP2, DRP3, DRP7, DRP8, SCIVAL1, SCIVAL3)
@@ -323,35 +323,35 @@ We may have code that maps images between differently-defined tiles, or uses dif
 
 \subsection{Data Discovery System}
 
-\subsubsection{DataUnit lookup: processing driven}
+\subsubsection{Dimension lookup: processing driven}
 
 \label{DMS-MWBT-REQ-0080}
 \textbf{ID:} DMS-MWBT-REQ-0080 (Priority: 1a)
 
 \textbf{Specification:}
-All Data Discovery Systems shall make it possible to discover the DataUnits for all Datasets that could potentially be used to produce a given DatasetType with known DataUnits.
+All Data Discovery Systems shall make it possible to discover the DataCoordinates for all Datasets that could potentially be used to produce a given DatasetType with known DataCoordinates.
 
 \textbf{Discussion:}
-Answering the question of what data could possibily be used to build a coadd associated with this DataRef? (UseCases: SQR1, SQR9)
+Answering the question of what data could possibly be used to build a coadd associated with this DatasetRef? (UseCases: SQR1, SQR9)
 
-\subsubsection{Multiple chained input DataRepositories}
+\subsubsection{Multiple chained input Collections}
 
 \label{DMS-MWBT-REQ-0081}
 \textbf{ID:} DMS-MWBT-REQ-0081 (Priority: 1a)
 
 \textbf{Specification:}
-The Data Discovery System shall be able treat multiple input DataRepositories as a single coherent logical repository.
+The Data Discovery System shall be able treat multiple input Collections as a single coherent logical collection.
 
 \textbf{Discussion:}
-This could be a local on disk repository and a remote repository, with the Data Discovery System scanning each in turn. Each dataset read in will contain provenance describing the DataRepository it came from. (UseCases: COMM4, LDF104)
+This could be a local on disk repository and a remote repository, with the Data Discovery System scanning each in turn. Each dataset read in will contain provenance describing the Collection it came from. (UseCases: COMM4, LDF104)
 
-\subsubsection{Multiple parallel input DataRepositories}
+\subsubsection{Multiple parallel input Collections}
 
 \label{DMS-MWBT-REQ-0082}
 \textbf{ID:} DMS-MWBT-REQ-0082 (Priority: 1a)
 
 \textbf{Specification:}
-The Data Discovery System shall be able to locate Datasets from multiple input DataRepositories in order to retrieve the same logical Dataset from them all.
+The Data Discovery System shall be able to locate Datasets from multiple input Collections in order to retrieve the same logical Dataset from them all.
 
 \textbf{Discussion:}
 This is to allow for comparison of the same data reduced with multiple different stacks. These need to be both local and remote and combinations of the two. It could also be different versions of a data release. This is not a requirement on whether this is two butlers or one, although some other requirements imply a single system that knows about all repositories in a particular context. (UseCases: SQR7, LDF104, SQR1.5)
@@ -365,7 +365,7 @@ This is to allow for comparison of the same data reduced with multiple different
 It shall be possible for an operator to configure the Data Discovery System to override certain Datasets with others before retrieval.
 
 \textbf{Discussion:}
-This allows operators to override master calibration files for a particular Batch Processing run. It could be implemented by DataRepository chaining or by marking some Datasets as "preferred". See also related requirement \hyperref[DMS-MWST-REQ-0016]{DMS-MWST-REQ-0016}. (UseCases: DRP15, LDF1)
+This allows operators to override master calibration files for a particular Batch Processing run. It could be implemented by Collection chaining or by marking some Datasets as "preferred". See also related requirement \hyperref[DMS-MWST-REQ-0016]{DMS-MWST-REQ-0016}. (UseCases: DRP15, LDF1)
 
 \subsubsection{Filter by non-DatasetRef Database Entries}
 
@@ -430,10 +430,10 @@ An example of this would be tab-complete of DatasetTypes, which will make it eas
 \textbf{ID:} DMS-MWBT-REQ-0083 (Priority: 1a)
 
 \textbf{Specification:}
-The Data Discovery System shall provide a consistent interface for obtaining a graph that represents the DataUnits and Datasets in a DataRepository that match user-specified criteria.
+The Data Discovery System shall provide a consistent interface for obtaining a graph that represents the DataCoordinates and Datasets in a DataRepository that match user-specified criteria.
 
 \textbf{Discussion:}
-This is an interface expected by SuperTask preflight, and we need to make it consistent in all contexts in which SuperTasks will be launched. The same interface may be used in (possibly interactive) analysis and validation work. Note that many common queries on DataRepository contents may result in simple graphs that can be iterated as flat lists. (UseCases: DRP1, DRP7, SCIVAL1, SCIVAL2, SCIVAL3, AP2, DRP27, COMM8, COMM10, COMM13)
+This is an interface expected by PipelineTask preflight, and we need to make it consistent in all contexts in which PipelineTasks will be launched. The same interface may be used in (possibly interactive) analysis and validation work. Note that many common queries on DataRepository contents may result in simple graphs that can be iterated as flat lists. (UseCases: DRP1, DRP7, SCIVAL1, SCIVAL2, SCIVAL3, AP2, DRP27, COMM8, COMM10, COMM13)
 
 \paragraph{Data Discovery for Data Release Production}\hfill  % Force subsequent text onto new line
 
@@ -501,7 +501,7 @@ Especially important if configuration comes from multiple sources and is require
 It shall be possible to configure the Data Input/Output System such that Datasets of specific types are simply held in memory instead of written to storage when the Data Output System is invoked, and simply retrieved from memory when requested via the Data Input System, as long as both operations happen within the same process.
 
 \textbf{Discussion:}
-We want the Data Input/Output System to pass all information between SuperTasks, but for performance reasons we don't always want this to involve I/O. (UseCases: DRP4)
+We want the Data Input/Output System to pass all information between PipelineTasks, but for performance reasons we don't always want this to involve I/O. (UseCases: DRP4)
 
 \subsubsection{I/O using distributed file system}
 
@@ -555,7 +555,7 @@ The Data Input/Output System interface shall provide access to the shared VOSpac
 \textbf{ID:} DMS-MWBT-REQ-0032 (Priority: 1a)
 
 \textbf{Specification:}
-The Data Input System shall be able to read any DataSet that has been written by the Data Output System using a Scientific Data Format.
+The Data Input System shall be able to read any Dataset that has been written by the Data Output System using a Scientific Data Format.
 
 \textbf{Discussion:}
 Here Scientific Data Format means a format that can be used as an intermediate file in processing such as FITS or HDF5. JPEG images are not included. (UseCases: ARCH2)
@@ -593,13 +593,13 @@ It shall be possible to create an InMemoryDataset of a Dataset by gathering info
 \textbf{Discussion:}
 Create a Python object from multiple sources. This could be reading a FITS file from disk and augmenting the header information from a database query or from a separate header file. (UseCases: ARCH3)
 
-\subsubsection{Remote Input DataRepository}
+\subsubsection{Remote Input Storage}
 
 \label{DMS-MWBT-REQ-0040}
 \textbf{ID:} DMS-MWBT-REQ-0040 (Priority: 1a)
 
 \textbf{Specification:}
-The Data Input System shall be able to read from non-local, non-POSIX input DataRepositories; this should include both database systems and file/object stores.
+The Data Input System shall be able to read from non-local, non-POSIX input storage; this should include both database systems and file/object stores.
 
 \textbf{Discussion:}
 This is not meant to preclude use of a local cache. E.g. if the backend is S3, the files need to be streamed to disk before they can be un-persisted. For example, this could be a Data I/O system that understands TAP and SIA VO protocols; or one that understands VOSpace or HDF5-in-the-cloud; or possibly S3-like object stores. (UseCases: SQR4, SQR12, SQR14, CI3)
@@ -654,12 +654,12 @@ We will need reference catalogs of all types (not just photometric and astrometr
 \textbf{ID:} DMS-MWBT-REQ-0052 (Priority: 1b)
 
 \textbf{Specification:}
-The Data Input System shall be able to transfer Datasets selected by the SuperTask pre-flight stage from persistent storage to compute nodes for batch processing.
+The Data Input System shall be able to transfer Datasets selected by the PipelineTask pre-flight stage from persistent storage to compute nodes for batch processing.
 
 \textbf{Discussion:}
 (Note: Not currently planned to be used by the Operations Batch Processing Service) (UseCases: DRP5, DRP6, SCIVAL1, SCIVAL2)
 
-\subsubsection{Enabling SuperTasks to execute}
+\subsubsection{Enabling PipelineTasks to execute}
 
 \label{DMS-MWBT-REQ-0053}
 \textbf{ID:} DMS-MWBT-REQ-0053 (Priority: 1a)
@@ -712,7 +712,7 @@ This puts the onus on the database to store the aliases. It would be nice to see
 The Data Input System shall support database queries as first class Datasets.
 
 \textbf{Discussion:}
-This implies that the same Data Units and DatasetType may not return the same Dataset for all time. (UseCases: SQR5)
+This implies that the same Dimensions and DatasetType may not return the same Dataset for all time. (UseCases: SQR5)
 
 \subsubsection{Local caching of remote resources}
 
@@ -736,7 +736,7 @@ For example, when running an LSP Notebook, the first time it runs the data will 
 The Data Input System shall provide a consistent interface for loading Datasets into memory given a DatasetRef across different types of DataRepositories
 
 \textbf{Discussion:}
-This is an interface expected by SuperTask execution, and we need to make it consistent in all contexts in which SuperTasks will be executed. The same interface may be used in (possibly interactive) analysis and validation work. (UseCases: DRP2, DRP8, SCIVAL1, SCIVAL2, SCIVAL3)
+This is an interface expected by PipelineTask execution, and we need to make it consistent in all contexts in which PipelineTasks will be executed. The same interface may be used in (possibly interactive) analysis and validation work. (UseCases: DRP2, DRP8, SCIVAL1, SCIVAL2, SCIVAL3)
 
 \paragraph{Accessing official Data Releases}\hfill  % Force subsequent text onto new line
 
@@ -815,7 +815,7 @@ The commissioning cluster will not necessarily have access to the transformed EF
 Regardless of whether the Data Input System is reading from the raw or the transformed Engineering and Facilities Database, the interface (including arguments) from the pipelines perspective shall be the same.
 
 \textbf{Discussion:}
-The same SuperTask needs to run at both the commissioning cluster using the raw EFD and on the commissioning archive with the transformed EFD. (UseCases: COMM2, COMM12)
+The same PipelineTask needs to run at both the commissioning cluster using the raw EFD and on the commissioning archive with the transformed EFD. (UseCases: COMM2, COMM12)
 
 \subsubsection{Raw Data}
 
@@ -860,10 +860,10 @@ This might be reading an updated WCS from the L1 prompt processing system on the
 \textbf{ID:} DMS-MWBT-REQ-0059 (Priority: 1a)
 
 \textbf{Specification:}
-The Data Output system shall allow a new DatasetType to be registered with a DataRepository, programmatically and at Supertask preflight-time, allowing Datasets of that DatasetType to be added to that DataRepository thereafter
+The Data Output system shall allow a new DatasetType to be registered with a DataRepository, programmatically and at PipelineTask preflight-time, allowing Datasets of that DatasetType to be added to that DataRepository thereafter
 
 \textbf{Discussion:}
-This allows persisting config and metadata from a new supertask or command-line task without editing any obs packages. It could also simplify repository configuration as many predefined dataset types could be specified as a much smaller of dataset prototypes. (UseCases: DRP12, SCIVAL1, AP3, SQR4, SQR6)
+This allows persisting config and metadata from a new PipelineTask or command-line task without editing any obs packages. It could also simplify repository configuration as many predefined dataset types could be specified as a much smaller of dataset prototypes. (UseCases: DRP12, SCIVAL1, AP3, SQR4, SQR6)
 
 \subsubsection{Writer configurability}
 
@@ -876,7 +876,7 @@ The Data Output System shall be able to support local configuration of individua
 \textbf{Discussion:}
 For example, enabling a FITS writer to use a specific data compression scheme. (UseCases: DRP26)
 
-\subsubsection{One Dataset to multiple output repositories}
+\subsubsection{One Dataset to multiple output storage systems}
 
 \label{DMS-MWBT-REQ-0063}
 \textbf{ID:} DMS-MWBT-REQ-0063 (Priority: 1a)
@@ -893,18 +893,18 @@ This would allow an output FITS file to be written to one location and an HDF5 v
 \textbf{ID:} DMS-MWBT-REQ-0064 (Priority: 1a)
 
 \textbf{Specification:}
-It shall be possible to add Datasets to a pre-existing DataRepository via additional processing.
+It shall be possible to add Datasets to a pre-existing Collection via additional processing.
 
 \textbf{Discussion:}
-This is the situation where a user runs a SuperTask and then runs further processing on the output of the first. It is desirable for the output of the second processing task to be stored in the same DataRepository as the output of the first. (UseCases: COMM1, LDF1)
+This is the situation where a user runs a PipelineTask and then runs further processing on the output of the first. It is desirable for the output of the second processing task to be stored in the same Collection as the output of the first. (UseCases: COMM1, LDF1)
 
-\subsubsection{Remote Output DataRepositories}
+\subsubsection{Remote Output Storage}
 
 \label{DMS-MWBT-REQ-0065}
 \textbf{ID:} DMS-MWBT-REQ-0065 (Priority: 1a)
 
 \textbf{Specification:}
-The Data Ouput System shall be able to write to non-local, non-POSIX output DataRepositories; this should include both database systems and file/object stores.
+The Data Output System shall be able to write to non-local, non-POSIX output storage; this should include both database systems and file/object stores.
 
 \textbf{Discussion:}
 For example, this could be a Data I/O system that understands TAP and SIA VO protocols; or one that understands VOSpace or HDF5-in-the-cloud; or possibly S3-like object stores. (UseCases: SQR4, SQR12, SQR14, CI3)
@@ -937,7 +937,7 @@ Measurements of metrics will need to be exported from the CI system and a good a
 \textbf{ID:} DMS-MWBT-REQ-0073 (Priority: 1a)
 
 \textbf{Specification:}
-A put operation on the Data Output System shall block until it has either worked or failed
+A put operation on the Data Output System shall block until it has either worked or failed.
 
 \textbf{Discussion:}
 (UseCases: DRP22)
@@ -1053,7 +1053,7 @@ Catalog Export Formats \newline
 The Data Output System shall provide a consistent interface for writing InMemoryDatasets to storage given a DatasetRef across different types of DataRepositories.
 
 \textbf{Discussion:}
-This is an interface expected by SuperTask execution, and we need to make it consistent in all contexts in which SuperTasks will be executed. The same interface may be used in (possibly interactive) analysis and validation work. (UseCases: DRP3, SCIVAL1, SCIVAL2, SCIVAL3)
+This is an interface expected by PipelineTask execution, and we need to make it consistent in all contexts in which PipelineTasks will be executed. The same interface may be used in (possibly interactive) analysis and validation work. (UseCases: DRP3, SCIVAL1, SCIVAL2, SCIVAL3)
 
 \paragraph{Outputs from Alert Production}\hfill  % Force subsequent text onto new line
 
@@ -1147,9 +1147,9 @@ This could be implemented as a composite dataset so long as we have the ability 
 
 \section{Task Framework}
 
-\subsection{SuperTask}
+\subsection{PipelineTask}
 
-The following requirements were developed initially by the SuperTask Working Group. We have concluded that writing down every requirement in a completely design-independent way is some cases a difficult and artificial exercise with limited benefits. With that in mind, we have still tried to avoid too much design-dependence. The most important place where design-dependence emerges is in the assumption of a Python API and not a purely command-line-oriented system.
+The following requirements were developed initially by the SuperTask Working Group (SuperTask was since renamed to PipelineTask). We have concluded that writing down every requirement in a completely design-independent way is some cases a difficult and artificial exercise with limited benefits. With that in mind, we have still tried to avoid too much design-dependence. The most important place where design-dependence emerges is in the assumption of a Python API and not a purely command-line-oriented system.
 
 The key motivating considerations were:
 
@@ -1167,7 +1167,7 @@ Ability to predict all inputs and outputs to support data staging and creation o
 Butler I/O
 
 \item
-A flexible system for representing the data-grouping constraints of each processing step as code in the same module as the implementation of the step (i.e., the grouping constraints of co-addition should be represented as part of a co-addition SuperTask)
+A flexible system for representing the data-grouping constraints of each processing step as code in the same module as the implementation of the step (i.e., the grouping constraints of co-addition should be represented as part of a co-addition PipelineTask)
 
     \end{itemize}
 
@@ -1203,7 +1203,7 @@ The design shall allow a given Pipeline specification to be used in both develop
 The supervisory framework shall be designed to support the creation of multiple specializations for different execution environments.
 
 \textbf{Discussion:}
-The "supervisory framework" is an evolution of the "Activator" concept from the original SuperTask design. Very likely we'll still use the word "Activator" in the code - I still think it's evocative. However, we avoided it in the requirements to ward off the implication that the concept was completely unchanged - the separation of "Pre-flight" from "Run" phases is more explicit now following the WG's efforts.
+The "supervisory framework" is an evolution of the "Activator" concept from the original PipelineTask design. Very likely we'll still use the word "Activator" in the code - I still think it's evocative. However, we avoided it in the requirements to ward off the implication that the concept was completely unchanged - the separation of "Pre-flight" from "Run" phases is more explicit now following the WG's efforts.
 
 \paragraph{Mandatory supported specializations}\hfill  % Force subsequent text onto new line
 
@@ -1311,7 +1311,7 @@ This is intended to be done via instrumentation of Butler calls. The recording m
 (Assuming the originally proposed DM provenance mechanism, which was envisioned to collect more fine-grained information than is likely to be available from non-intrusive Butler instrumentation, is still part of the production baseline:) The supervisory framework shall perform whatever setup is required for the fine-grained provenance mechanism.
 
 \textbf{Discussion:}
-Resolution of Butler dataset / SuperTask - level non-intrusive provenance versus – or in addition to – the originally proposed provenance mechanism was beyond the scope of the SuperTask WG. This question should be addressed soon by DM.
+Resolution of Butler dataset / PipelineTask - level non-intrusive provenance versus – or in addition to – the originally proposed provenance mechanism was beyond the scope of the PipelineTask WG. This question should be addressed soon by DM.
 
 \paragraph{Campaign specifications}\hfill  % Force subsequent text onto new line
 
@@ -1342,10 +1342,10 @@ There are open questions about exactly what form the DataId specifications will 
 \textbf{ID:} DMS-MWST-REQ-0030
 
 \textbf{Specification:}
-The supervisory framework design shall permit two steps (SuperTasks) to run in parallel and cooperate with each other, such that step B can block waiting for data that step A needs while A is busy doing something else, then A can use the data obtained by B.
+The supervisory framework design shall permit two steps (PipelineTasks) to run in parallel and cooperate with each other, such that step B can block waiting for data that step A needs while A is busy doing something else, then A can use the data obtained by B.
 
 \textbf{Discussion:}
-This will be used to provide DIA Objects to the alert generation Supertask (UseCase: AP1.e)
+This will be used to provide DIA Objects to the alert generation PipelineTask (UseCase: AP1.e)
 
 \paragraph{Task memoization}\hfill  % Force subsequent text onto new line
 
@@ -1353,9 +1353,9 @@ This will be used to provide DIA Objects to the alert generation Supertask (UseC
 \textbf{ID:} DMS-MWST-REQ-0031
 
 \textbf{Specification:}
-The system design shall support a mode of operation in which, for an attempt to execute a properly configured step (SuperTask) more than once with the same Butler, dataset references, configuration, and code, a "cached" version of the result (a datasetRef to the dataset, or the dataset itself whichever is appropriate) is returned, instead of redoing the computation.
+The system design shall support a mode of operation in which, for an attempt to execute a properly configured step (PipelineTask) more than once with the same Butler, dataset references, configuration, and code, a "cached" version of the result (a datasetRef to the dataset, or the dataset itself whichever is appropriate) is returned, instead of redoing the computation.
 
-It shall be possible to configure the SuperTask to turn this "memoization" off. In this case, a repeated execution would produce an error if an output dataset exists.
+It shall be possible to configure the PipelineTask to turn this "memoization" off. In this case, a repeated execution would produce an error if an output dataset exists.
 
 \textbf{Discussion:}
 The design should contain enough internal state to memoize the execution methods. This allows notebooks in the Science Platform to efficiently use limited computation resources. (UseCase: SQR10)
@@ -1373,7 +1373,7 @@ A Pipeline specification shall specify the units of code to be run and a sequenc
 \textbf{Discussion:}
 The sequence specification need only be a explicit ordered list.  It is not required to support looping, branching, or step-skipping.
 
-The "units of code" are the SuperTasks.
+The "units of code" are the PipelineTasks.
 
 \paragraph{Pipeline configuration}\hfill  % Force subsequent text onto new line
 
@@ -1384,7 +1384,7 @@ The "units of code" are the SuperTasks.
 A Pipeline specification shall specify the configurations of all the units of code to be run, using the existing LSST stack “pex\_config” mechanism.
 
 \textbf{Discussion:}
-SuperTasks will have pex\_config configurations of their own in addition to the configurations of the Tasks they contain (see \hyperref[DMS-MWST-REQ-0008]{DMS-MWST-REQ-0008}).
+PipelineTasks will have pex\_config configurations of their own in addition to the configurations of the Tasks they contain (see \hyperref[DMS-MWST-REQ-0008]{DMS-MWST-REQ-0008}).
 
 \emph{Derived from Requirements:}
 
@@ -1400,7 +1400,7 @@ Task Configuration \newline
 A Pipeline specification shall specify how datasets must be grouped for each step in the sequence.
 
 \textbf{Discussion:}
-For example, this would cover the grouping of inputs to a coaddition SuperTask by filter band and sky tile (tract and patch).
+For example, this would cover the grouping of inputs to a coaddition PipelineTask by filter band and sky tile (tract and patch).
 
 \paragraph{Changes of parallelization}\hfill  % Force subsequent text onto new line
 
@@ -1422,7 +1422,7 @@ For example, a Pipeline could include a 1:1 step performing single-exposure cali
 A Pipeline specification shall support the organization of work within a step in terms of Tasks, and shall supply the configurations the Tasks require.
 
 \textbf{Discussion:}
-A SuperTask is assumed to be built from Tasks, and uses the existing hierarchical configuration mechanism for Tasks and sub-Tasks to represent their configuration.
+A PipelineTask is assumed to be built from Tasks, and uses the existing hierarchical configuration mechanism for Tasks and sub-Tasks to represent their configuration.
 
 \paragraph{Programming API}\hfill  % Force subsequent text onto new line
 
@@ -1463,9 +1463,9 @@ Run: shall support the invocation of the units of work defined in the DAG (a uni
 \textbf{Discussion:}
 The DAG produced by the "Pre-flight" phase is then able to be analyzed by the supervisory framework to determine how to batch up and/or parallelize units of work for actual execution in the "Run" phase.
 
-The information obtained at the "Pre-flight" phase also allows the offline production workflow system to set up "walled gardens" for individual SuperTask executions in the "Run" phase, to which only the identified inputs are staged.
+The information obtained at the "Pre-flight" phase also allows the offline production workflow system to set up "walled gardens" for individual PipelineTask executions in the "Run" phase, to which only the identified inputs are staged.
 
-The "Pre-flight" phase is permitted to predict the use of a superset of the inputs that end up actually being required in the "Run" phase, e.g., if estimates of the sky-tile coverage going into a coaddition stage are not quite accurate because the true WCS is not known until processing occurs. It is understood that this is intended to be a best effort to get close to the true requirements - as a matter of quality-of-implementation SuperTasks should not carelessly inflate their predictions.
+The "Pre-flight" phase is permitted to predict the use of a superset of the inputs that end up actually being required in the "Run" phase, e.g., if estimates of the sky-tile coverage going into a coaddition stage are not quite accurate because the true WCS is not known until processing occurs. It is understood that this is intended to be a best effort to get close to the true requirements - as a matter of quality-of-implementation PipelineTasks should not carelessly inflate their predictions.
 
 \paragraph{Implied inputs}\hfill  % Force subsequent text onto new line
 
@@ -1484,11 +1484,11 @@ The design shall include APIs that support resolution of full DataId specificati
 The Pipeline specification APIs used in the "Run" phase shall provide for a Butler instance (provided by the supervisory framework) to perform all required I/O for each step in the “Run” phase.
 
 \textbf{Discussion:}
-Steps (i.e., SuperTasks) are expected to generally perform I/O via a Butler, using Butler.get() to obtain inputs for Tasks' run() methods and Butler.put() to output the results produced by Tasks.
+Steps (i.e., PipelineTasks) are expected to generally perform I/O via a Butler, using Butler.get() to obtain inputs for Tasks' run() methods and Butler.put() to output the results produced by Tasks.
 
 As in current Science Pipelines usage, Tasks are assumed to operate solely on Python-domain objects supplied as arguments to their run() methods, with results returned through a pipe.base.Struct return value. This is sometimes called the "no I/O in Tasks rule".
 
-Therefore, in this design, the Butler calls are expected to occur at the SuperTask level, above the Task level of the call tree.
+Therefore, in this design, the Butler calls are expected to occur at the PipelineTask level, above the Task level of the call tree.
 
 Some exceptional cases requiring direct I/O to databases may be excluded from this restriction (e.g., to permit database ingest itself to be handled in this framework.)
 
@@ -1505,11 +1505,11 @@ The API for the execution of an individual processing step on specific data shal
 \textbf{Discussion:}
 (In preparation for the deletion of this requirement, the comments below have been replicated into \hyperref[DMS-MWST-REQ-0013]{DMS-MWST-REQ-0013}.)
 
-Steps (i.e., SuperTasks) are expected to generally perform I/O via a Butler, using Butler.get() to obtain inputs for Tasks' run() methods and Butler.put() to output the results produced by Tasks.
+Steps (i.e., PipelineTasks) are expected to generally perform I/O via a Butler, using Butler.get() to obtain inputs for Tasks' run() methods and Butler.put() to output the results produced by Tasks.
 
 As in current Science Pipelines usage, Tasks are assumed to operate solely on Python-domain objects supplied as arguments to their run() methods, with results returned through a pipe.base.Struct return value. This is sometimes called the "no I/O in Tasks rule".
 
-Therefore, in this design, the Butler calls are expected to occur at the SuperTask level, above the Task level of the call tree.
+Therefore, in this design, the Butler calls are expected to occur at the PipelineTask level, above the Task level of the call tree.
 
 \paragraph{Butler dataset type configuration}\hfill  % Force subsequent text onto new line
 
@@ -1563,13 +1563,13 @@ It is expected that the specification API will be implemented first, with the co
 \textbf{ID:} DMS-MWST-REQ-0028
 
 \textbf{Specification:}
-The total time for one Supertask to start writing DIA Objects and DIA Sources to the L1 database and another Supertask to query and finish retrieving those same products for the next field must be less than \textbf{timeToWriteReadAlertsDB} seconds. Supertask will use the Butler for the put, query and get, unless alternatives are required for adequate performance. This time should be divided between the put and the query+get, to make two requirements, with some slop between them.
+The total time for one PipelineTask to start writing DIA Objects and DIA Sources to the L1 database and another PipelineTask to query and finish retrieving those same products for the next field must be less than \textbf{timeToWriteReadAlertsDB} seconds. PipelineTask will use the Butler for the put, query and get, unless alternatives are required for adequate performance. This time should be divided between the put and the query+get, to make two requirements, with some slop between them.
 
 \textbf{Discussion:}
 The time from the start of one visit exposure to the start of the next is 35 seconds. The budgeted time for source association is roughly 9 seconds. That leaves roughly 26 seconds if we are to use DIA Objects from one visit for processing the next visit. (UseCase: AP1.e)
 
 \begin{parameters}
-Maximum time allowed between one SuperTask storing alerts in the database and another SuperTask reading those alerts from the database.
+Maximum time allowed between one PipelineTask storing alerts in the database and another PipelineTask reading those alerts from the database.
 &
 25
 &
@@ -1588,7 +1588,7 @@ timeToWriteReadAlertsDB
 \textbf{ID:} DMS-MWST-REQ-0029
 
 \textbf{Specification:}
-It shall be possible for a SuperTask to send at least (\textbf{nAlertVisitAvg}/number of science CCDs) alerts to the alert distribution system, plus the same number of DIA Objects and DIA Sources to the L1 database, all within \textbf{timeToIssueAlerts} seconds. The goal is to send this information via the Butler, but a more direct path is acceptable if needed.
+It shall be possible for a PipelineTask to send at least (\textbf{nAlertVisitAvg}/number of science CCDs) alerts to the alert distribution system, plus the same number of DIA Objects and DIA Sources to the L1 database, all within \textbf{timeToIssueAlerts} seconds. The goal is to send this information via the Butler, but a more direct path is acceptable if needed.
 
 \textbf{Discussion:}
 The time limit is based on a timing diagram by K-T Lim, which is the best guess we have in lieu of a formal timing breakdown. In that diagram the time allocated for generating alerts is approximately 10 seconds. Here, we have arbitrarily allocated half of that for computing the information (e.g. updating DIA Objects and creating alerts) and half for transmitting it. (UseCase: AP1.f)
